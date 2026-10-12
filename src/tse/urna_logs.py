@@ -10,8 +10,11 @@ Os ZIPs não são baixados inteiros: o índice é lido por HTTP Range, e cada lo
 
 Decisões de método (sondagem de 2026-10-12, 3 seções do AC):
 - O log usa a hora LOCAL da urna. A urna libera a votação às 8h de Brasília, registrando
-  "Urna pronta para receber votos" (06:00:01 no Acre). O fuso de cada seção é inferido por esse
-  evento e conferido com o fuso padrão da UF.
+  "Urna pronta para receber votos" (06:00:01 no Acre). O fuso de cada seção é inferido SÓ por
+  esse evento (projeto usa apenas dados do TSE, sem tabela externa de fusos). Se não houver
+  "Urna pronta" nos primeiros 15 min de uma hora até as 9h locais, a seção fica com
+  `fuso_determinado = False` e todas as variáveis de horário vazias. As contagens que não dependem
+  da hora continuam preenchidas.
 - Classificação de cada voto pelo caminho de habilitação:
     biometrica: "Tipo de habilitação do eleitor [biométrica]"
     manual_com_biometria: houve tentativas de digital e depois "habilitação manual" (mesário liberou)
@@ -46,10 +49,14 @@ from tse.resultados_api import USER_AGENT
 DATASET = "resultados-2026-arquivos-transmitidos-para-totalizacao"
 DIA_ELEICAO = "04/10/2026"
 
-# Diferença em horas entre a hora local e a de Brasília (UTC-3). O AM tem municípios em UTC-5,
-# por isso o fuso de cada seção é inferido do log e esta tabela serve só para conferência.
-FUSO_UF = {"AC": -2, "AM": -1, "RO": -1, "RR": -1, "MT": -1, "MS": -1}
-FUSO_PADRAO = 0
+# Variáveis que dependem da conversão para a hora de Brasília. Ficam vazias sem fuso determinado.
+COLS_HORARIO = [
+    "primeiro_voto_brt", "ultimo_voto_brt", "encerramento_brt", "votos_antes_17", "votos_apos_17",
+    "gap_antes_17_min", "votos_ultimos_10min_antes_17", "intervalo_apos_17_mediana_s",
+    "intervalo_apos_17_min_s", "intervalo_antes_17_mediana_s", "mesarios_distintos_manual_apos_17",
+    "n_biometrica_antes_17", "n_biometrica_apos_17", "n_manual_com_biometria_antes_17",
+    "n_manual_com_biometria_apos_17", "n_sem_biometria_antes_17", "n_sem_biometria_apos_17",
+]
 
 # o03220 ac 01015 0002 0088 -log.jez  ->  pleito, uf, município, zona, seção
 RE_ARQUIVO = re.compile(r"o(\d{5})([a-z]{2})(\d{5})(\d{4})(\d{4})-log\.jez$")
@@ -190,12 +197,13 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
     if not votos:
         return linha, []
 
-    # Fuso (hora local - hora de Brasília): "Urna pronta" às 06:00 local → -2. Se a primeira
-    # "Urna pronta" não estiver nos primeiros 15 min de uma hora (urna substituída ao longo do dia,
-    # por exemplo), usamos o fuso padrão da UF e marcamos a seção.
+    # Fuso (hora local - hora de Brasília): "Urna pronta" às 06:00 local → -2.
     pronta = extras["pronta"]
-    fuso_inferido = pronta.hour - 8 if pronta and pronta.minute < 15 and pronta.hour <= 9 else None
-    fuso = fuso_inferido if fuso_inferido in (-2, -1, 0, 1) else FUSO_UF.get(uf, FUSO_PADRAO)
+    fuso = pronta.hour - 8 if pronta and pronta.minute < 15 and pronta.hour <= 9 else None
+    if fuso not in (-2, -1, 0, 1):
+        fuso = None
+    determinado = fuso is not None
+    fuso = fuso if determinado else 0  # só para o cálculo; os campos de horário são anulados abaixo
     para_brt = lambda t: t - timedelta(hours=fuso)  # noqa: E731
     corte = datetime(2026, 10, 4, 17, 0, 0)
 
@@ -208,10 +216,9 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
         intervalos.insert(0, (depois[0][0] - antes[-1][0]).total_seconds())
 
     linha.update(
-        fuso_inferido=fuso_inferido,
-        fuso_usado=fuso,
+        fuso_determinado=determinado,
+        fuso_inferido=fuso if determinado else None,
         urna_pronta_local=pronta,
-        fuso_confere_uf=fuso_inferido == FUSO_UF.get(uf, FUSO_PADRAO),
         primeiro_voto_brt=brt[0][0],
         ultimo_voto_brt=brt[-1][0],
         encerramento_brt=para_brt(extras["encerramento"]) if extras["encerramento"] else None,
@@ -231,10 +238,32 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
         linha[f"n_{t}_antes_17"] = sum(v[1] == t for v in antes)
         linha[f"n_{t}_apos_17"] = sum(v[1] == t for v in depois)
 
+    if not determinado:
+        linha.update(dict.fromkeys(COLS_HORARIO))
+        return linha, []
+
     # Votos a partir das 16h de Brasília, um por linha (para RQ3 e placebos), sem identificar mesários.
     tardios = [{**chave, "hora_brt": t, "tipo": tipo, "liberado_por_mesario": mes is not None}
                for t, tipo, mes in brt if t >= datetime(2026, 10, 4, 16, 0, 0)]
     return linha, tardios
+
+
+def aplicar_regra_fuso(secoes: pd.DataFrame, tardios: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Aplica a regra de fuso a arquivos gerados pela versão anterior, que usava uma tabela de
+    fusos por UF quando o log não permitia inferir o fuso. O resultado é idêntico ao de reprocessar."""
+    if "fuso_usado" not in secoes:
+        return secoes, tardios
+    sem = ~secoes["fuso_inferido"].isin([-2, -1, 0, 1]) & secoes["n_votos"].gt(0)
+    secoes = secoes.copy()
+    secoes.loc[sem, COLS_HORARIO] = None
+    secoes.insert(secoes.columns.get_loc("fuso_inferido"), "fuso_determinado", ~sem & secoes["n_votos"].gt(0))
+    secoes = secoes.drop(columns=["fuso_usado", "fuso_confere_uf"])
+    if len(tardios):
+        chave = ["cd_municipio", "nr_zona", "nr_secao"]
+        excluir = secoes.loc[sem, chave].assign(_x=1)
+        tardios = tardios.merge(excluir, on=chave, how="left")
+        tardios = tardios[tardios["_x"].isna()].drop(columns="_x")
+    return secoes, tardios
 
 
 # --------------------------------------------------------------------------- driver
