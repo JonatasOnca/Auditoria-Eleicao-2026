@@ -182,7 +182,19 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
     m = RE_ARQUIVO.search(nome)
     chave = {"uf": uf, "cd_municipio": m.group(3), "nr_zona": m.group(4), "nr_secao": m.group(5)}
     votos, extras = [], {"encerramento": None, "pronta": None, "eventos_dia": 0, "digital_de_mesario": 0}
+    # Pacotes de urna substituída às vezes repetem trechos do mesmo log (mesma linha, mesmo hash
+    # encadeado). Cada evento conta uma vez só.
+    vistas, unicos, duplicadas = set(), [], 0
     for logd in logds:
+        manter = []
+        for linha_log in logd.splitlines():
+            if linha_log in vistas:
+                duplicadas += 1
+            else:
+                vistas.add(linha_log)
+                manter.append(linha_log)
+        unicos.append("\n".join(manter))
+    for logd in unicos:
         v, e = votos_do_log(logd)
         votos.extend(v)
         extras["eventos_dia"] += e["eventos_dia"]
@@ -192,7 +204,7 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
         if e["encerramento"] and (extras["encerramento"] is None or e["encerramento"] > extras["encerramento"]):
             extras["encerramento"] = e["encerramento"]
     votos.sort(key=lambda v: v[0])
-    linha = {**chave, "arquivo": nome, "n_logs": len(logds), "n_votos": len(votos),
+    linha = {**chave, "arquivo": nome, "n_logs": len(logds), "linhas_log_duplicadas": duplicadas, "n_votos": len(votos),
              "eventos_dia": extras["eventos_dia"], "digital_de_mesario": extras["digital_de_mesario"]}
     if not votos:
         return linha, []
@@ -269,20 +281,27 @@ def aplicar_regra_fuso(secoes: pd.DataFrame, tardios: pd.DataFrame) -> tuple[pd.
 # --------------------------------------------------------------------------- driver
 
 
-def processar_uf(url: str, uf: str, saida: Path, conexoes: int) -> None:
+def processar_uf(url: str, uf: str, saida: Path, conexoes: int, raiz_espelho: Path | None = None) -> None:
     secoes_pq, tardios_pq = saida / f"secoes_{uf}.parquet", saida / f"votos_tardios_{uf}.parquet"
     if secoes_pq.exists():
         print(f"[{uf}] já processado, pulando", flush=True)
         return
+    # Se o ZIP já estiver no espelho local (tse.espelho, verificado), lê do disco em vez da rede.
+    local = raiz_espelho / DATASET / url.rsplit("/", 1)[1] if raiz_espelho else None
+    usar_local = local is not None and local.exists()
     limites = httpx.Limits(max_connections=conexoes, max_keepalive_connections=conexoes)
     with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=120, limits=limites) as http:
-        z = zipfile.ZipFile(ArquivoRemoto(url, http))
+        z = zipfile.ZipFile(local) if usar_local else zipfile.ZipFile(ArquivoRemoto(url, http))
+        print(f"[{uf}] lendo {'do espelho local ' + str(local) if usar_local else 'da rede (HTTP Range)'}", flush=True)
         logs = [i for i in z.infolist() if RE_ARQUIVO.search(i.filename)]
         t0, linhas, tardios, erros = time.time(), [], [], []
 
+        def ler(info):
+            return z.read(info) if usar_local else ler_entrada(http, url, info)
+
         def tarefa(info):
             try:
-                return variaveis_secao(info.filename, logs_do_pacote(ler_entrada(http, url, info)), uf)
+                return variaveis_secao(info.filename, logs_do_pacote(ler(info)), uf)
             except Exception as e:  # noqa: BLE001 — registramos e seguimos; nunca descartar em silêncio
                 return {"uf": uf, "arquivo": info.filename, "erro": repr(e)[:300]}, []
 
@@ -306,6 +325,7 @@ def main() -> None:
     p.add_argument("--uf", action="append", help="UFs a processar (padrão: todas, das menores para as maiores)")
     p.add_argument("--saida", default="data/logs_2026_1t")
     p.add_argument("--conexoes", type=int, default=12)
+    p.add_argument("--espelho", default="data/raw", help="raiz do espelho local (tse.espelho); '' para só rede")
     a = p.parse_args()
 
     saida = Path(a.saida)
@@ -321,7 +341,7 @@ def main() -> None:
     rec = rec.sort_values("bytes")
     for r in rec.itertuples():
         try:
-            processar_uf(r.url, r.uf, saida, a.conexoes)
+            processar_uf(r.url, r.uf, saida, a.conexoes, Path(a.espelho) if a.espelho else None)
         except Exception as e:  # noqa: BLE001
             print(f"[{r.uf}] FALHOU: {e!r}", file=sys.stderr, flush=True)
 
