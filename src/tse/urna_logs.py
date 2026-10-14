@@ -166,15 +166,20 @@ def votos_do_log(logd: str) -> tuple[list[tuple[datetime, str, str | None]], dic
     return votos, extras
 
 
-def logs_do_pacote(conteudo: bytes, profundidade: int = 0) -> list[str]:
-    """Todos os logd.dat de um pacote .jez, incluindo pacotes de urnas substituídas aninhados."""
+def logs_do_pacote(conteudo: bytes, profundidade: int = 0, com_caminho: bool = False, prefixo: str = "",
+                   finais: tuple[str, ...] = ("logd.dat",)) -> list:
+    """Todos os logd.dat de um pacote .jez, incluindo pacotes de urnas substituídas aninhados.
+
+    Com `com_caminho`, devolve (caminho dentro do pacote, texto), por exemplo `0226...-01.jez/logd.dat`.
+    `finais` permite ler outros logs com a mesma estrutura de pacote (o GEDAI usa `gedai-ue.log`)."""
     textos = []
     with zipfile.ZipFile(io.BytesIO(conteudo)) as jz:
         for nome in jz.namelist():
-            if nome.endswith("logd.dat"):
-                textos.append(jz.read(nome).decode("latin-1"))
+            if nome.endswith(finais):
+                texto = jz.read(nome).decode("latin-1")
+                textos.append((prefixo + nome, texto) if com_caminho else texto)
             elif nome.lower().endswith(".jez") and profundidade < 3:
-                textos.extend(logs_do_pacote(jz.read(nome), profundidade + 1))
+                textos.extend(logs_do_pacote(jz.read(nome), profundidade + 1, com_caminho, f"{prefixo}{nome}/", finais))
     return textos
 
 
