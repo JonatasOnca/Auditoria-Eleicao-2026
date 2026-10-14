@@ -1,0 +1,2 @@
+dataset,uf,arquivo,url,bytes,entradas_zip,sha512,sha512_oficial,crc_ok,baixado_em
+denuncias-eleitorais,,denuncia_2026.zip,https://cdn.tse.jus.br/estatistica/sead/odsele/denuncia/denuncia_2026.zip,1939099,29,d4a3f0b840fe1be1146a2a0bd74d1ab143917681cfa136e4a252322b7a17c6d207851610462bb289f77531bfb9fca335c82fd42bb99dab6a6003ce84833016b5,,True,2026-10-14T11:01:47.891043+00:00

@@ -1,0 +1,2 @@
+dataset,uf,arquivo,url,bytes,entradas_zip,sha512,sha512_oficial,crc_ok,baixado_em
+codigos-oficiais-de-uf-e-municipios-segundo-o-tse-e-o-ibge,,municipio_tse_ibge.zip,https://cdn.tse.jus.br/estatistica/sead/odsele/municipio_tse_ibge/municipio_tse_ibge.zip,139031,2,bcffdf271ae666ba982c63a3e841506a44ee934da2a37fc01a38bdfb37eff88f7a5a21a02ece4b7fabd29fbf668174fb30b2ea1e3665f3d3c39a9afdca24ecf3,,True,2026-10-14T11:02:10.778231+00:00

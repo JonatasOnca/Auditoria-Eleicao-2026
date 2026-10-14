@@ -1,0 +1,2 @@
+dataset,uf,arquivo,url,bytes,entradas_zip,sha512,sha512_oficial,crc_ok,baixado_em
+correspondencia-entre-numero-interno-e-modelo-da-urna-1,,modelourna_numerointerno.zip,https://cdn.tse.jus.br/estatistica/sead/odsele/modelo_urna/modelourna_numerointerno.zip,334959,2,fa9ae564edf7d5a9c74f190f57c3ebc71b2a70a45a5ef1f53d65119ff3db3437907d6db65ef95d934ac90d384a7b1db881cdc1065695883969ce2c2a436b1e2c,,True,2026-10-14T11:01:46.890487+00:00
