@@ -11,6 +11,8 @@ Regras das tabelas raw (o refinamento fica no Dataform):
 - `log_urna` e `log_gedai`: uma linha por linha do log, sem descartar nada. Linhas que não têm o número esperado de
   campos ficam inteiras em `linha_bruta`. O texto vai íntegro, inclusive os títulos de mesários (dataset restrito).
 - Arquivos `_BR`/`_BRASIL` repetem a soma das UFs e não são carregados.
+- As tabelas grandes (`PARTICIONADAS` e `log_urna`) têm partição por `uf_id` (INT64, de `UF_ID`) e cluster. `uf_id`
+  vem do nome do arquivo, não do conteúdo, e é a única coluna que não existe no arquivo do TSE.
 """
 
 from __future__ import annotations
@@ -70,6 +72,18 @@ TABELAS_CSV = {
     "municipio_tse_ibge": r"municipio_tse_ibge",
 }
 TABELAS_LOG = ["log_urna", "log_gedai"]
+# Tabela -> colunas de cluster. Todas particionadas por RANGE_BUCKET(uf_id); log_urna tem DDL própria (criar_log_urna).
+PARTICIONADAS = {
+    "boletim_urna": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_CARGO_PERGUNTA"],
+    "perfil_eleitor_secao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
+    "votacao_secao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_CARGO"],
+    "votacao_candidato_munzona": ["CD_MUNICIPIO", "NR_ZONA", "CD_CARGO", "NR_CANDIDATO"],
+    "perfil_eleitorado": ["CD_MUNICIPIO", "NR_ZONA"],
+    "log_gedai": ["arquivo_jez", "arquivo_log"],
+    "detalhe_votacao_secao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_CARGO"],
+    "perfil_eleitor_deficiencia": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
+    "eleitorado_local_votacao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
+}
 IGNORAR = re.compile(r"_(br|brasil)\.csv$", re.I)
 RE_UF_CSV = re.compile(r"_([A-Z]{2})(?:_\d{12})?\.csv$")
 RE_PACOTE = re.compile(r"o\d{5}([a-z]{2})(\d{5})(\d{4})(\d{4})-(log|logsa)\.jez$")
@@ -85,7 +99,7 @@ CAMPOS_URNA = ["data_hora", "nivel", "id_urna", "aplicacao", "mensagem", "hash_l
 ESQUEMA_LOG_GEDAI = pa.schema([
     ("uf", pa.string()), ("_arquivo_zip", pa.string()), ("arquivo_jez", pa.string()), ("arquivo_log", pa.string()),
     ("nr_linha", pa.int64()), ("data_hora", pa.string()), ("nivel", pa.string()), ("mensagem", pa.string()),
-    ("hash_log", pa.string()), ("linha_bruta", pa.string()),
+    ("hash_log", pa.string()), ("linha_bruta", pa.string()), ("uf_id", pa.int64()),
 ])
 CAMPOS_GEDAI = ["data_hora", "nivel", "mensagem", "hash_log"]
 LINHAS_POR_GRUPO = 1_000_000
@@ -133,8 +147,10 @@ def arquivos_csv(ufs: set[str] | None) -> list[tuple[str, Path, str, str]]:
     return saida
 
 
-def converter_csv(z: Path, entrada: str, destino: Path) -> int:
-    """CSV do TSE -> Parquet, tudo como texto. Tenta UTF-8 e, se houver byte inválido, relê como Latin-1."""
+def converter_csv(z: Path, entrada: str, destino: Path, uf_id: int | None = None) -> int:
+    """CSV do TSE -> Parquet, tudo como texto. Tenta UTF-8 e, se houver byte inválido, relê como Latin-1.
+
+    Com `uf_id`, acrescenta a coluna de partição no fim."""
     for encoding in ("utf8", "latin1"):
         try:
             with zipfile.ZipFile(z) as zf:
@@ -156,11 +172,15 @@ def converter_csv(z: Path, entrada: str, destino: Path) -> int:
                     esquema = leitor.schema
                     for k in extra:
                         esquema = esquema.append(pa.field(k, pa.string()))
+                    if uf_id is not None:
+                        esquema = esquema.append(pa.field("uf_id", pa.int64()))
                     linhas = 0
                     with pq.ParquetWriter(destino, esquema, compression="zstd") as w:
                         for lote in leitor:
                             n = lote.num_rows
                             cols = lote.columns + [pa.array([v] * n, pa.string()) for v in extra.values()]
+                            if uf_id is not None:
+                                cols.append(pa.array([uf_id] * n, pa.int64()))
                             w.write_batch(pa.RecordBatch.from_arrays(cols, schema=esquema))
                             linhas += n
             return linhas
@@ -240,7 +260,8 @@ def converter_log_gedai(z: Path, destino: Path) -> int:
                 continue
             for caminho, texto in logs_do_pacote(zf.read(entrada), com_caminho=True, finais=(".log",)):
                 n = _linhas_para_colunas(texto, CAMPOS_GEDAI, cols)
-                for c, v in {"uf": uf, "_arquivo_zip": z.name, "arquivo_jez": entrada, "arquivo_log": caminho}.items():
+                for c, v in {"uf": uf, "_arquivo_zip": z.name, "arquivo_jez": entrada, "arquivo_log": caminho,
+                             "uf_id": UF_ID[uf]}.items():
                     cols[c].extend([v] * n)
                 total += n
     pq.write_table(pa.Table.from_pydict(cols, schema=ESQUEMA_LOG_GEDAI), destino, compression="zstd")
@@ -282,6 +303,10 @@ def carregar(bq, tabela: str, uri: str, truncar: bool = True, particao: int | No
         source_format=bigquery.SourceFormat.PARQUET,
         write_disposition="WRITE_TRUNCATE" if truncar else "WRITE_APPEND",
     )
+    if tabela in PARTICIONADAS:
+        cfg.range_partitioning = bigquery.RangePartitioning(
+            field="uf_id", range_=bigquery.PartitionRange(start=1, end=len(UFS) + 1, interval=1))
+        cfg.clustering_fields = PARTICIONADAS[tabela]
     job = bq.load_table_from_uri(uri, destino, job_config=cfg)
     job.result()
     return job.job_id
@@ -313,7 +338,7 @@ def processar_csv(tabela: str, arquivos: list, bucket, bq, manter: bool) -> None
     for _, z, entrada, uf in arquivos:
         t0 = time.time()
         local = pasta / (Path(entrada).stem + ".parquet")
-        linhas = converter_csv(z, entrada, local)
+        linhas = converter_csv(z, entrada, local, UF_ID[uf] if tabela in PARTICIONADAS else None)
         uri = subir(bucket, local, tabela, uf)
         registrar(etapa="arquivo", tabela=tabela, uf=uf, arquivo=entrada, linhas=linhas,
                   bytes=local.stat().st_size, uri=uri, job_id="")
