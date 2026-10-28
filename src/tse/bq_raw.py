@@ -10,7 +10,9 @@ Regras das tabelas raw (o refinamento fica no Dataform):
   `_arquivos`, que vem dos manifestos `manifests/espelho_*.csv`.
 - `log_urna` e `log_gedai`: uma linha por linha do log, sem descartar nada. Linhas que não têm o número esperado de
   campos ficam inteiras em `linha_bruta`. O texto vai íntegro, inclusive os títulos de mesários (dataset restrito).
-- Arquivos `_BR`/`_BRASIL` repetem a soma das UFs e não são carregados.
+- Arquivos `_BRASIL` repetem a soma das UFs e não são carregados. Os `_BR` NÃO são soma: trazem só Presidente
+  (`votacao_secao`, `detalhe_*`, `*_munzona`; conferido em 2026-10-28) e são carregados na mesma tabela. Nesses
+  arquivos o `uf_id` vem da coluna `SG_UF` de cada linha, já que o nome do arquivo não tem UF.
 - As tabelas grandes (`PARTICIONADAS` e `log_urna`) têm partição por `uf_id` (INT64, de `UF_ID`) e cluster. `uf_id`
   vem do nome do arquivo, não do conteúdo, e é a única coluna que não existe no arquivo do TSE.
 - Turnos: o que o TSE publica separado por turno (BU, correspondências, logs) vai para tabelas separadas, com sufixo
@@ -91,7 +93,7 @@ PARTICIONADAS = {
     "perfil_eleitor_deficiencia": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
     "eleitorado_local_votacao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
 }
-IGNORAR = re.compile(r"_(br|brasil)\.csv$", re.I)
+IGNORAR = re.compile(r"_brasil\.csv$", re.I)
 RE_UF_CSV = re.compile(r"_([A-Z]{2})(?:_\d{12})?\.csv$")
 RE_PACOTE = re.compile(r"o\d{5}([a-z]{2})(\d{5})(\d{4})(\d{4})-(log|logsa)\.jez$")
 RE_UF_GEDAI = re.compile(r"log_gedai_\dt_([A-Z]{2})_\d{12}\.zip$")
@@ -154,10 +156,11 @@ def arquivos_csv(ufs: set[str] | None) -> list[tuple[str, Path, str, str]]:
     return saida
 
 
-def converter_csv(z: Path, entrada: str, destino: Path, uf_id: int | None = None) -> int:
+def converter_csv(z: Path, entrada: str, destino: Path, uf_id: int | str | None = None) -> int:
     """CSV do TSE -> Parquet, tudo como texto. Tenta UTF-8 e, se houver byte inválido, relê como Latin-1.
 
-    Com `uf_id`, acrescenta a coluna de partição no fim."""
+    Com `uf_id`, acrescenta a coluna de partição no fim. `uf_id="SG_UF"` calcula a partição pela UF de cada linha
+    (arquivos `_BR`, que juntam todas as UFs)."""
     for encoding in ("utf8", "latin1"):
         try:
             with zipfile.ZipFile(z) as zf:
@@ -186,7 +189,10 @@ def converter_csv(z: Path, entrada: str, destino: Path, uf_id: int | None = None
                         for lote in leitor:
                             n = lote.num_rows
                             cols = lote.columns + [pa.array([v] * n, pa.string()) for v in extra.values()]
-                            if uf_id is not None:
+                            if uf_id == "SG_UF":
+                                cols.append(pa.array([UF_ID[u] for u in lote.column("SG_UF").to_pylist()],
+                                                     pa.int64()))
+                            elif uf_id is not None:
                                 cols.append(pa.array([uf_id] * n, pa.int64()))
                             w.write_batch(pa.RecordBatch.from_arrays(cols, schema=esquema))
                             linhas += n
@@ -350,7 +356,8 @@ def processar_csv(tabela: str, arquivos: list, bucket, bq, manter: bool) -> None
     for _, z, entrada, uf in arquivos:
         t0 = time.time()
         local = pasta / (Path(entrada).stem + ".parquet")
-        linhas = converter_csv(z, entrada, local, UF_ID[uf] if tabela in PARTICIONADAS else None)
+        particao = ("SG_UF" if uf == "BR" else UF_ID[uf]) if tabela in PARTICIONADAS else None
+        linhas = converter_csv(z, entrada, local, particao)
         uri = subir(bucket, local, tabela, uf)
         registrar(etapa="arquivo", tabela=tabela, uf=uf, arquivo=entrada, linhas=linhas,
                   bytes=local.stat().st_size, uri=uri, job_id="")

@@ -1,0 +1,23 @@
+SG_UF,DS_CARGO,tipo,linhas,votos_nominais_dif,votos_validos_dif,candidatos
+AP,Deputado Estadual,alterada,36,0,0,2
+DF,Deputado Federal,alterada,19,0,0,1
+MG,Deputado Estadual,so_antiga,898,-42,0,1
+MG,Deputado Estadual,alterada,1796,0,0,2
+MG,Deputado Federal,alterada,3592,0,0,4
+MG,Governador,alterada,898,0,0,1
+MG,Senador,alterada,898,0,0,1
+MS,Deputado Estadual,alterada,176,0,-16884,2
+PE,Deputado Estadual,alterada,8360,0,0,40
+PE,Deputado Federal,alterada,209,0,0,1
+PE,Senador,so_antiga,209,-18179,0,1
+PI,Deputado Estadual,alterada,230,0,0,1
+PI,Deputado Federal,alterada,5750,0,0,25
+PI,Governador,alterada,690,0,0,3
+PI,Senador,alterada,1150,0,0,5
+RN,Deputado Estadual,so_antiga,172,-16,-16,1
+RN,Governador,so_antiga,172,-227,0,1
+RO,Deputado Estadual,so_nova,13888,898631,896601,248
+RO,Deputado Federal,so_nova,7000,906211,904018,125
+RS,Deputado Estadual,alterada,1044,0,0,2
+RS,Deputado Federal,alterada,1044,0,0,2
+SC,Deputado Estadual,alterada,630,0,0,2
