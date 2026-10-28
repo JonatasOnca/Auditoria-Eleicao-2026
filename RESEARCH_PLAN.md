@@ -6,7 +6,7 @@
 
 **Scope decisions**
 - **Geography:** all 27 states (Brasil inteiro).
-- **Elections:** 2022 President, 1st and 2nd round (main dataset), and 2026 1st round (replication; already published). Add the 2026 2nd round (Oct 25, 2026) when TSE publishes it.
+- **Elections:** 2022 President, 1st and 2nd round (main dataset), and 2026 1st and 2nd round (replication). The 2026 2nd round (Oct 25, 2026) was published by TSE on Oct 26–27, 2026 and is loaded in the `_2t` raw tables.
 - **Unit of analysis:** polling section × round.
 
 ---
@@ -66,12 +66,12 @@ https://dadosabertos.tse.jus.br/api/3/action/package_show?id=<dataset-id>
 | `resultados-2022-arquivos-transmitidos-para-totalizacao`, `resultados-2026-arquivos-transmitidos-para-totalizacao` | Raw machine files per section: `.bu`, `.imgbu`, **`.logjez`** (machine log, 7z-compressed), `.rdv`, `.vscmr` | `eleicoes/eleicoes{Y}/arqurnatot/bu_imgbu_logjez_rdv_vscmr_{Y}_{1t,2t}_{UF}.zip` | **Large:** 2022 2nd round AC 367 MB, PI 1.7 GB, SP 20 GB |
 | `eleitorado-2022`, `eleitorado-2026` | Voter profile **per section** (age, education, etc.) | `odsele/perfil_eleitor_secao/perfil_eleitor_secao_{Y}_{UF}.zip` | Medium |
 | `resultados-2022`, `resultados-2026` | Votes per section (`votacao_secao_{Y}_BR.zip`, 271 MB), turnout detail per section (`detalhe_votacao_secao_{Y}.zip`, 244 MB), **totalization timeline** (`Historico_Totalizacao_Presidente_BR_{1T,2T}_2022.zip`) | `odsele/votacao_secao/…`, `odsele/detalhe_votacao_secao/…`, `eleicoes/eleicoes2022/Historico_Totalizacao_…` | Medium |
-| `resultados-2022-correspondencias-esperadas-e-efetivadas-{1,2}-turno`, `resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno` | Expected vs. actual machine per section (machine replacements, contingency) | `eleicoes/eleicoes{Y}/correspesp/CESP_{t}_{UF}_*.zip` | Small |
+| `resultados-2022-correspondencias-esperadas-e-efetivadas-{1,2}-turno`, `resultados-2026-correspondencias-esperadas-e-efetivadas-{1,2}-turno` | Expected vs. actual machine per section (machine replacements, contingency) | `eleicoes/eleicoes{Y}/correspesp/CESP_{t}_{UF}_*.zip` | Small |
 | `comparecimento-e-abstencao-2022` | Turnout/abstention by voter profile | `odsele/perfil_comparecimento_abstencao/…` | Medium |
 | `denuncias-eleitorais-2022`, `denuncias-eleitorais` (2026) | Complaints filed in the *Pardal* app: municipality, office, irregularity type, PJe case link | `odsele/denuncia/denuncia_{Y}.zip` | 1 MB |
 | `mesarios-2022`, `mesarias-mesarios-e-funcoes-especiais-2026` | Poll-worker summons (aggregate use only) | `odsele/convocacao_mesarios/…` | Small |
 | `correspondencia-entre-numero-interno-e-modelo-da-urna-1` | Voting-machine model per internal number | `odsele/modelo_urna/modelourna_numerointerno.zip` | Small |
-| `resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno` | Logs of the machine-preparation system (context only) | — | — |
+| `resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-{1,2}-turno` | Logs of the machine-preparation system (context only) | — | — |
 
 ### 3.2 BU CSV columns (verified header, `bweb_1t_AC_*.csv`, `;`-separated, Latin-1)
 

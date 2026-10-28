@@ -32,3 +32,30 @@ with ResultadosTSE() as api:
 ```
 
 Cargos: 1 Presidente, 3 Governador, 5 Senador, 6 Dep. Federal, 7 Dep. Estadual, 8 Dep. Distrital.
+
+## Turnos
+O 1º turno foi em 04/10/2026 e o 2º em 25/10/2026 (Presidente e Governador em AC, AM, DF, ES, RN e TO). Os comandos
+aceitam `--turno {1,2}`:
+
+```bash
+uv run tse candidatos --cargo 1 --turno 2                        # API de Resultados, eleição 6258
+uv run python -m tse.espelho --turno 2 --dataset resultados-2026-boletim-de-urna
+uv run python -m tse.bu --turno 2                                # data/bu_2026_2t/
+uv run python -m tse.pipeline_urna --turno 2                     # logs das urnas UF por UF -> log_urna_2t
+uv run python -m tse.consolidar --turno 2                        # conciliação log × BU
+uv run python -m tse.bq_raw --tabela boletim_urna_2t             # carga raw no BigQuery
+```
+
+Tabelas raw no BigQuery (`teconca-dev-data-solutions.auditoria_eleicao_2026_raw`):
+- **Separadas por turno** (o TSE publica um arquivo por turno): `boletim_urna`, `correspondencia_*`, `log_gedai` e
+  `log_urna` para o 1º turno; as mesmas com sufixo `_2t` para o 2º.
+- **Com os dois turnos** (o TSE republicou o mesmo arquivo com `NR_TURNO` 1 e 2 em 26/10/2026): `votacao_secao`,
+  `detalhe_votacao_secao`, `detalhe_votacao_munzona`, `votacao_candidato_munzona`, `votacao_partido_munzona`.
+
+Cuidados:
+- O log da urna do 2º turno (`log_urna_2t`) também traz os eventos do 1º turno, porque a urna é a mesma e o
+  `logd.dat` é cumulativo. As análises filtram por `data_hora` (o `tse.urna_logs` já usa só o dia do turno).
+- O catálogo CKAN não lista todos os arquivos: o BU do 2º turno de RR e os arquivos de urna do 2º turno estão só no
+  CDN. Eles entram pelo padrão de nome e só se o CDN do TSE responder 200; o manifesto marca `no_catalogo=False`.
+- Arquivos republicados com o mesmo nome são baixados de novo; a versão anterior fica em
+  `data/raw/<dataset>/_substituidos/` e o manifesto registra o SHA-512 substituído.

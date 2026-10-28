@@ -46,5 +46,13 @@ Em produção, o app oficial (v26.10.9, flag `assinaturaJwsAtiva = true`) não l
 - `v`: votos totais (`tv`), válidos (`vv`), nominais (`vnom`), legenda (`van`), brancos (`vb`), nulos (`tvn`), nulos técnicos (`vnt`).
 - `carg[].agr[]` (coligações) contém `par[]` (partidos), que contém `cand[]` (candidatos). Cada candidato tem número `n`, nome de urna `nmu`, votos `vap`, % de válidos `pvapn`, situação `st` e flag de eleito `e`.
 
+## Portal de Dados Abertos (CKAN): cuidados
+- Em 2026-10-28, `package_show` devolvia uma versão antiga dos datasets (o BU sem nenhum arquivo do 2º turno),
+  enquanto `package_search?fq=name:<slug>` já trazia a atual. `tse.ckan.recursos` usa `package_search`.
+- Arquivos no CDN sem entrada no catálogo (2026-10-28): `buweb/bweb_2t_RR_261020260742.zip` (e o `.sha512`) e os 28
+  `arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_{UF}.zip`. `tse.ckan.fora_do_catalogo` os encontra.
+- Os metadados do catálogo não mudam quando o TSE republica um arquivo com o mesmo nome; só o `Last-Modified` do
+  CDN muda. O espelho compara esse cabeçalho e o tamanho com o que registrou.
+
 ## Observação
 O eleitorado de uma UF é ligeiramente maior para Presidente do que para os cargos estaduais. Em AC são 613.742 contra 613.316. A diferença corresponde a eleitores em trânsito vindos de outras UFs, que só podem votar para Presidente.
