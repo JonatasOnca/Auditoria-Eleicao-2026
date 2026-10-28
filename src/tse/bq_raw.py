@@ -13,6 +13,9 @@ Regras das tabelas raw (o refinamento fica no Dataform):
 - Arquivos `_BR`/`_BRASIL` repetem a soma das UFs e não são carregados.
 - As tabelas grandes (`PARTICIONADAS` e `log_urna`) têm partição por `uf_id` (INT64, de `UF_ID`) e cluster. `uf_id`
   vem do nome do arquivo, não do conteúdo, e é a única coluna que não existe no arquivo do TSE.
+- Turnos: o que o TSE publica separado por turno (BU, correspondências, logs) vai para tabelas separadas, com sufixo
+  `_2t` no 2º turno (`boletim_urna_2t`, `log_urna_2t`...). O que o TSE publica com os dois turnos no mesmo arquivo
+  (`votacao_secao`, `detalhe_*`, `*_munzona`, com `NR_TURNO`) fica numa tabela só.
 """
 
 from __future__ import annotations
@@ -31,6 +34,7 @@ import pyarrow as pa
 import pyarrow.csv as pacsv
 import pyarrow.parquet as pq
 
+from tse.ckan import UFS
 from tse.urna_logs import logs_do_pacote
 
 PROJETO = "teconca-dev-data-solutions"
@@ -42,15 +46,13 @@ TMP = Path("data/parquet_raw")
 MANIFESTO = Path("manifests/bq_raw_carga.csv")
 
 DS_URNA = "resultados-2026-arquivos-transmitidos-para-totalizacao"
-DS_GEDAI = "resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno"
-
-UFS = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR",
-       "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO", "ZZ"]
+DS_GEDAI = {t: f"resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-{t}-turno" for t in (1, 2)}
 UF_ID = {uf: i for i, uf in enumerate(UFS, 1)}  # partição por intervalo inteiro de log_urna
 
 # Arquivo CSV (nome interno, minúsculo) -> tabela. Todo CSV do espelho tem de cair em uma tabela ou em IGNORAR.
 TABELAS_CSV = {
     "boletim_urna": r"bweb_1t_",
+    "boletim_urna_2t": r"bweb_2t_",
     "votacao_secao": r"votacao_secao_2026_",
     "detalhe_votacao_secao": r"detalhe_votacao_secao_2026_",
     "votacao_candidato_munzona": r"votacao_candidato_munzona_2026_",
@@ -59,6 +61,9 @@ TABELAS_CSV = {
     "correspondencia_efetivada": r"ceft_1t_",
     "correspondencia_secao": r"csec_1t_",
     "correspondencia_contingencia": r"ccont_1t_",
+    "correspondencia_efetivada_2t": r"ceft_2t_",
+    "correspondencia_secao_2t": r"csec_2t_",
+    "correspondencia_contingencia_2t": r"ccont_2t_",
     "modelo_urna": r"modelourna_numerointerno",
     "perfil_eleitor_secao": r"perfil_eleitor_secao_2026_",
     "perfil_eleitorado": r"perfil_eleitorado_2026_",
@@ -71,15 +76,17 @@ TABELAS_CSV = {
     "denuncia": r"denuncia_2026_",
     "municipio_tse_ibge": r"municipio_tse_ibge",
 }
-TABELAS_LOG = ["log_urna", "log_gedai"]
+TABELAS_LOG = {"log_urna": 1, "log_gedai": 1, "log_urna_2t": 2, "log_gedai_2t": 2}  # tabela -> turno
 # Tabela -> colunas de cluster. Todas particionadas por RANGE_BUCKET(uf_id); log_urna tem DDL própria (criar_log_urna).
 PARTICIONADAS = {
     "boletim_urna": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_CARGO_PERGUNTA"],
+    "boletim_urna_2t": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_CARGO_PERGUNTA"],
     "perfil_eleitor_secao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
     "votacao_secao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_CARGO"],
     "votacao_candidato_munzona": ["CD_MUNICIPIO", "NR_ZONA", "CD_CARGO", "NR_CANDIDATO"],
     "perfil_eleitorado": ["CD_MUNICIPIO", "NR_ZONA"],
     "log_gedai": ["arquivo_jez", "arquivo_log"],
+    "log_gedai_2t": ["arquivo_jez", "arquivo_log"],
     "detalhe_votacao_secao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_CARGO"],
     "perfil_eleitor_deficiencia": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
     "eleitorado_local_votacao": ["CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"],
@@ -87,7 +94,7 @@ PARTICIONADAS = {
 IGNORAR = re.compile(r"_(br|brasil)\.csv$", re.I)
 RE_UF_CSV = re.compile(r"_([A-Z]{2})(?:_\d{12})?\.csv$")
 RE_PACOTE = re.compile(r"o\d{5}([a-z]{2})(\d{5})(\d{4})(\d{4})-(log|logsa)\.jez$")
-RE_UF_GEDAI = re.compile(r"log_gedai_1t_([A-Z]{2})_\d{12}\.zip$")
+RE_UF_GEDAI = re.compile(r"log_gedai_\dt_([A-Z]{2})_\d{12}\.zip$")
 
 ESQUEMA_LOG_URNA = pa.schema([
     ("uf", pa.string()), ("uf_id", pa.int64()), ("cd_municipio", pa.string()), ("nr_zona", pa.string()),
@@ -128,7 +135,7 @@ def arquivos_csv(ufs: set[str] | None) -> list[tuple[str, Path, str, str]]:
     """(tabela, zip, entrada, uf) de todo CSV do espelho, exceto logs. Para se algum CSV não tiver tabela."""
     saida, sem_tabela = [], []
     for z in sorted(RAIZ.glob("*/*.zip")):
-        if z.parent.name in (DS_URNA, DS_GEDAI) or z.name.startswith("Relatorio_Resultado_Totalizacao"):
+        if z.parent.name in (DS_URNA, *DS_GEDAI.values()) or z.name.startswith("Relatorio_Resultado_Totalizacao"):
             continue
         for entrada in zipfile.ZipFile(z).namelist():
             if not entrada.lower().endswith(".csv") or IGNORAR.search(entrada):
@@ -236,8 +243,12 @@ def _converter_lote_urna(args: tuple[str, list[str], str, str]) -> tuple[int, in
     return total, pacotes
 
 
-def converter_log_urna(uf: str, pasta: Path, workers: int) -> tuple[list[Path], int, int]:
-    z = next((RAIZ / DS_URNA).glob(f"bu_imgbu_logjez_rdv_vscmr_2026_1t_{uf}.zip"))
+def zip_urna(uf: str, turno: int) -> Path:
+    return RAIZ / DS_URNA / f"bu_imgbu_logjez_rdv_vscmr_2026_{turno}t_{uf}.zip"
+
+
+def converter_log_urna(uf: str, pasta: Path, workers: int, turno: int = 1) -> tuple[list[Path], int, int]:
+    z = zip_urna(uf, turno)
     entradas = [n for n in zipfile.ZipFile(z).namelist() if RE_PACOTE.search(n)]
     tamanho = max(500, len(entradas) // (workers * 4) + 1)
     lotes = [entradas[i:i + tamanho] for i in range(0, len(entradas), tamanho)]
@@ -283,15 +294,16 @@ def subir(bucket, local: Path, tabela: str, uf: str) -> str:
     return f"gs://{BUCKET}/{nome}"
 
 
-def criar_log_urna(bq) -> None:
+def criar_log_urna(bq, tabela: str = "log_urna") -> None:
+    turno = TABELAS_LOG[tabela]
     bq.query(f"""
-        CREATE TABLE IF NOT EXISTS `{PROJETO}.{DATASET_BQ}.log_urna` (
+        CREATE TABLE IF NOT EXISTS `{PROJETO}.{DATASET_BQ}.{tabela}` (
           uf STRING, uf_id INT64, cd_municipio STRING, nr_zona STRING, nr_secao STRING, tipo_log STRING,
           arquivo_logd STRING, nr_linha INT64, data_hora STRING, nivel STRING, id_urna STRING, aplicacao STRING,
           mensagem STRING, hash_log STRING, linha_bruta STRING)
         PARTITION BY RANGE_BUCKET(uf_id, GENERATE_ARRAY(1, {len(UFS) + 1}, 1))
         CLUSTER BY cd_municipio, nr_zona, nr_secao, aplicacao
-        OPTIONS(description="Linhas do logd.dat de cada urna (dataset resultados-2026-arquivos-transmitidos-para-totalizacao), sem transformação. Contém títulos de mesários.")
+        OPTIONS(description="Linhas do logd.dat de cada urna, {turno}º turno (dataset {DS_URNA}), sem transformação. Contém títulos de mesários.")
     """).result()
 
 
@@ -352,49 +364,59 @@ def processar_csv(tabela: str, arquivos: list, bucket, bq, manter: bool) -> None
     print(f"[{tabela}] carregada ({total} linhas convertidas nesta execução), job {job}", flush=True)
 
 
-def processar_log_urna(ufs: list[str], bucket, bq, workers: int, manter: bool) -> None:
-    criar_log_urna(bq)
-    tamanhos = {uf: next((RAIZ / DS_URNA).glob(f"*_{uf}.zip")).stat().st_size for uf in ufs}
-    for uf in sorted(ufs, key=tamanhos.get):
-        if ja_carregado("log_urna", uf):
-            print(f"[log_urna] {uf} já carregado, pulando", flush=True)
-            continue
-        t0 = time.time()
-        pasta = TMP / "log_urna" / uf
-        pasta.mkdir(parents=True, exist_ok=True)
-        destinos, linhas, pacotes = converter_log_urna(uf, pasta, workers)
-        mb = sum(d.stat().st_size for d in destinos) / 1e6
-        print(f"[log_urna] {uf}: {pacotes} pacotes, {linhas} linhas, {mb:.0f} MB, {time.time() - t0:.0f}s", flush=True)
+def carregar_log_urna_uf(uf: str, turno: int, bucket, bq, workers: int, manter: bool) -> None:
+    """Converte o ZIP de arquivos de urna de uma UF, envia o Parquet e substitui a partição da UF."""
+    tabela = "log_urna" if turno == 1 else f"log_urna_{turno}t"
+    t0 = time.time()
+    pasta = TMP / tabela / uf
+    pasta.mkdir(parents=True, exist_ok=True)
+    destinos, linhas, pacotes = converter_log_urna(uf, pasta, workers, turno)
+    mb = sum(d.stat().st_size for d in destinos) / 1e6
+    print(f"[{tabela}] {uf}: {pacotes} pacotes, {linhas} linhas, {mb:.0f} MB, {time.time() - t0:.0f}s", flush=True)
+    for d in destinos:
+        subir(bucket, d, tabela, uf)
+    job = carregar(bq, tabela, f"gs://{BUCKET}/{PREFIXO_GCS}/{tabela}/uf={uf}/*", particao=UF_ID[uf])
+    registrar(etapa="carga", tabela=tabela, uf=uf, arquivo=f"{pacotes} pacotes", linhas=linhas,
+              bytes=int(mb * 1e6), uri=f"gs://{BUCKET}/{PREFIXO_GCS}/{tabela}/uf={uf}/", job_id=job)
+    print(f"[{tabela}] {uf} carregado, job {job}, total {time.time() - t0:.0f}s", flush=True)
+    if not manter:
         for d in destinos:
-            subir(bucket, d, "log_urna", uf)
-        job = carregar(bq, "log_urna", f"gs://{BUCKET}/{PREFIXO_GCS}/log_urna/uf={uf}/*", particao=UF_ID[uf])
-        registrar(etapa="carga", tabela="log_urna", uf=uf, arquivo=f"{pacotes} pacotes", linhas=linhas,
-                  bytes=int(mb * 1e6), uri=f"gs://{BUCKET}/{PREFIXO_GCS}/log_urna/uf={uf}/", job_id=job)
-        print(f"[log_urna] {uf} carregado, job {job}, total {time.time() - t0:.0f}s", flush=True)
-        if not manter:
-            for d in destinos:
-                d.unlink()
+            d.unlink()
 
 
-def processar_log_gedai(ufs: set[str] | None, bucket, bq, manter: bool) -> None:
-    pasta = TMP / "log_gedai"
+def processar_log_urna(ufs: list[str], turno: int, bucket, bq, workers: int, manter: bool) -> None:
+    tabela = "log_urna" if turno == 1 else f"log_urna_{turno}t"
+    criar_log_urna(bq, tabela)
+    tamanhos = {uf: zip_urna(uf, turno).stat().st_size for uf in ufs if zip_urna(uf, turno).exists()}
+    for uf in sorted(set(ufs) - set(tamanhos)):
+        print(f"[{tabela}] {uf}: sem ZIP local ({zip_urna(uf, turno).name}), pulando", flush=True)
+    for uf in sorted(tamanhos, key=tamanhos.get):
+        if ja_carregado(tabela, uf):
+            print(f"[{tabela}] {uf} já carregado, pulando", flush=True)
+            continue
+        carregar_log_urna_uf(uf, turno, bucket, bq, workers, manter)
+
+
+def processar_log_gedai(ufs: set[str] | None, turno: int, bucket, bq, manter: bool) -> None:
+    tabela = "log_gedai" if turno == 1 else f"log_gedai_{turno}t"
+    pasta = TMP / tabela
     pasta.mkdir(parents=True, exist_ok=True)
     total = 0
-    for z in sorted((RAIZ / DS_GEDAI).glob("log_gedai_1t_*.zip")):
+    for z in sorted((RAIZ / DS_GEDAI[turno]).glob(f"log_gedai_{turno}t_*.zip")):
         uf = RE_UF_GEDAI.search(z.name).group(1)
         if ufs and uf not in ufs:
             continue
         local = pasta / (z.stem + ".parquet")
         linhas = converter_log_gedai(z, local)
-        uri = subir(bucket, local, "log_gedai", uf)
-        registrar(etapa="arquivo", tabela="log_gedai", uf=uf, arquivo=z.name, linhas=linhas,
+        uri = subir(bucket, local, tabela, uf)
+        registrar(etapa="arquivo", tabela=tabela, uf=uf, arquivo=z.name, linhas=linhas,
                   bytes=local.stat().st_size, uri=uri, job_id="")
         total += linhas
         if not manter:
             local.unlink()
-    job = carregar(bq, "log_gedai", f"gs://{BUCKET}/{PREFIXO_GCS}/log_gedai/*")
-    registrar(etapa="carga", tabela="log_gedai", uf="*", arquivo="", linhas=total, bytes="", uri="", job_id=job)
-    print(f"[log_gedai] carregada ({total} linhas), job {job}", flush=True)
+    job = carregar(bq, tabela, f"gs://{BUCKET}/{PREFIXO_GCS}/{tabela}/*")
+    registrar(etapa="carga", tabela=tabela, uf="*", arquivo="", linhas=total, bytes="", uri="", job_id=job)
+    print(f"[{tabela}] carregada ({total} linhas), job {job}", flush=True)
 
 
 def main() -> None:
@@ -406,7 +428,7 @@ def main() -> None:
     a = p.parse_args()
 
     ufs = {u.upper() for u in a.uf} if a.uf else None
-    todas = list(TABELAS_CSV) + TABELAS_LOG + ["_arquivos"]
+    todas = list(TABELAS_CSV) + list(TABELAS_LOG) + ["_arquivos"]
     tabelas = a.tabela or todas
     desconhecidas = set(tabelas) - set(todas)
     if desconhecidas:
@@ -417,12 +439,17 @@ def main() -> None:
     for tabela in tabelas:
         if tabela == "_arquivos":
             carregar_arquivos(bq)
-        elif tabela == "log_urna":
-            processar_log_urna(sorted(ufs) if ufs else UFS, bucket, bq, a.workers, a.manter_parquet)
-        elif tabela == "log_gedai":
-            processar_log_gedai(ufs, bucket, bq, a.manter_parquet)
+        elif tabela.startswith("log_urna"):
+            processar_log_urna(sorted(ufs) if ufs else UFS, TABELAS_LOG[tabela], bucket, bq, a.workers,
+                               a.manter_parquet)
+        elif tabela.startswith("log_gedai"):
+            processar_log_gedai(ufs, TABELAS_LOG[tabela], bucket, bq, a.manter_parquet)
         else:
-            processar_csv(tabela, [c for c in csvs if c[0] == tabela], bucket, bq, a.manter_parquet)
+            arquivos = [c for c in csvs if c[0] == tabela]
+            if not arquivos:
+                print(f"[{tabela}] nenhum CSV no espelho local, pulando", flush=True)
+                continue
+            processar_csv(tabela, arquivos, bucket, bq, a.manter_parquet)
 
 
 if __name__ == "__main__":

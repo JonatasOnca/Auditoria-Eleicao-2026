@@ -1,6 +1,7 @@
 """Boletins de Urna (BU) em CSV, por UF (RESEARCH_PLAN.md §5.1, camada leve).
 
-Fonte: dataset CKAN `resultados-2026-boletim-de-urna` (`bweb_1t_{UF}_*.zip` + `.sha512`).
+Fonte: dataset CKAN `resultados-2026-boletim-de-urna` (`bweb_{1t,2t}_{UF}_*.zip` + `.sha512`). No 2º turno, o BU de
+RR estava no CDN mas fora do catálogo (2026-10-28); `ckan.recursos_turno` o encontra.
 Cada ZIP é baixado em memória, conferido contra o `.sha512` oficial e reduzido a duas tabelas:
 
 - `bu_secoes`: uma linha por seção. Inclui aptos, comparecimento, eleitores com biometria não
@@ -79,16 +80,19 @@ def processar_uf(http: httpx.Client, url: str, url_sha: str | None) -> tuple[pd.
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="BU 2026 1º turno: seções e votos para Presidente")
+    p = argparse.ArgumentParser(description="BU 2026: seções e votos para Presidente")
+    p.add_argument("--turno", type=int, choices=[1, 2], default=1)
     p.add_argument("--uf", action="append")
-    p.add_argument("--saida", default="data/bu_2026_1t")
+    p.add_argument("--saida", help="padrão: data/bu_2026_{turno}t")
     a = p.parse_args()
-    saida = Path(a.saida)
+    t = a.turno
+    saida = Path(a.saida or f"data/bu_2026_{t}t")
     saida.mkdir(parents=True, exist_ok=True)
 
-    rec = ckan.recursos(DATASET)
-    zips = rec[rec["url"].str.contains("/bweb_1t_") & rec["url"].str.endswith(".zip")].copy()
-    zips["uf"] = zips["url"].str.extract(r"bweb_1t_([A-Z]{2})_")[0]
+    with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=60) as http:
+        rec = ckan.recursos_turno(DATASET, t, http)
+    zips = rec[rec["url"].str.contains(f"/bweb_{t}t_") & rec["url"].str.endswith(".zip")].copy()
+    zips["uf"] = zips["url"].str.extract(rf"bweb_{t}t_([A-Z]{{2}})_")[0]
     # se o TSE republicou, fica o arquivo mais recente de cada UF (timestamp DDMMAAAAHHMM no nome)
     zips["ts"] = pd.to_datetime(zips["url"].str.extract(r"_(\d{12})\.zip$")[0], format="%d%m%Y%H%M")
     zips = zips.sort_values("ts").drop_duplicates("uf", keep="last")
@@ -102,13 +106,13 @@ def main() -> None:
             s, v, info = processar_uf(http, r.url, r.url + ".sha512" if r.url + ".sha512" in shas else None)
             todas_secoes.append(s)
             todos_votos.append(v)
-            manifesto.append({"uf": r.uf, **info})
+            manifesto.append({"uf": r.uf, **info, "no_catalogo": r.no_catalogo})
             print(f"[{r.uf}] {info['secoes']} seções, SHA-512 {'conferido' if info['sha512_oficial'] else 'sem .sha512 oficial'}",
                   flush=True)
 
     pd.concat(todas_secoes).to_parquet(saida / "bu_secoes.parquet", index=False)
     pd.concat(todos_votos).to_parquet(saida / "bu_votos_presidente.parquet", index=False)
-    pd.DataFrame(manifesto).to_csv("manifests/bu_2026_1t_manifesto.csv", index=False)
+    pd.DataFrame(manifesto).to_csv(f"manifests/bu_2026_{t}t_manifesto.csv", index=False)
     print("OK:", sum(len(s) for s in todas_secoes), "seções")
 
 

@@ -8,7 +8,7 @@ from datetime import date
 import pandas as pd
 
 from tse import ckan
-from tse.resultados_api import CARGOS, ResultadosTSE
+from tse.resultados_api import CARGOS, ResultadosTSE, eleicao_do_cargo
 
 
 def _salvar(df: pd.DataFrame, saida: str | None) -> None:
@@ -32,6 +32,7 @@ def main() -> None:
                         ("candidatos", "Votação por candidato")]:
         s = sub.add_parser(nome, help=ajuda)
         s.add_argument("--cargo", type=int, default=1, choices=CARGOS)
+        s.add_argument("--turno", type=int, default=1, choices=[1, 2])
         s.add_argument("--nivel", choices=["br", "uf", "municipio"], default="br")
         s.add_argument("--uf", action="append", help="filtra UFs (nível uf/municipio)")
         s.add_argument("-o", "--saida")
@@ -44,24 +45,26 @@ def main() -> None:
         _salvar(df, a.saida or f"manifests/catalogo_{date.today().isoformat()}.csv")
         return
 
+    ele = eleicao_do_cargo(a.cargo, a.turno)
     with ResultadosTSE(snapshot_dir=a.snapshot_dir) as api:
         if a.nivel == "br":
-            ufs = ["br"] if a.cargo == 1 else sorted(set(api.municipios(6259)["uf"]) - {"ZZ"})
+            # no 2º turno estadual, a configuração da eleição só lista as UFs que tiveram 2º turno
+            ufs = ["br"] if a.cargo == 1 else sorted(set(api.municipios(ele)["uf"]) - {"ZZ"})
         if a.cmd == "totais":
             if a.nivel == "br" and a.cargo == 1:
-                df = pd.DataFrame([api.totais(1)])
+                df = pd.DataFrame([api.totais(1, eleicao=ele)])
             elif a.nivel in ("br", "uf"):
-                df = api.totais_ufs(a.cargo)
+                df = api.totais_ufs(a.cargo, eleicao=ele)
                 if a.uf:
                     df = df[df["uf"].isin([u.upper() for u in a.uf])]
             else:
-                df = api.totais_municipios(a.cargo, a.uf)
+                df = api.totais_municipios(a.cargo, a.uf, eleicao=ele)
         else:
             if a.nivel == "municipio":
-                df = api.candidatos_municipios(a.cargo, a.uf)
+                df = api.candidatos_municipios(a.cargo, a.uf, eleicao=ele)
             else:
                 alvo = a.uf or ufs
-                df = pd.concat([api.candidatos(a.cargo, u) for u in alvo], ignore_index=True)
+                df = pd.concat([api.candidatos(a.cargo, u, eleicao=ele) for u in alvo], ignore_index=True)
         _salvar(df, a.saida)
         reg = api.registro_df()
         print(f"[{len(reg)} leituras da API; {int(reg['assinatura_ok'].sum())}/{len(reg)} assinaturas "

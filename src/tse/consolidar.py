@@ -1,13 +1,14 @@
 """Consolida as variáveis dos logs de todas as UFs e concilia com o BU, seção a seção (RESEARCH_PLAN.md P0).
 
-Entradas: `data/logs_2026_1t/secoes_{UF}.parquet` e `votos_tardios_{UF}.parquet` (tse.urna_logs),
-`data/bu_2026_1t/bu_secoes.parquet` (tse.bu).
-Saídas: `data/logs_2026_1t/logs_secoes.parquet`, `data/logs_2026_1t/logs_votos_tardios.parquet` e
-`manifests/conciliacao_logs_bu_2026_1t.csv` (resumo por UF).
+Entradas (t = turno): `data/logs_2026_{t}t/secoes_{UF}.parquet` e `votos_tardios_{UF}.parquet` (tse.urna_logs),
+`data/bu_2026_{t}t/bu_secoes.parquet` (tse.bu).
+Saídas: `data/logs_2026_{t}t/logs_secoes.parquet`, `data/logs_2026_{t}t/logs_votos_tardios.parquet` e
+`manifests/conciliacao_logs_bu_2026_{t}t.csv` (resumo por UF).
 """
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 import pandas as pd
@@ -18,7 +19,10 @@ CHAVE = ["uf", "cd_municipio", "nr_zona", "nr_secao"]
 
 
 def main() -> None:
-    pasta = Path("data/logs_2026_1t")
+    p = argparse.ArgumentParser(description="Consolidação dos logs e conciliação log × BU")
+    p.add_argument("--turno", type=int, choices=[1, 2], default=1)
+    t = p.parse_args().turno
+    pasta = Path(f"data/logs_2026_{t}t")
     secoes, tardios = [], []
     for f in sorted(pasta.glob("secoes_*.parquet")):
         uf = f.stem.split("_")[1]
@@ -30,7 +34,7 @@ def main() -> None:
     erros = s[s["erro"].notna()] if "erro" in s else s.iloc[0:0]
     s = s[s["erro"].isna()].drop(columns="erro") if "erro" in s else s
 
-    bu = pd.read_parquet("data/bu_2026_1t/bu_secoes.parquet")
+    bu = pd.read_parquet(f"data/bu_2026_{t}t/bu_secoes.parquet")
     m = bu[CHAVE + ["QT_COMPARECIMENTO", "QT_ELEI_BIOM_SEM_HABILITACAO", "DS_SECOES_AGREGADAS"]].merge(
         s[CHAVE + ["n_votos", "n_logs", "fuso_determinado", "n_manual_com_biometria"]],
         on=CHAVE, how="outer", indicator=True)
@@ -57,7 +61,7 @@ def main() -> None:
     t.to_parquet(pasta / "logs_votos_tardios.parquet", index=False)
     m[m["_merge"] != "both"].to_csv(pasta / "secoes_nao_pareadas.csv", index=False)
     m[(m["_merge"] == "both") & (m["diff_votos"] != 0)].to_csv(pasta / "secoes_votos_divergentes.csv", index=False)
-    resumo.to_csv("manifests/conciliacao_logs_bu_2026_1t.csv", index=False)
+    resumo.to_csv(f"manifests/conciliacao_logs_bu_2026_{t}t.csv", index=False)
     with pd.option_context("display.width", 250, "display.max_columns", 30):
         print(resumo.to_string(index=False))
 

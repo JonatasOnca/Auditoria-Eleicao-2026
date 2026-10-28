@@ -1,7 +1,7 @@
 """Extração de variáveis por seção a partir dos logs das urnas (RESEARCH_PLAN.md §4, camada completa).
 
-Fonte: dataset CKAN `resultados-2026-arquivos-transmitidos-para-totalizacao`, um ZIP por UF
-(`bu_imgbu_logjez_rdv_vscmr_2026_1t_{UF}.zip`). Cada seção tem um `...-log.jez`, que em 2026
+Fonte: dataset CKAN `resultados-2026-arquivos-transmitidos-para-totalizacao`, um ZIP por UF e turno
+(`bu_imgbu_logjez_rdv_vscmr_2026_{1t,2t}_{UF}.zip`; os do 2º turno estavam no CDN mas fora do catálogo em 2026-10-28). Cada seção tem um `...-log.jez`, que em 2026
 é um ZIP (não 7z, apesar do leiame do TSE) contendo `logd.dat`. O `logd.dat` é texto em latin-1
 separado por tab: data, hora, nível, id da urna, aplicação, mensagem, hash.
 
@@ -47,7 +47,7 @@ from tse import ckan
 from tse.resultados_api import USER_AGENT
 
 DATASET = "resultados-2026-arquivos-transmitidos-para-totalizacao"
-DIA_ELEICAO = "04/10/2026"
+DIAS_ELEICAO = {1: datetime(2026, 10, 4), 2: datetime(2026, 10, 25)}
 
 # Variáveis que dependem da conversão para a hora de Brasília. Ficam vazias sem fuso determinado.
 COLS_HORARIO = [
@@ -132,13 +132,14 @@ def _ts(data_hora: str) -> datetime:
     return datetime.strptime(data_hora, "%d/%m/%Y %H:%M:%S")
 
 
-def votos_do_log(logd: str) -> tuple[list[tuple[datetime, str, str | None]], dict]:
-    """Devolve [(hora_local, tipo_habilitação, mesário_que_habilitou)] e eventos do dia."""
+def votos_do_log(logd: str, turno: int = 1) -> tuple[list[tuple[datetime, str, str | None]], dict]:
+    """Devolve [(hora_local, tipo_habilitação, mesário_que_habilitou)] e eventos do dia da eleição."""
+    dia = DIAS_ELEICAO[turno].strftime("%d/%m/%Y")
     votos, cur = [], []
     extras = {"encerramento": None, "pronta": None, "eventos_dia": 0, "digital_de_mesario": 0}
     for linha in logd.splitlines():
         p = linha.split("\t")
-        if len(p) < 6 or not p[0].startswith(DIA_ELEICAO):
+        if len(p) < 6 or not p[0].startswith(dia):
             continue
         extras["eventos_dia"] += 1
         msg = p[4]
@@ -183,7 +184,7 @@ def logs_do_pacote(conteudo: bytes, profundidade: int = 0, com_caminho: bool = F
     return textos
 
 
-def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[dict]]:
+def variaveis_secao(nome: str, logds: list[str], uf: str, turno: int = 1) -> tuple[dict, list[dict]]:
     m = RE_ARQUIVO.search(nome)
     chave = {"uf": uf, "cd_municipio": m.group(3), "nr_zona": m.group(4), "nr_secao": m.group(5)}
     votos, extras = [], {"encerramento": None, "pronta": None, "eventos_dia": 0, "digital_de_mesario": 0}
@@ -200,7 +201,7 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
                 manter.append(linha_log)
         unicos.append("\n".join(manter))
     for logd in unicos:
-        v, e = votos_do_log(logd)
+        v, e = votos_do_log(logd, turno)
         votos.extend(v)
         extras["eventos_dia"] += e["eventos_dia"]
         extras["digital_de_mesario"] += e["digital_de_mesario"]
@@ -222,7 +223,7 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
     determinado = fuso is not None
     fuso = fuso if determinado else 0  # só para o cálculo; os campos de horário são anulados abaixo
     para_brt = lambda t: t - timedelta(hours=fuso)  # noqa: E731
-    corte = datetime(2026, 10, 4, 17, 0, 0)
+    corte = DIAS_ELEICAO[turno].replace(hour=17)
 
     brt = [(para_brt(t), tipo, mes) for t, tipo, mes in votos]
     antes = [v for v in brt if v[0] < corte]
@@ -261,7 +262,7 @@ def variaveis_secao(nome: str, logds: list[str], uf: str) -> tuple[dict, list[di
 
     # Votos a partir das 16h de Brasília, um por linha (para RQ3 e placebos), sem identificar mesários.
     tardios = [{**chave, "hora_brt": t, "tipo": tipo, "liberado_por_mesario": mes is not None}
-               for t, tipo, mes in brt if t >= datetime(2026, 10, 4, 16, 0, 0)]
+               for t, tipo, mes in brt if t >= DIAS_ELEICAO[turno].replace(hour=16)]
     return linha, tardios
 
 
@@ -286,7 +287,8 @@ def aplicar_regra_fuso(secoes: pd.DataFrame, tardios: pd.DataFrame) -> tuple[pd.
 # --------------------------------------------------------------------------- driver
 
 
-def processar_uf(url: str, uf: str, saida: Path, conexoes: int, raiz_espelho: Path | None = None) -> None:
+def processar_uf(url: str, uf: str, saida: Path, conexoes: int, raiz_espelho: Path | None = None,
+                 turno: int = 1) -> None:
     secoes_pq, tardios_pq = saida / f"secoes_{uf}.parquet", saida / f"votos_tardios_{uf}.parquet"
     if secoes_pq.exists():
         print(f"[{uf}] já processado, pulando", flush=True)
@@ -306,7 +308,7 @@ def processar_uf(url: str, uf: str, saida: Path, conexoes: int, raiz_espelho: Pa
 
         def tarefa(info):
             try:
-                return variaveis_secao(info.filename, logs_do_pacote(ler(info)), uf)
+                return variaveis_secao(info.filename, logs_do_pacote(ler(info)), uf, turno)
             except Exception as e:  # noqa: BLE001 — registramos e seguimos; nunca descartar em silêncio
                 return {"uf": uf, "arquivo": info.filename, "erro": repr(e)[:300]}, []
 
@@ -326,17 +328,19 @@ def processar_uf(url: str, uf: str, saida: Path, conexoes: int, raiz_espelho: Pa
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Variáveis por seção a partir dos logs das urnas (2026, 1º turno)")
+    p = argparse.ArgumentParser(description="Variáveis por seção a partir dos logs das urnas (2026)")
+    p.add_argument("--turno", type=int, choices=[1, 2], default=1)
     p.add_argument("--uf", action="append", help="UFs a processar (padrão: todas, das menores para as maiores)")
-    p.add_argument("--saida", default="data/logs_2026_1t")
+    p.add_argument("--saida", help="padrão: data/logs_2026_{turno}t")
     p.add_argument("--conexoes", type=int, default=12)
     p.add_argument("--espelho", default="data/raw", help="raiz do espelho local (tse.espelho); '' para só rede")
     a = p.parse_args()
 
-    saida = Path(a.saida)
+    saida = Path(a.saida or f"data/logs_2026_{a.turno}t")
     saida.mkdir(parents=True, exist_ok=True)
-    rec = ckan.recursos(DATASET)
-    rec = rec[rec["url"].str.endswith(".zip")].copy()
+    with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=60) as http:
+        rec = ckan.recursos_turno(DATASET, a.turno, http)
+    rec = rec[rec["url"].str.contains(rf"_{a.turno}t_[A-Z]{{2}}\.zip$")].copy()
     rec["uf"] = rec["url"].str.extract(r"_([A-Z]{2})\.zip$")[0]
     if a.uf:
         rec = rec[rec["uf"].isin([u.upper() for u in a.uf])]
@@ -346,7 +350,7 @@ def main() -> None:
     rec = rec.sort_values("bytes")
     for r in rec.itertuples():
         try:
-            processar_uf(r.url, r.uf, saida, a.conexoes, Path(a.espelho) if a.espelho else None)
+            processar_uf(r.url, r.uf, saida, a.conexoes, Path(a.espelho) if a.espelho else None, a.turno)
         except Exception as e:  # noqa: BLE001
             print(f"[{r.uf}] FALHOU: {e!r}", file=sys.stderr, flush=True)
 
