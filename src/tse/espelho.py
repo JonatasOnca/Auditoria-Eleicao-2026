@@ -122,7 +122,9 @@ def enviar_bronze(bucket, local: Path, slug: str, substituido: str | None = None
     blob = bucket.blob(nome)
     if substituido and blob.exists():
         bucket.copy_blob(blob, bucket, f"{PREFIXO_ZIP}/{slug}/_substituidos/{substituido}/{local.name}")
-    blob.upload_from_filename(str(local), checksum="crc32c", timeout=3600)
+    from tse.bq_raw import retry_gcs
+
+    blob.upload_from_filename(str(local), checksum="crc32c", timeout=3600, retry=retry_gcs())
     blob.reload()
     if blob.size != local.stat().st_size:
         raise ValueError(f"tamanho no GCS {blob.size} != local {local.stat().st_size} para {nome}")

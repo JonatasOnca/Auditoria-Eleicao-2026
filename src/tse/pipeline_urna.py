@@ -9,25 +9,35 @@ as maiores:
 
 Cada etapa é pulada se já foi feita, então basta rodar de novo depois de uma interrupção. Se o ZIP local já tiver
 sido apagado e faltar alguma etapa, ele é baixado de volta do bronze e conferido contra o SHA-512 do manifesto.
+
+Uma falha de rede numa UF não para a execução: a UF é tentada de novo (3 vezes, esperando 2, 5 e 10 min). Erros de
+integridade (SHA-512, CRC, tamanho) são `ValueError` e param tudo na hora.
 """
 
 from __future__ import annotations
 
 import argparse
 import os
+import time
 from pathlib import Path
 
 import httpx
+import requests
+from google.api_core import exceptions as gexc
 
 from tse import bq_raw, espelho, urna_logs
 from tse.resultados_api import USER_AGENT
+
+ERROS_DE_REDE = (httpx.HTTPError, requests.exceptions.RequestException, gexc.RetryError, gexc.ServerError,
+                 ConnectionError, TimeoutError)
+ESPERAS_MIN = [2, 5, 10]
 
 
 def recuperar_do_bronze(bucket, slug: str, destino: Path) -> None:
     linha = espelho.ultima_versao(espelho.ler_manifesto(slug), destino.name)
     nome = linha["gcs_uri"].split(f"gs://{bucket.name}/", 1)[1]
     print(f"[{linha['uf']}] baixando {destino.name} de volta do bronze", flush=True)
-    bucket.blob(nome).download_to_filename(str(destino), checksum="crc32c", timeout=3600)
+    bucket.blob(nome).download_to_filename(str(destino), checksum="crc32c", timeout=3600, retry=bq_raw.retry_gcs())
     if espelho.sha512(destino) != linha["sha512"]:
         destino.unlink()
         raise ValueError(f"SHA-512 da cópia no bronze não confere com o manifesto: {nome}")
@@ -57,23 +67,37 @@ def main() -> None:
         zips = zips[zips["url"].str.contains(rf"_{t}t_[A-Z]{{2}}\.zip$")]
         print(f"== {slug}, {t}º turno: {len(zips)} UFs, {zips['bytes'].sum() / 1e9:.1f} GB", flush=True)
         for r in zips.itertuples():
-            destino = pasta / r.url.rsplit("/", 1)[1]
-            falta_logs = not (saida_logs / f"secoes_{r.uf}.parquet").exists()
-            falta_bq = not bq_raw.ja_carregado(tabela, r.uf)
-            if not (falta_logs or falta_bq):
-                print(f"[{r.uf}] completo", flush=True)
-                continue
-            local = espelho.espelhar_zip(http, slug, r.url, r.uf, pasta, r.url_sha, r.no_catalogo, bucket)
-            if local is None:
-                recuperar_do_bronze(bucket, slug, destino)
-            if falta_logs:
-                urna_logs.processar_uf(r.url, r.uf, saida_logs, a.conexoes, bq_raw.RAIZ, t)
-            if falta_bq:
-                bq_raw.carregar_log_urna_uf(r.uf, t, bucket, bq, a.workers, manter=False)
-            if not a.manter_zip:
-                espelho.apagar_local(slug, destino)
-                print(f"[{r.uf}] ZIP local apagado (cópia no bronze)", flush=True)
+            for tentativa, espera in enumerate([*ESPERAS_MIN, None], 1):
+                try:
+                    processar(http, bucket, bq, r, t, tabela, pasta, saida_logs, a)
+                    break
+                except ERROS_DE_REDE as e:
+                    if espera is None:
+                        raise
+                    print(f"[{r.uf}] FALHA DE REDE na tentativa {tentativa} ({type(e).__name__}: {str(e)[:150]}); "
+                          f"nova tentativa em {espera} min", flush=True)
+                    time.sleep(espera * 60)
 
+
+def processar(http, bucket, bq, r, t: int, tabela: str, pasta: Path, saida_logs: Path, a) -> None:
+    """Todas as etapas de uma UF; cada uma é pulada se já foi feita."""
+    slug = bq_raw.DS_URNA
+    destino = pasta / r.url.rsplit("/", 1)[1]
+    falta_logs = not (saida_logs / f"secoes_{r.uf}.parquet").exists()
+    falta_bq = not bq_raw.ja_carregado(tabela, r.uf)
+    if not (falta_logs or falta_bq):
+        print(f"[{r.uf}] completo", flush=True)
+        return
+    local = espelho.espelhar_zip(http, slug, r.url, r.uf, pasta, r.url_sha, r.no_catalogo, bucket)
+    if local is None:
+        recuperar_do_bronze(bucket, slug, destino)
+    if falta_logs:
+        urna_logs.processar_uf(r.url, r.uf, saida_logs, a.conexoes, bq_raw.RAIZ, t)
+    if falta_bq:
+        bq_raw.carregar_log_urna_uf(r.uf, t, bucket, bq, a.workers, manter=False)
+    if not a.manter_zip:
+        espelho.apagar_local(slug, destino)
+        print(f"[{r.uf}] ZIP local apagado (cópia no bronze)", flush=True)
 
 if __name__ == "__main__":
     main()

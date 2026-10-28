@@ -288,6 +288,13 @@ def converter_log_gedai(z: Path, destino: Path) -> int:
 # ------------------------------------------------------------------------- GCS e BQ
 
 
+def retry_gcs():
+    """Retentativa das transferências para o GCS: 30 min em vez dos 120 s padrão, para atravessar quedas de rede."""
+    from google.cloud.storage.retry import DEFAULT_RETRY
+
+    return DEFAULT_RETRY.with_timeout(1800)
+
+
 def clientes():
     from google.cloud import bigquery, storage
 
@@ -296,7 +303,7 @@ def clientes():
 
 def subir(bucket, local: Path, tabela: str, uf: str) -> str:
     nome = f"{PREFIXO_GCS}/{tabela}/uf={uf}/{local.name}"
-    bucket.blob(nome).upload_from_filename(str(local), checksum="crc32c", timeout=3600)
+    bucket.blob(nome).upload_from_filename(str(local), checksum="crc32c", timeout=3600, retry=retry_gcs())
     return f"gs://{BUCKET}/{nome}"
 
 
