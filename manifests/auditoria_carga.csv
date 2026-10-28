@@ -1,0 +1,567 @@
+verificacao,alvo,ok,detalhe,quando
+espelho,codigos-oficiais-de-uf-e-municipios-segundo-o-tse-e-o-ibge/municipio_tse_ibge.zip,True,local=True bronze=None bytes=139031,2026-10-28T20:07:52.887297+00:00
+espelho,correspondencia-entre-numero-interno-e-modelo-da-urna-1/modelourna_numerointerno.zip,True,local=True bronze=None bytes=334959,2026-10-28T20:07:52.887297+00:00
+espelho,denuncias-eleitorais/denuncia_2026.zip,True,local=True bronze=None bytes=1939099,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/transferencia_temporaria_2026.zip,True,local=True bronze=None bytes=3983312,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_RR.zip,True,local=True bronze=None bytes=5501371,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_AP.zip,True,local=True bronze=None bytes=7229002,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_ZZ.zip,True,local=True bronze=None bytes=8687327,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_AC.zip,True,local=True bronze=None bytes=9259176,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_TO.zip,True,local=True bronze=None bytes=20273519,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_RO.zip,True,local=True bronze=None bytes=20418162,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/transf_temporaria_secao_2026.zip,True,local=True bronze=None bytes=23038986,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_DF.zip,True,local=True bronze=None bytes=24147675,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_SE.zip,True,local=True bronze=None bytes=26240341,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_MS.zip,True,local=True bronze=None bytes=34858865,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_AL.zip,True,local=True bronze=None bytes=39018213,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_AM.zip,True,local=True bronze=None bytes=39353189,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_RN.zip,True,local=True bronze=None bytes=42761570,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_PI.zip,True,local=True bronze=None bytes=48003846,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_MT.zip,True,local=True bronze=None bytes=50339983,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_ES.zip,True,local=True bronze=None bytes=50447016,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_PB.zip,True,local=True bronze=None bytes=60103117,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_deficiencia_2026.zip,True,local=True bronze=None bytes=92591610,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_GO.zip,True,local=True bronze=None bytes=93893260,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_MA.zip,True,local=True bronze=None bytes=96442175,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_SC.zip,True,local=True bronze=None bytes=101891522,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_PA.zip,True,local=True bronze=None bytes=106360083,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_PE.zip,True,local=True bronze=None bytes=126301656,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_CE.zip,True,local=True bronze=None bytes=127476797,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_PR.zip,True,local=True bronze=None bytes=155485634,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_RS.zip,True,local=True bronze=None bytes=159599110,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/eleitorado_local_votacao_2026.zip,True,local=True bronze=None bytes=176404409,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_BA.zip,True,local=True bronze=None bytes=207093385,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_RJ.zip,True,local=True bronze=None bytes=211731916,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_MG.zip,True,local=True bronze=None bytes=314517556,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitorado_2026.zip,True,local=True bronze=None bytes=408490728,2026-10-28T20:07:52.887297+00:00
+espelho,eleitorado-2026/perfil_eleitor_secao_2026_SP.zip,True,local=True bronze=None bytes=630716681,2026-10-28T20:07:52.887297+00:00
+espelho,mesarias-mesarios-e-funcoes-especiais-2026/convocacao_mesarios_funcoes_especiais_2026.zip,True,local=True bronze=None bytes=11851189,2026-10-28T20:07:52.887297+00:00
+espelho,mesarias-mesarios-e-funcoes-especiais-2026/convocacao_mesarios_2026.zip,True,local=True bronze=None bytes=45759260,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_ZZ.zip,True,local=True bronze=None bytes=130618470,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_RR.zip,True,local=True bronze=None bytes=246504197,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_AP.zip,True,local=True bronze=None bytes=332810883,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_AC.zip,True,local=True bronze=None bytes=373001505,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_TO.zip,True,local=True bronze=None bytes=727637427,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_RO.zip,True,local=True bronze=None bytes=769411938,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_SE.zip,True,local=True bronze=None bytes=1049579286,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_MS.zip,True,local=True bronze=None bytes=1175874464,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_DF.zip,True,local=True bronze=None bytes=1270336035,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_AL.zip,True,local=True bronze=None bytes=1345358797,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_MT.zip,True,local=True bronze=None bytes=1463258383,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_AM.zip,True,local=True bronze=None bytes=1517967843,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_RN.zip,True,local=True bronze=None bytes=1522159126,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_ES.zip,True,local=True bronze=None bytes=1708119935,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_PI.zip,True,local=True bronze=None bytes=1736819229,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_PB.zip,True,local=True bronze=None bytes=1926321705,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_GO.zip,True,local=True bronze=None bytes=2846163200,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_MA.zip,True,local=True bronze=None bytes=3105275669,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_SC.zip,True,local=True bronze=None bytes=3194124992,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_PA.zip,True,local=True bronze=None bytes=3661842632,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_PE.zip,True,local=True bronze=None bytes=4090190695,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_CE.zip,True,local=True bronze=None bytes=4286989277,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_PR.zip,True,local=True bronze=None bytes=4913018883,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_RS.zip,True,local=True bronze=None bytes=4917940986,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_BA.zip,True,local=True bronze=None bytes=6639915824,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_RJ.zip,True,local=True bronze=None bytes=7087064422,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_MG.zip,True,local=True bronze=None bytes=9142730085,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_1t_SP.zip,True,local=True bronze=None bytes=19015384134,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_ZZ.zip,True,local=False bronze=True bytes=204584509,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_RR.zip,True,local=False bronze=True bytes=325077964,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_AP.zip,True,local=False bronze=True bytes=438924137,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_AC.zip,True,local=False bronze=True bytes=512147002,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_TO.zip,True,local=False bronze=True bytes=1020216357,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_RO.zip,True,local=False bronze=True bytes=1047273569,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_SE.zip,True,local=False bronze=True bytes=1452351183,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_MS.zip,True,local=False bronze=True bytes=1615457320,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_DF.zip,True,local=False bronze=True bytes=1781729243,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_AL.zip,True,local=False bronze=True bytes=1876467424,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_MT.zip,True,local=False bronze=True bytes=2033142943,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_AM.zip,True,local=False bronze=True bytes=2140254436,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_RN.zip,True,local=False bronze=True bytes=2210656291,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_PI.zip,True,local=False bronze=True bytes=2402070716,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_ES.zip,True,local=False bronze=True bytes=2416165761,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-arquivos-transmitidos-para-totalizacao/bu_imgbu_logjez_rdv_vscmr_2026_2t_PB.zip,True,local=False bronze=True bytes=2678479040,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_ZZ_051020261403.zip,True,local=True bronze=None bytes=1039125,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_RR_051020261403.zip,True,local=True bronze=None bytes=11931936,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_AP_051020261403.zip,True,local=True bronze=None bytes=16659046,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_AC_051020261403.zip,True,local=True bronze=None bytes=16959055,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_TO_051020261403.zip,True,local=True bronze=None bytes=29667347,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_RO_051020261403.zip,True,local=True bronze=None bytes=36216443,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_SE_051020261403.zip,True,local=True bronze=None bytes=46931962,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_AL_051020261403.zip,True,local=True bronze=None bytes=48253491,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_MS_051020261403.zip,True,local=True bronze=None bytes=51978602,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_RN_051020261403.zip,True,local=True bronze=None bytes=54412606,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_MT_051020261403.zip,True,local=True bronze=None bytes=63492478,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_PI_051020261403.zip,True,local=True bronze=None bytes=66216824,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_AM_051020261403.zip,True,local=True bronze=None bytes=77017934,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_DF_051020261403.zip,True,local=True bronze=None bytes=77026962,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_PB_051020261403.zip,True,local=True bronze=None bytes=77916707,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_ES_051020261403.zip,True,local=True bronze=None bytes=81978606,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_MA_051020261403.zip,True,local=True bronze=None bytes=142453462,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_SC_051020261403.zip,True,local=True bronze=None bytes=153178332,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_GO_051020261403.zip,True,local=True bronze=None bytes=157210218,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_PA_051020261403.zip,True,local=True bronze=None bytes=172050487,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_CE_051020261403.zip,True,local=True bronze=None bytes=203005857,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_PE_051020261403.zip,True,local=True bronze=None bytes=204972135,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_PR_051020261403.zip,True,local=True bronze=None bytes=270246858,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_RS_051020261403.zip,True,local=True bronze=None bytes=270859776,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_BA_051020261403.zip,True,local=True bronze=None bytes=324997821,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_MG_051020261403.zip,True,local=True bronze=None bytes=489306781,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_RJ_051020261403.zip,True,local=True bronze=None bytes=536375038,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_1t_SP_051020261403.zip,True,local=True bronze=None bytes=1395007777,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_RR_261020260742.zip,True,local=True bronze=None bytes=500520,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_ZZ_261020260742.zip,True,local=True bronze=None bytes=502322,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_AP_261020260742.zip,True,local=True bronze=None bytes=596704,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_RO_261020260742.zip,True,local=True bronze=None bytes=1250142,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_AC_261020260742.zip,True,local=True bronze=None bytes=1254611,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_SE_261020260742.zip,True,local=True bronze=None bytes=1645477,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_MS_261020260742.zip,True,local=True bronze=None bytes=1863398,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_AL_261020260742.zip,True,local=True bronze=None bytes=1945168,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_MT_261020260742.zip,True,local=True bronze=None bytes=2204666,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_TO_261020260742.zip,True,local=True bronze=None bytes=2383586,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_PI_261020260742.zip,True,local=True bronze=None bytes=2648710,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_PB_261020260742.zip,True,local=True bronze=None bytes=2871353,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_DF_261020260742.zip,True,local=True bronze=None bytes=3846786,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_GO_261020260742.zip,True,local=True bronze=None bytes=4248869,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_AM_261020260742.zip,True,local=True bronze=None bytes=4276454,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_RN_261020260742.zip,True,local=True bronze=None bytes=4424654,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_SC_261020260742.zip,True,local=True bronze=None bytes=4487185,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_MA_261020260742.zip,True,local=True bronze=None bytes=4609442,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_PA_261020260742.zip,True,local=True bronze=None bytes=5158441,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_ES_261020260742.zip,True,local=True bronze=None bytes=5275706,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_PE_261020260742.zip,True,local=True bronze=None bytes=5761723,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_CE_261020260742.zip,True,local=True bronze=None bytes=6151144,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_PR_261020260742.zip,True,local=True bronze=None bytes=7189112,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_RS_261020260742.zip,True,local=True bronze=None bytes=7410270,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_BA_261020260742.zip,True,local=True bronze=None bytes=9513048,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_RJ_261020260742.zip,True,local=True bronze=None bytes=10004912,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_MG_261020260742.zip,True,local=True bronze=None bytes=14071007,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-boletim-de-urna/bweb_2t_SP_261020260742.zip,True,local=True bronze=None bytes=28188300,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_ZZ_051020261049.zip,True,local=True bronze=None bytes=382447,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_RR_051020261049.zip,True,local=True bronze=None bytes=386967,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_ZZ_031020261534.zip,True,local=True bronze=None bytes=390058,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RR_031020261534.zip,True,local=True bronze=None bytes=396496,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_ZZ_041020261259.zip,True,local=True bronze=None bytes=396973,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RR_041020261259.zip,True,local=True bronze=None bytes=403712,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_AP_051020261049.zip,True,local=True bronze=None bytes=409524,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AP_031020261534.zip,True,local=True bronze=None bytes=412179,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AP_041020261259.zip,True,local=True bronze=None bytes=421126,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AC_031020261534.zip,True,local=True bronze=None bytes=427875,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_AC_051020261049.zip,True,local=True bronze=None bytes=430964,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AC_041020261259.zip,True,local=True bronze=None bytes=442637,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_TO_031020261534.zip,True,local=True bronze=None bytes=495914,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RO_031020261534.zip,True,local=True bronze=None bytes=498396,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_SE_031020261534.zip,True,local=True bronze=None bytes=538445,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_TO_041020261259.zip,True,local=True bronze=None bytes=544341,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RO_041020261259.zip,True,local=True bronze=None bytes=550705,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_DF_031020261534.zip,True,local=True bronze=None bytes=555485,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_TO_051020261049.zip,True,local=True bronze=None bytes=555516,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_RO_051020261049.zip,True,local=True bronze=None bytes=562573,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AL_031020261534.zip,True,local=True bronze=None bytes=567625,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RN_031020261534.zip,True,local=True bronze=None bytes=590242,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MS_031020261534.zip,True,local=True bronze=None bytes=591206,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_SE_041020261259.zip,True,local=True bronze=None bytes=598815,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_DF_041020261259.zip,True,local=True bronze=None bytes=617365,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AM_031020261534.zip,True,local=True bronze=None bytes=617878,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MT_031020261534.zip,True,local=True bronze=None bytes=634466,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_SE_051020261049.zip,True,local=True bronze=None bytes=637139,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AL_041020261259.zip,True,local=True bronze=None bytes=646136,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_ES_031020261534.zip,True,local=True bronze=None bytes=652436,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PI_031020261534.zip,True,local=True bronze=None bytes=688635,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_DF_051020261049.zip,True,local=True bronze=None bytes=691280,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PB_031020261534.zip,True,local=True bronze=None bytes=691417,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_AL_051020261049.zip,True,local=True bronze=None bytes=698809,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MS_041020261259.zip,True,local=True bronze=None bytes=701828,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_MS_051020261049.zip,True,local=True bronze=None bytes=706225,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RN_041020261259.zip,True,local=True bronze=None bytes=715295,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_AM_041020261259.zip,True,local=True bronze=None bytes=734596,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_RN_051020261049.zip,True,local=True bronze=None bytes=759138,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_AM_051020261049.zip,True,local=True bronze=None bytes=762281,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MT_041020261259.zip,True,local=True bronze=None bytes=769686,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_MT_051020261049.zip,True,local=True bronze=None bytes=774217,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_ES_041020261259.zip,True,local=True bronze=None bytes=783259,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PB_041020261259.zip,True,local=True bronze=None bytes=839746,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_GO_031020261534.zip,True,local=True bronze=None bytes=845168,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_ES_051020261049.zip,True,local=True bronze=None bytes=858600,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PI_041020261259.zip,True,local=True bronze=None bytes=881986,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_PI_051020261049.zip,True,local=True bronze=None bytes=887388,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_SC_031020261534.zip,True,local=True bronze=None bytes=903440,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_PB_051020261049.zip,True,local=True bronze=None bytes=906831,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MA_031020261534.zip,True,local=True bronze=None bytes=938234,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PE_031020261534.zip,True,local=True bronze=None bytes=1007092,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PA_031020261534.zip,True,local=True bronze=None bytes=1020169,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_GO_041020261259.zip,True,local=True bronze=None bytes=1131400,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_CE_031020261534.zip,True,local=True bronze=None bytes=1133043,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_GO_051020261049.zip,True,local=True bronze=None bytes=1189007,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PR_031020261534.zip,True,local=True bronze=None bytes=1227674,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_SC_051020261049.zip,True,local=True bronze=None bytes=1279042,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RS_031020261534.zip,True,local=True bronze=None bytes=1284288,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_SC_041020261259.zip,True,local=True bronze=None bytes=1293971,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MA_041020261259.zip,True,local=True bronze=None bytes=1316529,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_MA_051020261049.zip,True,local=True bronze=None bytes=1323465,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PA_041020261259.zip,True,local=True bronze=None bytes=1443157,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_PA_051020261049.zip,True,local=True bronze=None bytes=1455145,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PE_041020261259.zip,True,local=True bronze=None bytes=1492971,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_PE_051020261049.zip,True,local=True bronze=None bytes=1494394,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_BA_031020261534.zip,True,local=True bronze=None bytes=1516953,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RJ_031020261534.zip,True,local=True bronze=None bytes=1524184,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_CE_041020261259.zip,True,local=True bronze=None bytes=1629306,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_CE_051020261049.zip,True,local=True bronze=None bytes=1639644,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_PR_051020261049.zip,True,local=True bronze=None bytes=1821627,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_PR_041020261259.zip,True,local=True bronze=None bytes=1860497,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_RS_051020261049.zip,True,local=True bronze=None bytes=1874644,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MG_031020261534.zip,True,local=True bronze=None bytes=1990024,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RS_041020261259.zip,True,local=True bronze=None bytes=1997091,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_BA_051020261049.zip,True,local=True bronze=None bytes=2277939,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_RJ_041020261259.zip,True,local=True bronze=None bytes=2324464,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_RJ_051020261049.zip,True,local=True bronze=None bytes=2362608,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_BA_041020261259.zip,True,local=True bronze=None bytes=2448341,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_MG_051020261049.zip,True,local=True bronze=None bytes=3211586,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_MG_041020261259.zip,True,local=True bronze=None bytes=3407520,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_SP_031020261534.zip,True,local=True bronze=None bytes=3754211,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CEFT_1t_SP_051020261049.zip,True,local=True bronze=None bytes=6073424,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-1-turno/CESP_1t_SP_041020261259.zip,True,local=True bronze=None bytes=7089933,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_ZZ_241020261231.zip,True,local=True bronze=None bytes=396618,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_ZZ_251020261345.zip,True,local=True bronze=None bytes=396618,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_ZZ_261020261201.zip,True,local=True bronze=None bytes=397685,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RR_241020261231.zip,True,local=True bronze=None bytes=402949,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_RR_261020261201.zip,True,local=True bronze=None bytes=403106,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RR_251020261345.zip,True,local=True bronze=None bytes=403687,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AP_241020261231.zip,True,local=True bronze=None bytes=419857,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AP_251020261345.zip,True,local=True bronze=None bytes=420857,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_AP_261020261201.zip,True,local=True bronze=None bytes=430996,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AC_241020261231.zip,True,local=True bronze=None bytes=440866,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AC_251020261345.zip,True,local=True bronze=None bytes=442248,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_AC_261020261201.zip,True,local=True bronze=None bytes=461440,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_TO_241020261231.zip,True,local=True bronze=None bytes=542112,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_TO_251020261345.zip,True,local=True bronze=None bytes=544487,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RO_241020261231.zip,True,local=True bronze=None bytes=547384,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RO_251020261345.zip,True,local=True bronze=None bytes=549650,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_SE_241020261231.zip,True,local=True bronze=None bytes=596857,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_SE_251020261345.zip,True,local=True bronze=None bytes=599332,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_DF_241020261231.zip,True,local=True bronze=None bytes=614288,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_DF_251020261345.zip,True,local=True bronze=None bytes=616692,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_TO_261020261201.zip,True,local=True bronze=None bytes=632064,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_RO_261020261201.zip,True,local=True bronze=None bytes=640775,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AL_241020261231.zip,True,local=True bronze=None bytes=642420,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AL_251020261345.zip,True,local=True bronze=None bytes=646058,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MS_241020261231.zip,True,local=True bronze=None bytes=695366,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MS_251020261345.zip,True,local=True bronze=None bytes=701252,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RN_241020261231.zip,True,local=True bronze=None bytes=714014,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RN_251020261345.zip,True,local=True bronze=None bytes=715563,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_SE_261020261201.zip,True,local=True bronze=None bytes=718715,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AM_241020261231.zip,True,local=True bronze=None bytes=724436,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_AM_251020261345.zip,True,local=True bronze=None bytes=732475,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MT_241020261231.zip,True,local=True bronze=None bytes=759147,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_DF_261020261201.zip,True,local=True bronze=None bytes=768877,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MT_251020261345.zip,True,local=True bronze=None bytes=770327,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_ES_241020261231.zip,True,local=True bronze=None bytes=781162,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_ES_251020261345.zip,True,local=True bronze=None bytes=784599,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_AL_261020261201.zip,True,local=True bronze=None bytes=815822,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PB_241020261231.zip,True,local=True bronze=None bytes=829951,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PB_251020261345.zip,True,local=True bronze=None bytes=837205,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_MS_261020261201.zip,True,local=True bronze=None bytes=873133,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PI_241020261231.zip,True,local=True bronze=None bytes=873775,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PI_251020261345.zip,True,local=True bronze=None bytes=880337,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_AM_261020261201.zip,True,local=True bronze=None bytes=918895,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_RN_261020261201.zip,True,local=True bronze=None bytes=951058,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_MT_261020261201.zip,True,local=True bronze=None bytes=979911,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_ES_261020261201.zip,True,local=True bronze=None bytes=1064881,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_PB_261020261201.zip,True,local=True bronze=None bytes=1101070,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_GO_241020261231.zip,True,local=True bronze=None bytes=1121842,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_GO_251020261345.zip,True,local=True bronze=None bytes=1129322,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_PI_261020261201.zip,True,local=True bronze=None bytes=1159893,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_SC_241020261231.zip,True,local=True bronze=None bytes=1273232,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MA_241020261231.zip,True,local=True bronze=None bytes=1289548,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_SC_251020261345.zip,True,local=True bronze=None bytes=1290595,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MA_251020261345.zip,True,local=True bronze=None bytes=1311142,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PA_241020261231.zip,True,local=True bronze=None bytes=1415097,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PA_251020261345.zip,True,local=True bronze=None bytes=1443903,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PE_241020261231.zip,True,local=True bronze=None bytes=1482252,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PE_251020261345.zip,True,local=True bronze=None bytes=1491126,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_GO_261020261201.zip,True,local=True bronze=None bytes=1544459,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_CE_241020261231.zip,True,local=True bronze=None bytes=1592883,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_CE_251020261345.zip,True,local=True bronze=None bytes=1624584,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_SC_261020261201.zip,True,local=True bronze=None bytes=1723010,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_MA_261020261201.zip,True,local=True bronze=None bytes=1774248,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PR_241020261231.zip,True,local=True bronze=None bytes=1822757,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_PR_251020261345.zip,True,local=True bronze=None bytes=1859062,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_PA_261020261201.zip,True,local=True bronze=None bytes=1927311,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RS_241020261231.zip,True,local=True bronze=None bytes=1947214,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RS_251020261345.zip,True,local=True bronze=None bytes=1991281,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_PE_261020261201.zip,True,local=True bronze=None bytes=2049312,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_CE_261020261201.zip,True,local=True bronze=None bytes=2194163,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RJ_241020261231.zip,True,local=True bronze=None bytes=2278462,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_RJ_251020261345.zip,True,local=True bronze=None bytes=2324875,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_BA_241020261231.zip,True,local=True bronze=None bytes=2376168,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_BA_251020261345.zip,True,local=True bronze=None bytes=2442346,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_PR_261020261201.zip,True,local=True bronze=None bytes=2499033,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_RS_261020261201.zip,True,local=True bronze=None bytes=2741583,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_BA_261020261201.zip,True,local=True bronze=None bytes=3137265,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_RJ_261020261201.zip,True,local=True bronze=None bytes=3233694,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MG_241020261231.zip,True,local=True bronze=None bytes=3350542,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_MG_251020261345.zip,True,local=True bronze=None bytes=3410696,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_MG_261020261201.zip,True,local=True bronze=None bytes=4580359,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_SP_241020261231.zip,True,local=True bronze=None bytes=6877003,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CESP_2t_SP_251020261345.zip,True,local=True bronze=None bytes=7095285,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-correspondencias-esperadas-e-efetivadas-2-turno/CEFT_2t_SP_261020261201.zip,True,local=True bronze=None bytes=9541098,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RR_041020261441.zip,True,local=True bronze=None bytes=558623,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RR_031020261345.zip,True,local=True bronze=None bytes=558623,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_ZZ_041020261441.zip,True,local=True bronze=None bytes=573281,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_ZZ_031020261345.zip,True,local=True bronze=None bytes=573281,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AP_031020261345.zip,True,local=True bronze=None bytes=857926,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AP_041020261441.zip,True,local=True bronze=None bytes=866285,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AC_031020261345.zip,True,local=True bronze=None bytes=1079113,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AC_041020261441.zip,True,local=True bronze=None bytes=1089024,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_SE_031020261345.zip,True,local=True bronze=None bytes=1320398,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_SE_041020261441.zip,True,local=True bronze=None bytes=1327107,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AL_031020261345.zip,True,local=True bronze=None bytes=1534018,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AL_041020261441.zip,True,local=True bronze=None bytes=1564838,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RO_031020261345.zip,True,local=True bronze=None bytes=1691031,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RO_041020261441.zip,True,local=True bronze=None bytes=1701949,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_DF_031020261345.zip,True,local=True bronze=None bytes=1718383,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_DF_041020261441.zip,True,local=True bronze=None bytes=1733732,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_TO_031020261345.zip,True,local=True bronze=None bytes=1912742,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_TO_041020261441.zip,True,local=True bronze=None bytes=1945313,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PB_031020261345.zip,True,local=True bronze=None bytes=1954815,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PB_041020261441.zip,True,local=True bronze=None bytes=1964591,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MS_031020261345.zip,True,local=True bronze=None bytes=2546527,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MS_041020261441.zip,True,local=True bronze=None bytes=2584210,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AM_031020261345.zip,True,local=True bronze=None bytes=2674627,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_AM_041020261441.zip,True,local=True bronze=None bytes=2705301,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RN_031020261345.zip,True,local=True bronze=None bytes=3339048,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MT_031020261345.zip,True,local=True bronze=None bytes=3371834,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MT_041020261441.zip,True,local=True bronze=None bytes=3398820,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RN_041020261441.zip,True,local=True bronze=None bytes=3410716,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_ES_031020261345.zip,True,local=True bronze=None bytes=3422451,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PI_031020261345.zip,True,local=True bronze=None bytes=3461208,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PI_041020261441.zip,True,local=True bronze=None bytes=3486136,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_ES_041020261441.zip,True,local=True bronze=None bytes=3512755,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_GO_031020261345.zip,True,local=True bronze=None bytes=3927569,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_GO_041020261441.zip,True,local=True bronze=None bytes=4028826,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_SC_031020261345.zip,True,local=True bronze=None bytes=4872026,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_SC_041020261441.zip,True,local=True bronze=None bytes=4915310,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MA_031020261345.zip,True,local=True bronze=None bytes=6318434,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_CE_031020261345.zip,True,local=True bronze=None bytes=6334988,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MA_041020261441.zip,True,local=True bronze=None bytes=6363283,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_CE_041020261441.zip,True,local=True bronze=None bytes=6394183,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PA_031020261345.zip,True,local=True bronze=None bytes=6675675,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PA_041020261441.zip,True,local=True bronze=None bytes=6751665,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PE_031020261345.zip,True,local=True bronze=None bytes=7480871,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PE_041020261441.zip,True,local=True bronze=None bytes=7556898,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RS_031020261345.zip,True,local=True bronze=None bytes=8117147,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RS_041020261441.zip,True,local=True bronze=None bytes=8178681,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_BA_031020261345.zip,True,local=True bronze=None bytes=10321198,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_BA_041020261441.zip,True,local=True bronze=None bytes=10427362,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PR_031020261345.zip,True,local=True bronze=None bytes=10874573,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_PR_041020261441.zip,True,local=True bronze=None bytes=11079177,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MG_031020261345.zip,True,local=True bronze=None bytes=13858534,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_MG_041020261441.zip,True,local=True bronze=None bytes=13907050,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RJ_031020261345.zip,True,local=True bronze=None bytes=15107741,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_RJ_041020261441.zip,True,local=True bronze=None bytes=15135767,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_SP_031020261345.zip,True,local=True bronze=None bytes=36771164,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-1-turno/log_gedai_1t_SP_041020261441.zip,True,local=True bronze=None bytes=36971998,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AP_241020261329.zip,True,local=True bronze=None bytes=491929,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RR_251020261327.zip,True,local=True bronze=None bytes=577092,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RR_241020261329.zip,True,local=True bronze=None bytes=577092,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_ZZ_251020261327.zip,True,local=True bronze=None bytes=598703,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_ZZ_241020261329.zip,True,local=True bronze=None bytes=598703,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AP_251020261327.zip,True,local=True bronze=None bytes=695426,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AC_241020261329.zip,True,local=True bronze=None bytes=1139480,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AC_251020261327.zip,True,local=True bronze=None bytes=1144304,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_SE_241020261329.zip,True,local=True bronze=None bytes=1413562,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_SE_251020261327.zip,True,local=True bronze=None bytes=1415367,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AL_241020261329.zip,True,local=True bronze=None bytes=1638166,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AL_251020261327.zip,True,local=True bronze=None bytes=1639247,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_DF_241020261329.zip,True,local=True bronze=None bytes=1837398,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_DF_251020261327.zip,True,local=True bronze=None bytes=1850645,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RO_241020261329.zip,True,local=True bronze=None bytes=1907467,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RO_251020261327.zip,True,local=True bronze=None bytes=1982095,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PB_241020261329.zip,True,local=True bronze=None bytes=2040023,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PB_251020261327.zip,True,local=True bronze=None bytes=2051695,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_TO_241020261329.zip,True,local=True bronze=None bytes=2133123,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_TO_251020261327.zip,True,local=True bronze=None bytes=2163619,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MS_241020261329.zip,True,local=True bronze=None bytes=2656122,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AM_241020261329.zip,True,local=True bronze=None bytes=2708468,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MS_251020261327.zip,True,local=True bronze=None bytes=2713319,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_AM_251020261327.zip,True,local=True bronze=None bytes=2718904,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RN_241020261329.zip,True,local=True bronze=None bytes=3264521,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RN_251020261327.zip,True,local=True bronze=None bytes=3304350,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MT_241020261329.zip,True,local=True bronze=None bytes=3447351,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MT_251020261327.zip,True,local=True bronze=None bytes=3459283,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PI_241020261329.zip,True,local=True bronze=None bytes=3667065,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PI_251020261327.zip,True,local=True bronze=None bytes=3738530,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_ES_241020261329.zip,True,local=True bronze=None bytes=3909558,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_ES_251020261327.zip,True,local=True bronze=None bytes=3920934,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_GO_241020261329.zip,True,local=True bronze=None bytes=4055723,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_GO_251020261327.zip,True,local=True bronze=None bytes=4083200,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_SC_241020261329.zip,True,local=True bronze=None bytes=5241318,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_SC_251020261327.zip,True,local=True bronze=None bytes=5255030,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PA_241020261329.zip,True,local=True bronze=None bytes=6710804,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PA_251020261327.zip,True,local=True bronze=None bytes=6745003,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_CE_241020261329.zip,True,local=True bronze=None bytes=6766630,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_CE_251020261327.zip,True,local=True bronze=None bytes=6781067,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MA_241020261329.zip,True,local=True bronze=None bytes=7069631,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MA_251020261327.zip,True,local=True bronze=None bytes=7082727,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RS_241020261329.zip,True,local=True bronze=None bytes=8377624,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PE_241020261329.zip,True,local=True bronze=None bytes=8410167,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RS_251020261327.zip,True,local=True bronze=None bytes=8421837,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PE_251020261327.zip,True,local=True bronze=None bytes=8449325,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_BA_241020261329.zip,True,local=True bronze=None bytes=9912153,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_BA_251020261327.zip,True,local=True bronze=None bytes=10032191,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PR_241020261329.zip,True,local=True bronze=None bytes=11427136,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_PR_251020261327.zip,True,local=True bronze=None bytes=11563232,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MG_241020261329.zip,True,local=True bronze=None bytes=14213698,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_MG_251020261327.zip,True,local=True bronze=None bytes=14246931,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RJ_241020261329.zip,True,local=True bronze=None bytes=15026973,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_RJ_251020261327.zip,True,local=True bronze=None bytes=15321349,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_SP_241020261329.zip,True,local=True bronze=None bytes=41114949,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026-logs-do-sistema-de-preparacao-das-urnas-eletronicas-gedai-2-turno/log_gedai_2t_SP_251020261327.zip,True,local=True bronze=None bytes=41228490,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_BR.zip,True,local=True bronze=None bytes=486541,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_ZZ.zip,True,local=True bronze=None bytes=560139,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_AP.zip,True,local=True bronze=None bytes=470470,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_RR.zip,True,local=True bronze=None bytes=495884,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_AC.zip,True,local=True bronze=None bytes=594969,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_TO.zip,True,local=True bronze=None bytes=601726,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_AL.zip,True,local=True bronze=None bytes=547060,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_RN.zip,True,local=True bronze=None bytes=688736,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_MS.zip,True,local=True bronze=None bytes=566876,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_RO.zip,True,local=True bronze=None bytes=576461,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_SE.zip,True,local=True bronze=None bytes=590559,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_PB.zip,True,local=True bronze=None bytes=622118,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_DF.zip,True,local=True bronze=None bytes=673340,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_AM.zip,True,local=True bronze=None bytes=804470,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_ES.zip,True,local=True bronze=None bytes=792710,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_MT.zip,True,local=True bronze=None bytes=738586,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_SC.zip,True,local=True bronze=None bytes=826010,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_PI.zip,True,local=True bronze=None bytes=890153,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_GO.zip,True,local=True bronze=None bytes=924799,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_PA.zip,True,local=True bronze=None bytes=1063953,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_RS.zip,True,local=True bronze=None bytes=1025149,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_PR.zip,True,local=True bronze=None bytes=1051742,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_MA.zip,True,local=True bronze=None bytes=1185822,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_PE.zip,True,local=True bronze=None bytes=1098148,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_CE.zip,True,local=True bronze=None bytes=1234135,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_RJ.zip,True,local=True bronze=None bytes=1536348,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_BA.zip,True,local=True bronze=None bytes=1793584,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_MG.zip,True,local=True bronze=None bytes=1919715,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/Relatorio_Resultado_Totalizacao_2026_SP.zip,True,local=True bronze=None bytes=1807311,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/detalhe_votacao_munzona_2026.zip,True,local=True bronze=None bytes=3154840,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_RR.zip,True,local=True bronze=None bytes=5461444,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_AP.zip,True,local=True bronze=None bytes=5958741,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_AC.zip,True,local=True bronze=None bytes=7981955,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_RO.zip,True,local=True bronze=None bytes=11526977,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_TO.zip,True,local=True bronze=None bytes=13707414,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_SE.zip,True,local=True bronze=None bytes=19756325,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_AL.zip,True,local=True bronze=None bytes=21217478,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_partido_munzona_2026.zip,True,local=True bronze=None bytes=23705017,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_RN.zip,True,local=True bronze=None bytes=26162748,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_MS.zip,True,local=True bronze=None bytes=22659531,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_MT.zip,True,local=True bronze=None bytes=31060799,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_PI.zip,True,local=True bronze=None bytes=32293246,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_DF.zip,True,local=True bronze=None bytes=35961696,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_AM.zip,True,local=True bronze=None bytes=37671588,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_PB.zip,True,local=True bronze=None bytes=37422947,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_ES.zip,True,local=True bronze=None bytes=36106147,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_MA.zip,True,local=True bronze=None bytes=68021627,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_SC.zip,True,local=True bronze=None bytes=82014603,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_GO.zip,True,local=True bronze=None bytes=83816451,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_PA.zip,True,local=True bronze=None bytes=90146357,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_CE.zip,True,local=True bronze=None bytes=103120316,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_PE.zip,True,local=True bronze=None bytes=105913869,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_RS.zip,True,local=True bronze=None bytes=149832038,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_PR.zip,True,local=True bronze=None bytes=152428338,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_BA.zip,True,local=True bronze=None bytes=171034784,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_BR.zip,True,local=True bronze=None bytes=241891087,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/detalhe_votacao_secao_2026.zip,True,local=True bronze=None bytes=234357769,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_MG.zip,True,local=True bronze=None bytes=267625809,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_RJ.zip,True,local=True bronze=None bytes=296106129,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_candidato_munzona_2026.zip,True,local=True bronze=None bytes=468201746,2026-10-28T20:07:52.887297+00:00
+espelho,resultados-2026/votacao_secao_2026_SP.zip,True,local=True bronze=None bytes=808337068,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,AC,True,BQ 19779862 linhas / convertidas 19779862; seções BQ 2270 / pacotes 2270,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,AL,True,BQ 78212047 linhas / convertidas 78212047; seções BQ 7101 / pacotes 7101,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,AM,True,BQ 88506124 linhas / convertidas 88506124; seções BQ 8157 / pacotes 8157,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,AP,True,BQ 17233109 linhas / convertidas 17233109; seções BQ 1914 / pacotes 1914,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,BA,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,CE,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,DF,True,BQ 72877808 linhas / convertidas 72877808; seções BQ 6969 / pacotes 6969,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,ES,True,BQ 96866495 linhas / convertidas 96866495; seções BQ 9844 / pacotes 9844,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,GO,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,MA,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,MG,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,MS,True,BQ 62853826 linhas / convertidas 62853826; seções BQ 7106 / pacotes 7106,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,MT,True,BQ 81987818 linhas / convertidas 81987818; seções BQ 8287 / pacotes 8287,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,PA,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,PB,True,BQ 109198973 linhas / convertidas 109198973; seções BQ 10712 / pacotes 10712,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,PE,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,PI,True,BQ 95040750 linhas / convertidas 95040750; seções BQ 10225 / pacotes 10225,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,PR,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,RJ,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,RN,True,BQ 92520557 linhas / convertidas 92520557; seções BQ 8115 / pacotes 8115,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,RO,True,BQ 40442552 linhas / convertidas 40442552; seções BQ 4698 / pacotes 4698,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,RR,True,BQ 12324846 linhas / convertidas 12324846; seções BQ 1519 / pacotes 1519,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,RS,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,SC,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,SE,True,BQ 58651897 linhas / convertidas 58651897; seções BQ 5923 / pacotes 5923,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,SP,True,ainda não carregada,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,TO,True,BQ 40020046 linhas / convertidas 40020046; seções BQ 4384 / pacotes 4384,2026-10-28T20:07:52.887297+00:00
+log_urna_2t,ZZ,True,BQ 7589459 linhas / convertidas 7589459; seções BQ 1310 / pacotes 1310,2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,AC,True,"2270 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,AL,True,"7101 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,AM,True,"8157 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,AP,True,"1914 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,DF,True,"6969 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,ES,True,"9844 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,MS,True,"7106 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,MT,True,"8287 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,PB,True,"10712 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,PI,True,"10225 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,RN,True,"8115 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,RO,True,"4698 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,RR,True,"1519 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,SE,True,"5923 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,TO,True,"4384 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+variaveis_logs_2t,ZZ,True,"1281 seções, 0 com erro de leitura",2026-10-28T20:07:52.887297+00:00
+tabela_csv,boletim_urna,True,BQ 67858974 / convertidas 67858974,2026-10-28T20:07:52.887297+00:00
+tabela_csv,boletim_urna_2t,True,BQ 2088107 / convertidas 2088107,2026-10-28T20:07:52.887297+00:00
+tabela_csv,votacao_secao,True,BQ 69946851 / convertidas 69946851,2026-10-28T20:07:52.887297+00:00
+tabela_csv,detalhe_votacao_secao,True,BQ 3029823 / convertidas 3029823,2026-10-28T20:07:52.887297+00:00
+tabela_csv,votacao_candidato_munzona,True,BQ 6748427 / convertidas 6748427,2026-10-28T20:07:52.887297+00:00
+tabela_csv,votacao_partido_munzona,True,BQ 482360 / convertidas 482360,2026-10-28T20:07:52.887297+00:00
+tabela_csv,detalhe_votacao_munzona,True,BQ 37521 / convertidas 37521,2026-10-28T20:07:52.887297+00:00
+tabela_csv,correspondencia_efetivada,True,BQ 499207 / convertidas 499207,2026-10-28T20:07:52.887297+00:00
+tabela_csv,correspondencia_secao,True,BQ 998353 / convertidas 998353,2026-10-28T20:07:52.887297+00:00
+tabela_csv,correspondencia_contingencia,True,BQ 99821 / convertidas 99821,2026-10-28T20:07:52.887297+00:00
+tabela_csv,correspondencia_efetivada_2t,True,BQ 499207 / convertidas 499207,2026-10-28T20:07:52.887297+00:00
+tabela_csv,correspondencia_secao_2t,True,BQ 998344 / convertidas 998344,2026-10-28T20:07:52.887297+00:00
+tabela_csv,correspondencia_contingencia_2t,True,BQ 97489 / convertidas 97489,2026-10-28T20:07:52.887297+00:00
+tabela_csv,modelo_urna,True,BQ 7 / convertidas 7,2026-10-28T20:07:52.887297+00:00
+tabela_csv,perfil_eleitor_secao,True,BQ 91015804 / convertidas 91015804,2026-10-28T20:07:52.887297+00:00
+tabela_csv,perfil_eleitorado,True,BQ 11046845 / convertidas 11046845,2026-10-28T20:07:52.887297+00:00
+tabela_csv,eleitorado_local_votacao,True,BQ 1034358 / convertidas 1034358,2026-10-28T20:07:52.887297+00:00
+tabela_csv,perfil_eleitor_deficiencia,True,BQ 2179149 / convertidas 2179149,2026-10-28T20:07:52.887297+00:00
+tabela_csv,transferencia_temporaria,True,BQ 224511 / convertidas 224511,2026-10-28T20:07:52.887297+00:00
+tabela_csv,transferencia_temporaria_secao,True,BQ 1154903 / convertidas 1154903,2026-10-28T20:07:52.887297+00:00
+tabela_csv,convocacao_mesarios,True,BQ 1318180 / convertidas 1318180,2026-10-28T20:07:52.887297+00:00
+tabela_csv,convocacao_mesarios_funcoes_especiais,True,BQ 335185 / convertidas 335185,2026-10-28T20:07:52.887297+00:00
+tabela_csv,denuncia,True,BQ 74186 / convertidas 74186,2026-10-28T20:07:52.887297+00:00
+tabela_csv,municipio_tse_ibge,True,BQ 5571 / convertidas 5571,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,boletim_urna,True,BQ 67858974 / base 67858974,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,convocacao_mesarios,True,BQ 1318180 / base 1318180,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,convocacao_mesarios_funcoes_especiais,True,BQ 335185 / base 335185,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,correspondencia_contingencia,True,BQ 99821 / base 99821,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,correspondencia_efetivada,True,BQ 499207 / base 499207,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,correspondencia_secao,True,BQ 998353 / base 998353,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,denuncia,True,BQ 74186 / base 74186,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,eleitorado_local_votacao,True,BQ 1034358 / base 1034358,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,log_gedai,True,BQ 8619080 / base 8619080,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,log_urna,True,BQ 2979064606 / base 2979064606,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,modelo_urna,True,BQ 7 / base 7,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,municipio_tse_ibge,True,BQ 5571 / base 5571,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,perfil_eleitor_deficiencia,True,BQ 2179149 / base 2179149,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,perfil_eleitor_secao,True,BQ 91015804 / base 91015804,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,perfil_eleitorado,True,BQ 11046845 / base 11046845,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,transferencia_temporaria,True,BQ 224511 / base 224511,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,transferencia_temporaria_secao,True,BQ 1154903 / base 1154903,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,votacao_secao (1º turno sem Presidente),True,BQ 64058235 / base 64058235,2026-10-28T20:07:52.887297+00:00
+linha_de_base_1t,detalhe_votacao_secao (1º turno sem Presidente),True,BQ 1991588 / base 1991588,2026-10-28T20:07:52.887297+00:00
