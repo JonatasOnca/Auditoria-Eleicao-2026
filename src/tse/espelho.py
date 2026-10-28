@@ -27,6 +27,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import re
+import threading
+import time
 import zipfile
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
@@ -43,6 +45,7 @@ DATASETS = [
     "resultados-2026-arquivos-transmitidos-para-totalizacao",
 ]
 BLOCO = 8 * 1024 * 1024
+PARADO_S = 120  # sem nenhum byte por esse tempo, a conexão é dada como morta e o download é retomado em outra
 PREFIXO_ZIP = "tse/zip"
 RE_UF = r"_([A-Z]{2})(?:_\d{12})?\.zip$"
 
@@ -54,16 +57,32 @@ def baixar(http: httpx.Client, url: str, destino: Path) -> int:
         return tamanho
     feito = parcial.stat().st_size if parcial.exists() else 0
     while feito < tamanho:
+        # Em 2026-10-28 uma queda de internet deixou a conexão aberta e muda por 50 min sem que o timeout de leitura
+        # do httpx disparasse. O vigia fecha a resposta se nenhum byte chegar em PARADO_S, o que destrava a leitura.
+        ultimo = [time.monotonic()]
+        fim = threading.Event()
         try:
             with http.stream("GET", url, headers={"Range": f"bytes={feito}-"}) as r:
                 r.raise_for_status()
+
+                def vigiar():
+                    while not fim.wait(10):
+                        if time.monotonic() - ultimo[0] > PARADO_S:
+                            print(f"   nenhum byte em {PARADO_S}s; fechando a conexão", flush=True)
+                            r.close()
+                            return
+
+                threading.Thread(target=vigiar, daemon=True).start()
                 with parcial.open("ab") as f:
-                    for bloco in r.iter_bytes(BLOCO):
+                    for bloco in r.iter_raw(1 << 20):
                         f.write(bloco)
                         feito += len(bloco)
-        except httpx.HTTPError as e:
+                        ultimo[0] = time.monotonic()
+        except (httpx.HTTPError, httpx.StreamError, OSError) as e:
             print(f"   conexão interrompida em {feito / 1e9:.2f} GB ({e!r}); retomando", flush=True)
-            feito = parcial.stat().st_size
+        finally:
+            fim.set()
+        feito = parcial.stat().st_size
     if feito != tamanho:
         raise ValueError(f"tamanho {feito} != {tamanho} para {url}")
     parcial.rename(destino)
