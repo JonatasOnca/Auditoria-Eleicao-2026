@@ -12,6 +12,10 @@ sido apagado e faltar alguma etapa, ele é baixado de volta do bronze e conferid
 
 Uma falha de rede numa UF não para a execução: a UF é tentada de novo (3 vezes, esperando 2, 5 e 10 min). Erros de
 integridade (SHA-512, CRC, tamanho) são `ValueError` e param tudo na hora.
+
+Antes de cada UF, `checar_rede` confere o certificado TLS do Google. Em 2026-10-28 um proxy corporativo (Netskope)
+passou a interceptar o tráfego para o Google no meio da carga, e as retentativas do cliente ficaram presas por
+30 min sem nenhum aviso. Com a interceptação, a execução para na hora com uma mensagem clara.
 """
 
 from __future__ import annotations
@@ -27,6 +31,21 @@ from google.api_core import exceptions as gexc
 
 from tse import bq_raw, espelho, urna_logs
 from tse.resultados_api import USER_AGENT
+
+class RedeInterceptada(RuntimeError):
+    pass
+
+
+def checar_rede() -> None:
+    """Falha se o tráfego HTTPS para o Google não tiver um certificado válido (proxy interceptando TLS)."""
+    for host in ("oauth2.googleapis.com", "storage.googleapis.com", "bigquery.googleapis.com"):
+        try:
+            httpx.head(f"https://{host}/", timeout=20)
+        except httpx.ConnectError as e:
+            if "CERTIFICATE_VERIFY_FAILED" in str(e):
+                raise RedeInterceptada(f"o certificado de {host} não é válido (proxy interceptando HTTPS?): {e}")
+            raise
+
 
 ERROS_DE_REDE = (httpx.HTTPError, requests.exceptions.RequestException, gexc.RetryError, gexc.ServerError,
                  ConnectionError, TimeoutError)
@@ -60,6 +79,7 @@ def main() -> None:
     pasta = bq_raw.RAIZ / slug
     pasta.mkdir(parents=True, exist_ok=True)
 
+    checar_rede()
     bucket, bq = bq_raw.clientes()
     bq_raw.criar_log_urna(bq, tabela)
     with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=httpx.Timeout(60, read=300)) as http:
@@ -69,6 +89,7 @@ def main() -> None:
         for r in zips.itertuples():
             for tentativa, espera in enumerate([*ESPERAS_MIN, None], 1):
                 try:
+                    checar_rede()
                     processar(http, bucket, bq, r, t, tabela, pasta, saida_logs, a)
                     break
                 except ERROS_DE_REDE as e:
