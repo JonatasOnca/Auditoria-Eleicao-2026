@@ -1,0 +1,106 @@
+verificacao,alvo,ok,detalhe,quando
+bronze_sha512,bu_imgbu_logjez_rdv_vscmr_2026_2t_AC.zip,True,SHA-512 da cópia no bronze recalculado e comparado com o do download,2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,AC,True,"12 pacotes, 110303 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,AL,True,"12 pacotes, 124887 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,AM,True,"12 pacotes, 136987 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+bronze_sha512,bu_imgbu_logjez_rdv_vscmr_2026_2t_AP.zip,True,SHA-512 da cópia no bronze recalculado e comparado com o do download,2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,AP,True,"12 pacotes, 98071 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,DF,True,"12 pacotes, 128301 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,ES,True,"12 pacotes, 112631 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,MS,True,"12 pacotes, 109811 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,MT,True,"12 pacotes, 122198 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,PB,True,"12 pacotes, 123589 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,PI,True,"12 pacotes, 118264 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,RN,True,"12 pacotes, 139226 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,RO,True,"12 pacotes, 105684 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+bronze_sha512,bu_imgbu_logjez_rdv_vscmr_2026_2t_RR.zip,True,SHA-512 da cópia no bronze recalculado e comparado com o do download,2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,RR,True,"12 pacotes, 100445 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,SE,True,"12 pacotes, 130420 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,TO,True,"12 pacotes, 111052 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+bronze_sha512,bu_imgbu_logjez_rdv_vscmr_2026_2t_ZZ.zip,True,SHA-512 da cópia no bronze recalculado e comparado com o do download,2026-10-29T08:18:57.223708+00:00
+log_urna_2t_conteudo,ZZ,True,"12 pacotes, 57268 linhas no ZIP; faltando no BQ 0, sobrando no BQ 0, diferentes 0",2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,AC Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,AC Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,AL Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,AL Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,AM Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,AM Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,AP Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,AP Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,BA Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,BA Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,CE Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,CE Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,DF Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,DF Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,ES Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,ES Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,GO Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,GO Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,MA Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,MA Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,MG Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,MG Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,MS Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,MS Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,MT Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,MT Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,PA Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,PA Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,PB Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,PB Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,PE Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,PE Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,PI Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,PI Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,PR Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,PR Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,RJ Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,RJ Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,RN Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,RN Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,RO Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,RO Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,RR Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,RR Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,RS Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,RS Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,SC Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,SC Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,SE Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,SE Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,SP Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,SP Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,TO Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,TO Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,ZZ Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,ZZ Presidente,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,AC Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,AC Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,AM Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,AM Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,DF Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,DF Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,ES Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,ES Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,RN Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,RN Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_boletim_urna_2t,TO Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+api_votacao_secao,TO Governador,True,idêntico à API assinada,2026-10-29T08:18:57.223708+00:00
+log_x_bu,AC,True,2270 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 453654 / BU 453654,2026-10-29T08:18:57.223708+00:00
+log_x_bu,AL,True,7101 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 1951632 / BU 1951632,2026-10-29T08:18:57.223708+00:00
+log_x_bu,AM,True,8157 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 2192059 / BU 2192059,2026-10-29T08:18:57.223708+00:00
+log_x_bu,AP,True,1914 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 429975 / BU 429975,2026-10-29T08:18:57.223708+00:00
+log_x_bu,DF,True,6969 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 1868280 / BU 1868280,2026-10-29T08:18:57.223708+00:00
+log_x_bu,ES,False,9844 seções pareadas; 1 com votos no log diferentes do comparecimento do BU; votos log 2409518 / BU 2409214,2026-10-29T08:18:57.223708+00:00
+log_x_bu,GO,True,15686 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 4047280 / BU 4047280,2026-10-29T08:18:57.223708+00:00
+log_x_bu,MS,True,7106 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 1594460 / BU 1594460,2026-10-29T08:18:57.223708+00:00
+log_x_bu,MT,True,8287 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 2085334 / BU 2085334,2026-10-29T08:18:57.223708+00:00
+log_x_bu,PB,False,10712 seções pareadas; 1 com votos no log diferentes do comparecimento do BU; votos log 2743559 / BU 2743560,2026-10-29T08:18:57.223708+00:00
+log_x_bu,PI,False,10225 seções pareadas; 1 com votos no log diferentes do comparecimento do BU; votos log 2239829 / BU 2239830,2026-10-29T08:18:57.223708+00:00
+log_x_bu,RN,True,8115 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 2232823 / BU 2232823,2026-10-29T08:18:57.223708+00:00
+log_x_bu,RO,True,4698 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 988489 / BU 988489,2026-10-29T08:18:57.223708+00:00
+log_x_bu,RR,True,1519 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 308597 / BU 308597,2026-10-29T08:18:57.223708+00:00
+log_x_bu,SE,True,5923 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 1466659 / BU 1466659,2026-10-29T08:18:57.223708+00:00
+log_x_bu,TO,True,4384 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 954763 / BU 954763,2026-10-29T08:18:57.223708+00:00
+log_x_bu,ZZ,True,1281 seções pareadas; 0 com votos no log diferentes do comparecimento do BU; votos log 380612 / BU 380612,2026-10-29T08:18:57.223708+00:00
