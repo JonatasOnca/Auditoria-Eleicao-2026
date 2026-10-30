@@ -10,7 +10,7 @@ Integridade de cada arquivo baixado:
 - CRC de todas as entradas do ZIP (`ZipFile.testzip`);
 - SHA-512 calculado e registrado em `manifests/espelho_<dataset>.csv`.
 
-O download é retomável (HTTP Range). Basta rodar de novo depois de uma interrupção.
+O download usa várias conexões HTTP Range por arquivo e é retomável. Basta rodar de novo depois de uma interrupção.
 
 Arquivos republicados: o TSE às vezes publica uma nova versão com o mesmo nome (em 2026-10-26, os arquivos de
 `resultados-2026` passaram a trazer os dois turnos). Um arquivo já espelhado é baixado de novo quando o CDN informa
@@ -27,9 +27,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import re
+import shutil
 import threading
 import time
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -45,48 +47,117 @@ DATASETS = [
     "resultados-2026-arquivos-transmitidos-para-totalizacao",
 ]
 BLOCO = 8 * 1024 * 1024
+CONEXOES = 8  # faixas HTTP Range simultâneas por arquivo (ver `baixar`)
+ESPERA_FAIXA_S = 10
 PARADO_S = 120  # sem nenhum byte por esse tempo, a conexão é dada como morta e o download é retomado em outra
 PREFIXO_ZIP = "tse/zip"
 RE_UF = r"_([A-Z]{2})(?:_\d{12})?\.zip$"
 
 
-def baixar(http: httpx.Client, url: str, destino: Path) -> int:
+def baixar(http: httpx.Client, url: str, destino: Path, conexoes: int = CONEXOES) -> int:
+    """Baixa `url` em `conexoes` faixas HTTP Range simultâneas.
+
+    O CDN do TSE limita a vazão por conexão: em 2026-10-29 uma conexão dava ~2 MB/s e quatro juntas ~10 MB/s.
+    O que falta depois do `.parcial` é dividido em faixas; cada faixa vai para `<arquivo>.parcial.<início>-<fim>` e
+    é retomável pelo próprio tamanho. No fim as faixas são anexadas em ordem ao `.parcial`, que vira o arquivo.
+    """
     tamanho = int(http.head(url).raise_for_status().headers["content-length"])
     parcial = destino.with_suffix(destino.suffix + ".parcial")
     if destino.exists() and destino.stat().st_size == tamanho:
         return tamanho
     feito = parcial.stat().st_size if parcial.exists() else 0
-    while feito < tamanho:
+    faixas = sorted(
+        (int(m[1]), int(m[2]), f)
+        for f in parcial.parent.glob(parcial.name + ".*-*")
+        if (m := re.search(r"\.(\d+)-(\d+)$", f.name))
+    )
+    faixas = completar_faixas(faixas, feito, tamanho, parcial)
+    if faixas is None:
+        passo = -(-(tamanho - feito) // conexoes)
+        faixas = [(i, min(i + passo, tamanho), nome_faixa(parcial, i, min(i + passo, tamanho)))
+                  for i in range(feito, tamanho, passo)]
+    if faixas:
+        with ThreadPoolExecutor(len(faixas)) as ex:
+            list(ex.map(lambda fx: baixar_faixa(http, url, *fx), faixas))
+        if any(a[1] != b[0] for a, b in zip(faixas, faixas[1:])) or faixas[0][0] != feito or faixas[-1][1] != tamanho:
+            raise ValueError(f"faixas não contíguas para {url}")
+        with parcial.open("ab") as saida:
+            for _, _, f in faixas:
+                with f.open("rb") as entrada:
+                    shutil.copyfileobj(entrada, saida, BLOCO)
+                f.unlink()
+    feito = parcial.stat().st_size
+    if feito != tamanho:
+        raise ValueError(f"tamanho {feito} != {tamanho} para {url}")
+    parcial.rename(destino)
+    return tamanho
+
+
+def nome_faixa(parcial: Path, inicio: int, fim: int) -> Path:
+    return parcial.with_name(f"{parcial.name}.{inicio}-{fim}")
+
+
+def completar_faixas(faixas: list, feito: int, tamanho: int, parcial: Path) -> list | None:
+    """Faixas de uma execução anterior, com as lacunas preenchidas por faixas novas.
+
+    Uma faixa cuja conexão caiu antes do primeiro byte não deixa arquivo; sem preencher a lacuna, a junção pularia
+    esses bytes (aconteceu em 2026-10-29 com CE e foi barrado pela checagem de tamanho). Devolve None, apagando os
+    arquivos, se não houver faixas ou se elas não couberem em [feito, tamanho) sem sobreposição.
+    """
+    completas, pos = [], feito
+    for i, j, f in faixas:
+        if i < pos or j > tamanho:
+            completas = []
+            break
+        if i > pos:
+            completas.append((pos, i, nome_faixa(parcial, pos, i)))
+        completas.append((i, j, f))
+        pos = j
+    if not completas:
+        for *_, f in faixas:
+            f.unlink()
+        return None
+    if pos < tamanho:
+        completas.append((pos, tamanho, nome_faixa(parcial, pos, tamanho)))
+    return completas
+
+
+def baixar_faixa(http: httpx.Client, url: str, inicio: int, fim: int, arquivo: Path) -> None:
+    """Bytes [inicio, fim) de `url` em `arquivo`, retomando de onde parou."""
+    feito = arquivo.stat().st_size if arquivo.exists() else 0
+    while inicio + feito < fim:
         # Em 2026-10-28 uma queda de internet deixou a conexão aberta e muda por 50 min sem que o timeout de leitura
         # do httpx disparasse. O vigia fecha a resposta se nenhum byte chegar em PARADO_S, o que destrava a leitura.
         ultimo = [time.monotonic()]
-        fim = threading.Event()
+        parar = threading.Event()
         try:
-            with http.stream("GET", url, headers={"Range": f"bytes={feito}-"}) as r:
+            with http.stream("GET", url, headers={"Range": f"bytes={inicio + feito}-{fim - 1}"}) as r:
                 r.raise_for_status()
+                if r.status_code != 206:
+                    raise ValueError(f"o servidor ignorou o Range (HTTP {r.status_code}) para {url}")
 
                 def vigiar():
-                    while not fim.wait(10):
+                    while not parar.wait(10):
                         if time.monotonic() - ultimo[0] > PARADO_S:
                             print(f"   nenhum byte em {PARADO_S}s; fechando a conexão", flush=True)
                             r.close()
                             return
 
                 threading.Thread(target=vigiar, daemon=True).start()
-                with parcial.open("ab") as f:
+                with arquivo.open("ab") as f:
                     for bloco in r.iter_raw(1 << 20):
                         f.write(bloco)
                         feito += len(bloco)
                         ultimo[0] = time.monotonic()
         except (httpx.HTTPError, httpx.StreamError, OSError) as e:
-            print(f"   conexão interrompida em {feito / 1e9:.2f} GB ({e!r}); retomando", flush=True)
+            print(f"   conexão interrompida na faixa {inicio}-{fim} ({e!r}); retomando em {ESPERA_FAIXA_S}s", flush=True)
+            time.sleep(ESPERA_FAIXA_S)
         finally:
-            fim.set()
-        feito = parcial.stat().st_size
-    if feito != tamanho:
-        raise ValueError(f"tamanho {feito} != {tamanho} para {url}")
-    parcial.rename(destino)
-    return tamanho
+            parar.set()
+        # Se a conexão cai antes do primeiro byte (ex.: DNS fora do ar), o arquivo da faixa nem chega a existir.
+        feito = arquivo.stat().st_size if arquivo.exists() else 0
+    if inicio + feito != fim:
+        raise ValueError(f"faixa {inicio}-{fim} com {feito} bytes para {url}")
 
 
 def sha512(caminho: Path) -> str:
