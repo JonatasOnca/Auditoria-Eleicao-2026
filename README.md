@@ -59,3 +59,19 @@ Cuidados:
   CDN. Eles entram pelo padrão de nome e só se o CDN do TSE responder 200; o manifesto marca `no_catalogo=False`.
 - Arquivos republicados com o mesmo nome são baixados de novo; a versão anterior fica em
   `data/raw/<dataset>/_substituidos/` e o manifesto registra o SHA-512 substituído.
+
+## Agentes da auditoria
+
+Subagentes do Claude Code em `.claude/agents/`, um para cada papel da equipe. Eles
+preparam, revisam e questionam o trabalho, mas **não substituem os profissionais**
+nem dão valor institucional ou jurídico ao resultado.
+
+| Agente | Papel | Edita arquivos? |
+|---|---|---|
+| `estatistico-eleitoral` | Desenho e interpretação estatística (RQ1–RQ5, fingerprint, placebos) | Não |
+| `engenheiro-dados` | Código em `src/tse`, BigQuery, Dataform, conciliação log × BU | Sim |
+| `seguranca-urna` | Logs, BU, RDV, assinaturas, TPS e teste de integridade | Não |
+| `advogado-eleitoral` | Legalidade dos procedimentos, competência, linguagem das conclusões | Não |
+| `auditor-processos` | Modelo de ameaças, controles e risco residual | Não |
+| `operacao-secao` | Eventos do log como ações reais na seção; regras de procedimento | Não |
+| `revisor-independente` | Segunda leitura cética, sem receber a conclusão | Não |
