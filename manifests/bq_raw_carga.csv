@@ -1221,3 +1221,7 @@ carga,log_urna_2t,PE,21418 pacotes,236247020,3048260751,gs://teconca-dev-bronze-
 carga,log_urna_2t,CE,23765 pacotes,240013953,3096441925,gs://teconca-dev-bronze-us-central1/tse/parquet/log_urna_2t/uf=CE/,d155c95a-313e-421d-991f-0a12db29553a,2026-10-29T10:01:20.380341+00:00
 carga,log_urna_2t,PR,27142 pacotes,275817238,3544781864,gs://teconca-dev-bronze-us-central1/tse/parquet/log_urna_2t/uf=PR/,8e673cdf-f78c-46f6-87f6-5a0e7a604b28,2026-10-29T10:14:19.785665+00:00
 carga,log_urna_2t,RS,27547 pacotes,274918557,3538469813,gs://teconca-dev-bronze-us-central1/tse/parquet/log_urna_2t/uf=RS/,b91952c8-02bb-47e8-8d75-71acf449560b,2026-10-29T10:27:33.571175+00:00
+carga,log_urna_2t,BA,35476 pacotes,380771848,4908127946,gs://teconca-dev-bronze-us-central1/tse/parquet/log_urna_2t/uf=BA/,a34a8d96-6639-476d-9e95-a258331432b2,2026-10-30T23:01:48.420705+00:00
+carga,log_urna_2t,RJ,37675 pacotes,395128672,5090476358,gs://teconca-dev-bronze-us-central1/tse/parquet/log_urna_2t/uf=RJ/,5c2ed102-3852-4bf7-b5ab-34b070af0d76,2026-10-31T00:06:34.465467+00:00
+carga,log_urna_2t,MG,52062 pacotes,504533482,6501162465,gs://teconca-dev-bronze-us-central1/tse/parquet/log_urna_2t/uf=MG/,c851571b-9a84-48ba-93af-1b7abff71eb1,2026-10-31T01:10:17.074336+00:00
+carga,log_urna_2t,SP,103655 pacotes,1045342930,13428993845,gs://teconca-dev-bronze-us-central1/tse/parquet/log_urna_2t/uf=SP/,8f4e14bf-489c-4152-b572-3852b28d8205,2026-10-31T02:49:42.267545+00:00
