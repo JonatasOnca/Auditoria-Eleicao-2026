@@ -69,6 +69,9 @@ flowchart TD
     L --> M{"17:00 Brasília"}
     M -- "people still in line<br/>(they get a number)" --> C
     M -- "line empty" --> N["Presiding officer closes voting"]
+    M -. "2026 2nd round only: section still open<br/>at the court order (~17:03)" .-> X["Voting continues until 19:00<br/>(STF, Rcl 101.673/BA, see 1.2)"]
+    X -.-> C
+    X -. "19:00 or line empty" .-> N
     N --> O["BU printed in several copies<br/>one posted at the door,<br/>copies to inspectors"]
     O --> P["Result media sent for transmission<br/>BU, RDV, log published later by TSE"]
     B -. "machine fails" .-> Q["Restart the same machine<br/>or replace it (contingency):<br/>the memory card carries<br/>the votes already cast"]
@@ -95,6 +98,7 @@ flowchart TD
 - Number of fingerprint attempts before manual enabling (the 2026 logs show up to "Tentativa [4] de [4]").
 - Which personal data the poll worker must check for manual enabling, and whether a photo ID is mandatory.
 - Procedure for voters in line at 17:00 (numbered tickets) and who may vote after 17:00.
+- 2026 2nd round: who could vote between 17:00 and 19:00 in sections still open (any voter arriving, or numbered tickets only), per Ofício-Circular GAB-PRES nº 354/2026 (see §1.2).
 - Number of BU copies printed and who is entitled to one.
 - Integrity test (*teste de integridade*) sample and its published results.
 
@@ -107,6 +111,84 @@ votes after 17:00 (`votes_after_17`), manual or no-fingerprint enabling
 (`nh_rate_after`), no voting activity just before 17:00 (`gap_before_17`), and
 votes closer together than a real voter can manage (`interval_after_17`). Those
 are exactly the variables of RQ1–RQ3.
+
+### 1.2 Exception in the 2026 2nd round: voting extended to 19:00
+
+The flow above is the normal day. On the 2nd round of **25 October 2026** the
+closing time was changed **during election day** by a court order, so in that
+round a vote cast between 17:00 and 19:00 in a section that was still open was
+**legal** and does not require a queue at 17:00. Every 17:00 cutoff in this plan
+has to be read with that exception for 2026 2t (see §4, §6, §8).
+
+**Who decided and how**
+
+| Item | Fact |
+|---|---|
+| Decision | Preliminary injunction (*liminar*), single-judge (*monocrática*), extending the closing of vote reception "by two hours, until 19:00, Brasília time" |
+| Judge | Minister **Cristiano Zanin**, Supreme Federal Court (**STF**) |
+| Case | **Reclamação nº 101.673/BA** |
+| Requested by | Coalition "Brasil Pronto Pra Mais" (Lula, PT). The campaign of Flávio Bolsonaro (PL) had also asked the TSE for an extension in municipalities of SP, PR, MG, RS and SC, citing rain and flooding |
+| Legal ground | Alleged non-compliance by Salvador, Feira de Santana and Lauro de Freitas (BA) with **ADPF 1.013**, the STF ruling that requires free public transport, at weekday frequency, on election days |
+| Scope | The complaint named 3 municipalities in Bahia; the order was extended to the whole country. Zanin later clarified it applied **only where machines had not yet been closed**; votes of machines already closed were totalised as usual. Closed machines were not reopened |
+| Execution | The TSE president, Minister Kassio Nunes Marques, complied through Ofício-Circular GAB-PRES nº 354/2026: sections still open stayed open until 19:00. The TSE temporarily blocked the reception of BUs |
+| Positions | The Electoral Public Prosecutor (MP Eleitoral) opposed the extension. Nunes Marques said the injunction, issued after closing time, "created difficulties for the electoral process" and that "never in the history of the TSE has there been any extension" |
+
+**Timeline of the day (Brasília time, as reported by the press)**
+
+| Time | Event |
+|---|---|
+| 13:22 and 15:42 | Lula's coalition files extension requests with the **TSE** |
+| 16:22 | The coalition files the Reclamação with the **STF**, asking for nationwide effect |
+| 16:33 | Case assigned to Minister Zanin |
+| 17:00 | Legal closing time |
+| ~17:03 | Zanin's decision is published |
+| Later | Zanin clarifies: only machines not yet closed; TSE issues Ofício-Circular 354/2026 |
+| 19:00 | New closing time for sections still open |
+
+**Competence: STF × TSE.** Elections are run by the Electoral Justice, headed by
+the **Superior Electoral Court (TSE)**. The order came from the **STF**, not from
+the TSE. Both readings are recorded here, each with its source; this plan does not
+decide between them:
+- *Criticism:* the order "ran over the TSE", which was the body that should have
+  decided the campaigns' requests (Poder360); the TSE president criticised the
+  injunction and the MP Eleitoral opposed it.
+- *Counter-argument:* a *reclamação* is the instrument to enforce the STF's own
+  rulings, and the request was framed as non-compliance with ADPF 1.013, an STF
+  ruling (Migalhas).
+
+**About the judge (documented facts).** Cristiano Zanin was Luiz Inácio Lula da
+Silva's personal defence lawyer in the Lava Jato criminal cases from 2013, and
+obtained the annulment of Lula's convictions. Lula nominated him to the STF on
+01/06/2023 (seat of Ricardo Lewandowski); the Senate approved him on 21/06/2023 by
+58 votes to 18. The decision of 25/10/2026 granted a request from the coalition of
+Lula, then a candidate for re-election. At his Senate hearing Zanin said he would
+not judge cases in which he had acted as a lawyer.
+
+**Challenges after the round (reported, not assessed here):** a request to the
+Electoral Prosecutor General (PGE) to annul the 2nd round, a request for Zanin's
+impeachment, and Flávio Bolsonaro's statement that he does not recognise the result.
+
+**What this changes in the data.** Sections fall into two regimes in 2026 2t:
+(a) closed before the decision (~17:03), where the normal 17:00 rule applies;
+(b) still open at the decision, where voting could legally continue until 19:00.
+The regime is inferred from the log (closing events) and `DT_ENCERRAMENTO`, not
+from press reports (variables `extended_regime`, `closed_before_decision`,
+`votes_17_19`, `votes_after_19` in §4). The other rounds (2022 1t/2t, 2026 1t)
+keep the 17:00 rule, which turns 2026 2t into a natural comparison (§6, P7).
+
+**Sources (press, used only as legal context; no analytical input comes from them).**
+Poder360, 25/10/2026: https://www.poder360.com.br/poder-eleicoes-2026/zanin-prorroga-votacao-do-2o-turno-ate-19h/ ·
+CNN Brasil, 25/10/2026: https://www.cnnbrasil.com.br/eleicoes/zanin-prorroga-eleicao-ate-as-19h-deste-domingo-em-todo-o-pais/ ·
+Exame, 25/10/2026: https://exame.com/brasil/por-que-o-tse-decidiu-prorrogar-o-horario-de-votacao-ate-as-19h/ ·
+Migalhas: https://www.migalhas.com.br/quentes/467195/zanin-prorroga-votacao-ate-as-19h-apos-reclamacao-sobre-transporte ·
+Metrópoles: https://www.metropoles.com/brasil/nunes-marques-concorda-com-zanin-sobre-prorrogacao-da-votacao-ate-as-19h ·
+CartaCapital: https://www.cartacapital.com.br/politica/em-pronunciamento-nunes-marques-critica-decisao-de-zanin-que-alterou-horario-de-votacao/ ·
+Poder360, 01/06/2023: https://www.poder360.com.br/justica/lula-indica-seu-advogado-cristiano-zanin-ao-stf/ ·
+Money Times, 21/06/2023: https://www.moneytimes.com.br/senado-aprova-indicacao-de-cristiano-zanin-ex-advogado-de-lula-para-o-stf/
+
+*Pending:* attach the full text of the decision in Rcl 101.673/BA (STF portal) and
+Ofício-Circular GAB-PRES nº 354/2026 (TSE). Where they contradict a time above,
+the official documents prevail.
 
 ---
 
@@ -224,6 +306,10 @@ Do the light tier first: it is cheap and already answers part of the question.
 | `interval_after_17` (median, p10) | Seconds between consecutive votes after 17:00 | Log | Full |
 | `burst_count` | Runs of ≥ N consecutive no-biometric votes with interval < S seconds | Log | Full |
 | `last_vote_time` | Time of the last vote computed | Log | Full |
+| `closed_before_decision` | 2026 2t only: section closed before the court order (~17:03 Brasília; exact time to be fixed from the official decision) | Log + BU | Full |
+| `extended_regime` | 2026 2t only: section still open at the court order, so voting could legally continue until 19:00 (§1.2) | Log + BU | Full |
+| `votes_17_19`, `votes_after_19` | 2026 2t only: votes computed between 17:00 and 19:00, and after 19:00 | Log | Full |
+| `gap_before_19` | 2026 2t, `extended_regime` only: minutes between the last vote before 19:00 and 19:00 | Log | Full |
 
 ---
 
@@ -260,9 +346,11 @@ Do the light tier first: it is cheap and already answers part of the question.
 ### P0 — Data quality
 - [ ] Log vs. BU reconciliation table (per UF and round).
 - [ ] Flag and report: replaced machines, contingency votes, aggregated sections, transit voting, clock anomalies (events before opening or after closing).
+- [ ] 2026 2t: flag any vote after 19:00, and any vote after 17:00 in a section with `closed_before_decision` (a closed machine could not be reopened).
 
 ### P1 — Descriptive picture (light tier)
 - [ ] Distribution of `close_time` by UF/region; % of sections closing after 17:00, and how late.
+- [ ] 2026 2t: split sections into `closed_before_decision` vs. `extended_regime`; distribution of `close_time` between 17:00 and 19:00 by UF/region.
 - [ ] `nh_rate` by UF, region, age profile and machine model (the legitimate baseline).
 - [ ] Turnout and candidate share by region.
 
@@ -275,6 +363,7 @@ Legitimate post-17:00 voting requires people already in line at 17:00, so there
 should be continuous activity right before closing.
 - [ ] Count sections with `votes_after_17 > 0` **and** `gap_before_17` > X minutes.
 - [ ] Describe those sections: number of post-17:00 votes, how they were enabled, intervals.
+- [ ] 2026 2t: in `extended_regime` sections, votes between 17:00 and 19:00 do not need a queue at 17:00; apply the queue test at 19:00 (`votes_after_19 > 0` and `gap_before_19` > X). Sections with `closed_before_decision` keep the 17:00 test.
 
 ### P4 — Mechanism: bursts (RQ3, full tier)
 - [ ] Compare the interval distribution before vs. after 17:00 within each section (Kolmogorov–Smirnov or Mann–Whitney).
@@ -293,6 +382,7 @@ should be continuous activity right before closing.
 ### P7 — Robustness and placebos
 - [ ] **Placebo cutoffs:** repeat P2–P6 with 16:00 and 16:30 as the "closing" time. If the effect also appears there, it is not about closing.
 - [ ] **2026 1st-round replication** with the same code and thresholds.
+- [ ] **2026 2nd round as a natural comparison:** compare post-17:00 patterns (no-biometric rate, intervals, bursts) in 2026 2t `extended_regime` sections (legal 17:00–19:00 voting) with 2026 1t and 2022 (post-17:00 voting required a queue). Run the placebo cutoffs against both 17:00 and 19:00.
 - [ ] Threshold sensitivity (X minutes, N votes, S seconds), with values fixed **before** looking at results.
 - [ ] Optional 2018 baseline (closing was 17:00 *local* time, so the cutoff differs per state).
 
@@ -312,6 +402,7 @@ should be continuous activity right before closing.
 | Observed pattern | Innocent explanation | How to control |
 |---|---|---|
 | Many votes after 17:00 | Queue at closing time | `gap_before_17` (P3) |
+| Votes between 17:00 and 19:00 in 2026 2t | Court-ordered extension (Rcl 101.673/BA, §1.2) | `extended_regime`, `votes_17_19` |
 | More no-biometric enablement | Worn fingerprints (manual workers), elderly voters, faulty readers | Age/education profile, machine model, biometric-registration share |
 | Regional pattern correlated with a candidate | Northeast has a different political preference **and** different demographics | Municipal fixed effects, within-section changes |
 | Very early "closing" in the West | Unified Brasília time (closes 15:00 local time in Acre) | Use Brasília time consistently |
@@ -334,6 +425,10 @@ with the national margin of victory.
 
 Write down X, N and S (and the reasoning) **before** computing the anomaly table.
 
+**2026 2nd round:** for `extended_regime` sections, read "17:00" in conditions 1–2 as
+19:00 (votes between 17:00 and 19:00 were legal). For `closed_before_decision`
+sections the 17:00 rule stays.
+
 ---
 
 ## 9. Limitations and ethics
@@ -355,6 +450,7 @@ Write down X, N and S (and the reasoning) **before** computing the anomaly table
 - Virgolino, V. A. C. (2023). *UrnaLogs* — undergraduate thesis, UFCG (collection and organization of the 2022 logs by section): https://bdtd.ufcg.edu.br/jspui/bitstream/riufcg/30487/1/VICTOR%20ARRUDA%20C%c3%82MARA%20VIRGOLINO%20-%20TCC%20ARTIGO%20CI%c3%8aNCIA%20DA%20COMPUTA%c3%87%c3%83O%20CEEI%202023.pdf
 - Fact-checks on "votes after 17:00" and on the logs (Comprova/Metrópoles, O Popular, 2022). List every argument they raise and make sure the analysis addresses it.
 - TSE IT glossary (biometric verification vs. identification): https://www.tse.jus.br/institucional/catalogo-de-publicacoes/arquivos/glossario-ti
+- STF, Reclamação nº 101.673/BA (Min. Cristiano Zanin, 25/10/2026), STF ADPF 1.013 (free transport on election day) and TSE Ofício-Circular GAB-PRES nº 354/2026: official texts to attach. Press coverage used for §1.2 is listed there.
 
 ---
 

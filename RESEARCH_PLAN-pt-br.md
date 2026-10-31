@@ -69,6 +69,9 @@ flowchart TD
     L --> M{"17h de Brasília"}
     M -- "ainda há fila<br/>(eleitores recebem senha)" --> C
     M -- "fila vazia" --> N["Presidente encerra a votação"]
+    M -. "só no 2º turno de 2026: seção ainda aberta<br/>no momento da ordem judicial (~17h03)" .-> X["Votação continua até as 19h<br/>(STF, Rcl 101.673/BA, ver 1.2)"]
+    X -.-> C
+    X -. "19h ou fila vazia" .-> N
     N --> O["BU impresso em várias vias<br/>uma afixada na porta,<br/>cópias para os fiscais"]
     O --> P["Mídia de resultado enviada para transmissão<br/>BU, RDV e log publicados depois pelo TSE"]
     B -. "urna falha" .-> Q["Religar a mesma urna<br/>ou substituí-la (contingência):<br/>o cartão de memória leva<br/>os votos já dados"]
@@ -95,6 +98,7 @@ flowchart TD
 - Número de tentativas de digital antes da habilitação manual (os logs de 2026 mostram até "Tentativa [4] de [4]").
 - Quais dados pessoais o mesário precisa conferir na habilitação manual, e se documento com foto é obrigatório.
 - Procedimento para os eleitores na fila às 17h (senhas) e quem pode votar depois das 17h.
+- 2º turno de 2026: quem podia votar entre 17h e 19h nas seções ainda abertas (qualquer eleitor que chegasse ou só quem tinha senha), conforme o Ofício-Circular GAB-PRES nº 354/2026 (ver §1.2).
 - Número de vias do BU impressas e quem tem direito a uma.
 - Amostra do teste de integridade e seus resultados publicados.
 
@@ -106,6 +110,85 @@ Esse caminho deixa: votos depois das 17h (`votes_after_17`), habilitação manua
 sem digital (`nh_rate_after`), nenhuma atividade de votação logo antes das 17h
 (`gap_before_17`) e votos mais próximos entre si do que um eleitor real conseguiria
 (`interval_after_17`). São exatamente as variáveis das RQ1–RQ3.
+
+### 1.2 Exceção no 2º turno de 2026: votação prorrogada até as 19h
+
+O fluxo acima é o do dia normal. No 2º turno de **25 de outubro de 2026** o
+horário de encerramento foi alterado **durante o dia da eleição** por uma ordem
+judicial. Nesse turno, um voto dado entre 17h e 19h numa seção que ainda estava
+aberta era **legal** e não exige fila às 17h. Todo corte de 17h deste plano tem de
+ser lido com essa exceção para o 2026 2t (ver §4, §6, §8).
+
+**Quem decidiu e como**
+
+| Item | Fato |
+|---|---|
+| Decisão | Liminar monocrática que prorrogou o encerramento do recebimento dos votos "por duas horas, até as 19h, horário de Brasília" |
+| Relator | Ministro **Cristiano Zanin**, Supremo Tribunal Federal (**STF**) |
+| Processo | **Reclamação nº 101.673/BA** |
+| Quem pediu | Coligação "Brasil Pronto Pra Mais" (Lula, PT). A campanha de Flávio Bolsonaro (PL) também havia pedido ao TSE prorrogação em municípios de SP, PR, MG, RS e SC, alegando chuvas e alagamentos |
+| Fundamento | Suposto descumprimento, por Salvador, Feira de Santana e Lauro de Freitas (BA), da **ADPF 1.013**, decisão do STF que obriga o poder público a oferecer transporte público gratuito, com frequência de dia útil, em dia de eleição |
+| Alcance | A reclamação citava 3 municípios da Bahia; a ordem foi estendida a todo o país. Zanin depois esclareceu que valia **só onde as urnas ainda não tinham sido encerradas**; os votos das urnas já fechadas foram totalizados normalmente. Urnas fechadas não foram reabertas |
+| Cumprimento | O presidente do TSE, ministro Kassio Nunes Marques, cumpriu a ordem pelo Ofício-Circular GAB-PRES nº 354/2026: as seções ainda abertas ficaram abertas até as 19h. O TSE bloqueou temporariamente o recebimento dos BUs |
+| Posições | O Ministério Público Eleitoral se manifestou contra a prorrogação. Nunes Marques disse que a liminar, proferida depois do horário de encerramento, "gerou dificuldades ao processo eleitoral" e que "nunca, na história do TSE, houve qualquer prorrogação" |
+
+**Linha do tempo do dia (hora de Brasília, segundo a imprensa)**
+
+| Horário | Evento |
+|---|---|
+| 13h22 e 15h42 | A coligação de Lula apresenta pedidos de prorrogação ao **TSE** |
+| 16h22 | A coligação apresenta a Reclamação ao **STF**, pedindo efeito nacional |
+| 16h33 | Processo distribuído ao ministro Zanin |
+| 17h | Horário legal de encerramento |
+| ~17h03 | A decisão de Zanin é divulgada |
+| Depois | Zanin esclarece: só urnas ainda não encerradas; o TSE expede o Ofício-Circular 354/2026 |
+| 19h | Novo horário de encerramento para as seções ainda abertas |
+
+**Competência: STF × TSE.** As eleições são conduzidas pela Justiça Eleitoral,
+cujo órgão máximo é o **Tribunal Superior Eleitoral (TSE)**. A ordem veio do
+**STF**, não do TSE. As duas leituras ficam registradas aqui, cada uma com sua
+fonte; este plano não decide entre elas:
+- *Crítica:* a ordem "atropelou o TSE", que era quem deveria decidir os pedidos
+  das campanhas (Poder360); o presidente do TSE criticou a liminar e o MP
+  Eleitoral foi contra.
+- *Contra-argumento:* a reclamação é o instrumento para garantir o cumprimento
+  das decisões do próprio STF, e o pedido foi apresentado como descumprimento da
+  ADPF 1.013, uma decisão do STF (Migalhas).
+
+**Sobre o relator (fatos documentados).** Cristiano Zanin foi advogado de defesa
+pessoal de Luiz Inácio Lula da Silva nos processos penais da Lava Jato a partir
+de 2013 e obteve a anulação das condenações de Lula. Lula o indicou ao STF em
+01/06/2023 (vaga de Ricardo Lewandowski); o Senado o aprovou em 21/06/2023 por 58
+votos a 18. A decisão de 25/10/2026 atendeu a um pedido da coligação de Lula, então
+candidato à reeleição. Na sabatina no Senado, Zanin disse que não julgaria processos
+em que tivesse atuado como advogado.
+
+**Contestações depois do turno (registradas, não avaliadas aqui):** pedido à
+Procuradoria-Geral Eleitoral (PGE) de anulação do 2º turno, pedido de impeachment
+de Zanin e a declaração de Flávio Bolsonaro de que não reconhece o resultado.
+
+**O que isso muda nos dados.** No 2026 2t as seções ficam em dois regimes:
+(a) encerradas antes da decisão (~17h03), onde vale a regra normal das 17h;
+(b) ainda abertas no momento da decisão, onde a votação podia continuar legalmente
+até as 19h. O regime é inferido do log (eventos de encerramento) e do
+`DT_ENCERRAMENTO`, não das notícias (variáveis `extended_regime`,
+`closed_before_decision`, `votes_17_19`, `votes_after_19` na §4). Os outros turnos
+(2022 1t/2t, 2026 1t) mantêm a regra das 17h, o que faz do 2026 2t uma comparação
+natural (§6, P7).
+
+**Fontes (imprensa, usadas só como contexto jurídico; nenhum dado analítico vem delas).**
+Poder360, 25/10/2026: https://www.poder360.com.br/poder-eleicoes-2026/zanin-prorroga-votacao-do-2o-turno-ate-19h/ ·
+CNN Brasil, 25/10/2026: https://www.cnnbrasil.com.br/eleicoes/zanin-prorroga-eleicao-ate-as-19h-deste-domingo-em-todo-o-pais/ ·
+Exame, 25/10/2026: https://exame.com/brasil/por-que-o-tse-decidiu-prorrogar-o-horario-de-votacao-ate-as-19h/ ·
+Migalhas: https://www.migalhas.com.br/quentes/467195/zanin-prorroga-votacao-ate-as-19h-apos-reclamacao-sobre-transporte ·
+Metrópoles: https://www.metropoles.com/brasil/nunes-marques-concorda-com-zanin-sobre-prorrogacao-da-votacao-ate-as-19h ·
+CartaCapital: https://www.cartacapital.com.br/politica/em-pronunciamento-nunes-marques-critica-decisao-de-zanin-que-alterou-horario-de-votacao/ ·
+Poder360, 01/06/2023: https://www.poder360.com.br/justica/lula-indica-seu-advogado-cristiano-zanin-ao-stf/ ·
+Money Times, 21/06/2023: https://www.moneytimes.com.br/senado-aprova-indicacao-de-cristiano-zanin-ex-advogado-de-lula-para-o-stf/
+
+*Pendência:* anexar a íntegra da decisão na Rcl 101.673/BA (portal do STF) e o
+Ofício-Circular GAB-PRES nº 354/2026 (TSE). Onde contradisserem um horário acima,
+prevalecem os documentos oficiais.
 
 ---
 
@@ -224,6 +307,10 @@ Faça primeiro a camada leve: é barata e já responde parte da pergunta.
 | `interval_after_17` (mediana, p10) | Segundos entre votos consecutivos depois das 17h | Log | Completa |
 | `burst_count` | Sequências de ≥ N votos consecutivos sem biometria com intervalo < S segundos | Log | Completa |
 | `last_vote_time` | Horário do último voto computado | Log | Completa |
+| `closed_before_decision` | Só 2026 2t: seção encerrada antes da ordem judicial (~17h03 de Brasília; horário exato a fixar pela decisão oficial) | Log + BU | Completa |
+| `extended_regime` | Só 2026 2t: seção ainda aberta no momento da ordem, então a votação podia continuar legalmente até as 19h (§1.2) | Log + BU | Completa |
+| `votes_17_19`, `votes_after_19` | Só 2026 2t: votos computados entre 17h e 19h, e depois das 19h | Log | Completa |
+| `gap_before_19` | Só 2026 2t, apenas `extended_regime`: minutos entre o último voto antes das 19h e as 19h | Log | Completa |
 
 ---
 
@@ -260,9 +347,11 @@ Faça primeiro a camada leve: é barata e já responde parte da pergunta.
 ### P0 — Qualidade dos dados
 - [ ] Tabela de conciliação log vs. BU (por UF e turno).
 - [ ] Marcar e relatar: urnas substituídas, votos em contingência, seções agregadas, voto em trânsito, anomalias de relógio (eventos antes da abertura ou depois do encerramento).
+- [ ] 2026 2t: marcar qualquer voto depois das 19h, e qualquer voto depois das 17h em seção com `closed_before_decision` (urna encerrada não podia ser reaberta).
 
 ### P1 — Quadro descritivo (camada leve)
 - [ ] Distribuição de `close_time` por UF/região; % de seções que encerraram depois das 17h, e quanto depois.
+- [ ] 2026 2t: separar as seções em `closed_before_decision` vs. `extended_regime`; distribuição de `close_time` entre 17h e 19h por UF/região.
 - [ ] `nh_rate` por UF, região, perfil etário e modelo de urna (a linha de base legítima).
 - [ ] Comparecimento e votação dos candidatos por região.
 
@@ -275,6 +364,7 @@ Votação legítima depois das 17h exige pessoas já na fila às 17h, então dev
 atividade contínua logo antes do encerramento.
 - [ ] Contar seções com `votes_after_17 > 0` **e** `gap_before_17` > X minutos.
 - [ ] Descrever essas seções: número de votos depois das 17h, como foram habilitados, intervalos.
+- [ ] 2026 2t: nas seções em `extended_regime`, votos entre 17h e 19h não precisam de fila às 17h; aplicar o teste de fila às 19h (`votes_after_19 > 0` e `gap_before_19` > X). As seções com `closed_before_decision` mantêm o teste das 17h.
 
 ### P4 — Mecanismo: rajadas (RQ3, camada completa)
 - [ ] Comparar a distribuição dos intervalos antes vs. depois das 17h dentro de cada seção (Kolmogorov–Smirnov ou Mann–Whitney).
@@ -293,6 +383,7 @@ atividade contínua logo antes do encerramento.
 ### P7 — Robustez e placebos
 - [ ] **Cortes placebo:** repetir P2–P6 com 16h e 16h30 como horário de "encerramento". Se o efeito também aparecer ali, não tem a ver com o encerramento.
 - [ ] **Replicação no 1º turno de 2026** com o mesmo código e os mesmos limites.
+- [ ] **2º turno de 2026 como comparação natural:** comparar os padrões depois das 17h (taxa sem biometria, intervalos, rajadas) nas seções do 2026 2t em `extended_regime` (votação legal entre 17h e 19h) com o 2026 1t e 2022 (votar depois das 17h exigia fila). Rodar os cortes placebo contra 17h e contra 19h.
 - [ ] Sensibilidade aos limites (X minutos, N votos, S segundos), com valores fixados **antes** de olhar os resultados.
 - [ ] Linha de base opcional de 2018 (o encerramento era às 17h em hora *local*, então o corte varia por estado).
 
@@ -312,6 +403,7 @@ atividade contínua logo antes do encerramento.
 | Padrão observado | Explicação inocente | Como controlar |
 |---|---|---|
 | Muitos votos depois das 17h | Fila no horário de encerramento | `gap_before_17` (P3) |
+| Votos entre 17h e 19h no 2026 2t | Prorrogação por ordem judicial (Rcl 101.673/BA, §1.2) | `extended_regime`, `votes_17_19` |
 | Mais habilitação sem biometria | Digitais gastas (trabalho manual), eleitores idosos, leitores com defeito | Perfil de idade/escolaridade, modelo de urna, proporção com biometria cadastrada |
 | Padrão regional correlacionado com um candidato | O Nordeste tem preferência política diferente **e** demografia diferente | Efeitos fixos de município, mudanças dentro da seção |
 | "Encerramento" muito cedo no Oeste | Horário unificado de Brasília (encerra às 15h locais no Acre) | Usar a hora de Brasília de forma consistente |
@@ -334,6 +426,10 @@ com a margem nacional de vitória.
 
 Registrar X, N e S (e a justificativa) **antes** de calcular a tabela de anomalias.
 
+**2º turno de 2026:** nas seções em `extended_regime`, ler "17h" nas condições 1–2
+como 19h (votos entre 17h e 19h eram legais). Nas seções com
+`closed_before_decision` vale a regra das 17h.
+
 ---
 
 ## 9. Limitações e ética
@@ -355,6 +451,7 @@ Registrar X, N e S (e a justificativa) **antes** de calcular a tabela de anomali
 - Virgolino, V. A. C. (2023). *UrnaLogs* — trabalho de conclusão de curso, UFCG (coleta e organização dos logs de 2022 por seção): https://bdtd.ufcg.edu.br/jspui/bitstream/riufcg/30487/1/VICTOR%20ARRUDA%20C%c3%82MARA%20VIRGOLINO%20-%20TCC%20ARTIGO%20CI%c3%8aNCIA%20DA%20COMPUTA%c3%87%c3%83O%20CEEI%202023.pdf
 - Checagens de fatos sobre "votos depois das 17h" e sobre os logs (Comprova/Metrópoles, O Popular, 2022). Listar cada argumento que levantam e garantir que a análise trate de cada um.
 - Glossário de TI do TSE (verificação biométrica vs. identificação): https://www.tse.jus.br/institucional/catalogo-de-publicacoes/arquivos/glossario-ti
+- STF, Reclamação nº 101.673/BA (Min. Cristiano Zanin, 25/10/2026), ADPF 1.013 do STF (transporte gratuito em dia de eleição) e Ofício-Circular GAB-PRES nº 354/2026 do TSE: textos oficiais a anexar. A cobertura de imprensa usada na §1.2 está listada lá.
 
 ---
 
