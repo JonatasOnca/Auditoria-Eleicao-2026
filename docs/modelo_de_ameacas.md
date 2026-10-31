@@ -63,6 +63,8 @@ o que os dados públicos do TSE conseguem detectar neste projeto.**
 
 ## 3. O que isso muda no projeto
 
+Detalhamento com os dados que o projeto já tem: [testabilidade_ameacas.md](testabilidade_ameacas.md).
+
 | Etapa | Situação |
 |---|---|
 | 1 Cadastro | Testável em parte (crescimento de aptos por município); fora do escopo atual |
