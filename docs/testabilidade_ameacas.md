@@ -90,8 +90,10 @@ corrigido (**sem SP**; 395.522 seções):
   Não há seção com votação por cédula.
 - A troca de urna se mede pelas tabelas `correspondencia_*` e
   `correspondencia_contingencia`, por `NR_URNA_EFETIVADA` e pelos eventos de
-  contingência no log. O 2º turno registrou só 7 seções com log de outra seção no
-  pacote e 49 votos interrompidos por queda de energia (27 UFs).
+  contingência no log. Logs de urna configurada para outra seção, dentro do pacote: 17 no
+  1º turno e 9 no 2º. Votos interrompidos (urna desligada depois de confirmar o último
+  cargo): 154 no 1º turno (4 gravados, 150 perdidos e refeitos) e 57 no 2º (3 gravados,
+  54 perdidos e refeitos). Ver `docs/reprocessamento_logs.md`.
 - **A fazer:** taxa de contingência por UF e município, e se as seções com troca de
   urna concentram os sinais da etapa 4.
 

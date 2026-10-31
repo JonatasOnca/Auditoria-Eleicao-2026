@@ -19,37 +19,33 @@ Os resultados do método anterior estão guardados em `data/logs_2026_{1,2}t/_me
 
 Nada disso altera a cópia dos dados do TSE: bronze e tabelas do BigQuery ficam como estão.
 
-## Estado (2026-10-31 14:20, horário do Mac)
+## Estado: CONCLUÍDO em 2026-10-31 17:14 (horário do Mac)
 
-| Turno | Situação |
-|---|---|
-| 2º | **Concluído e consolidado** com a regra corrigida: 28 UFs, 3 seções divergentes (BA 35653/0235 −13, MA 08893/0609 −36, RS 89060/0191 −2, todas com urna de contingência sem o log da urna original) |
-| 1º | Em andamento com a regra corrigida. AC AP RO RR SE TO ZZ prontas e corrigidas; MS refeito do zero (a pausa anterior o pegou entre a gravação dos dois arquivos) |
+Os dois turnos foram reprocessados com a regra corrigida e consolidados (`manifests/conciliacao_logs_bu_2026_{1,2}t.csv`).
 
-Ritmo observado: ~40–50 seções/s; o 1º turno inteiro tem ~499 mil seções (~3h).
+| | 1º turno | 2º turno |
+|---|---|---|
+| Seções no log / no BU | 499.176 / 499.206 | 499.177 / 499.205 |
+| Só no BU | 30 (28 ZZ, 2 MG) | 28 (27 ZZ, 1 SP) |
+| Seções com votos log ≠ BU | **5** (método anterior: 9) | **3** (método anterior: 7) |
+| Logs de outra seção no pacote | 17 | 9 |
+| Votos interrompidos: gravados / perdidos | 4 / 150 | 3 / 54 |
+| Erros de leitura | 0 | 0 |
 
-Para conferir o estado atual a qualquer momento:
-```
-ls data/logs_2026_1t/secoes_??.parquet | wc -l   # UFs prontas do 1º turno (28 = completo)
-```
+Seções divergentes que restam:
+- 1º turno: BA 39934/0183/0175 (−36) e SP 71072/0002/0035 (−15), ambas com 2 logs (troca de urna); RJ 58971/0087/0184
+  (−2); RS 89036/0083/0044 (−1, 3 logs); SP 63614/0227/0305 (−1, a exceção da regra do voto interrompido, ver
+  docstring de `tse.urna_logs`).
+- 2º turno: BA 35653/0173/0235 (−13), MA 08893/0047/0609 (−36) e RS 89060/0017/0191 (−2), todas com urna de
+  contingência sem o log da urna original no período de votação.
 
-## Como retomar
-Na raiz do projeto, um comando só (refaz apenas as UFs do 1º turno que faltam; roda em segundo plano e não
-para se o terminal ou o editor fechar):
+Saídas consolidadas do método anterior: `data/logs_2026_{1,2}t/_metodo_anterior/consolidado/`.
+
+## Como foi feito (para refazer)
+Reprocessamento de um turno inteiro a partir do CDN (pula as UFs com `secoes_{UF}.parquet`; roda em segundo plano):
 ```
 nohup caffeinate -i zsh -c 'uv run python -m tse.reprocessar_logs --turno 1 >> data/reprocessar_1t.log 2>&1' >/dev/null 2>&1 &
 ```
-Acompanhar: `tail -f data/reprocessar_1t.log`. Cada UF pronta aparece como
-`[UF] OK: N seções, 0 erros, …`; as que já estavam prontas aparecem como `[UF] já processado, pulando`. O fim de cada
-turno é a linha `FIM`.
-
-Para pausar de novo: `pkill -f tse.reprocessar_logs` (perde só a UF em andamento).
-
-## Quando terminar
-1. `uv run python -m tse.consolidar --turno 1` (o 2º turno já foi consolidado).
-2. Comparar a conciliação nova com a anterior (`_metodo_anterior/` e `manifests/conciliacao_logs_bu_2026_{t}t.csv`
-   no git): seções divergentes, votos interrompidos, logs de outra seção.
-3. Commitar os manifests de conciliação e atualizar este arquivo para "concluído".
-
-**Enquanto não terminar, não rodar `tse.consolidar --turno 1`:** a pasta do 1º turno ainda não tem todas as UFs.
-`secoes_{UF}.parquet` é gravado por último, depois de `votos_tardios_{UF}.parquet`, e marca a UF como pronta.
+Cada UF pronta aparece como `[UF] OK: N seções, 0 erros, …`; o fim é a linha `FIM`. Para pausar:
+`pkill -f tse.reprocessar_logs` (perde só a UF em andamento). `secoes_{UF}.parquet` é gravado por último, depois de
+`votos_tardios_{UF}.parquet`, e marca a UF como pronta. Depois: `uv run python -m tse.consolidar --turno 1`.

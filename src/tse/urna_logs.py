@@ -35,6 +35,10 @@ Decisões de método (sondagem de 2026-10-12, 3 seções do AC):
   Conferido em 2026-10-31 nas 54 seções do 2º turno com interrupção: 3 "já votou" (BA 34711/0021/0178,
   PB 21750/0002/0254, PI 11533/0003/0216), todas fechando com o BU só se o voto conta; 51 sem "já votou",
   todas fechando com o BU só se o voto não conta (inclusive os 36 desligamentos pela chave).
+  Aplicada sem ajuste ao 1º turno: 154 interrupções, 4 "já votou" (todas fecham com o BU) e 150 descartados, dos quais
+  149 fecham. Exceção conhecida: SP 63614/0227/0305 (1º turno), queda de energia às 08:09:49; ao religar quem se
+  identificou foi outro eleitor, e o voto interrompido estava gravado (log −1 em relação ao BU). O log só decide com
+  certeza quando o mesmo eleitor volta a se identificar.
 - Os títulos de eleitor dos mesários que aparecem no log NÃO são guardados. Só contamos quantos
   mesários distintos liberaram eleitores manualmente.
 """
