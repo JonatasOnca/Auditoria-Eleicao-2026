@@ -438,6 +438,7 @@ sections the 17:00 rule stays.
 - Log clock and event-format issues may create false signals (P0).
 - Do not name poll workers or accuse specific sections publicly; report aggregates.
 - Data is public; use nothing beyond what TSE publishes.
+- Threat model of the whole electoral chain (where fraud could happen, existing controls, residual risk, what TSE data can detect, and international cases): [docs/modelo_de_ameacas.md](docs/modelo_de_ameacas.md) (Portuguese).
 
 ---
 

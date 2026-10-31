@@ -439,6 +439,7 @@ como 19h (votos entre 17h e 19h eram legais). Nas seções com
 - Problemas de relógio e de formato dos eventos do log podem criar sinais falsos (P0).
 - Não nomear mesários nem acusar seções específicas publicamente; relatar agregados.
 - Os dados são públicos; não usar nada além do que o TSE publica.
+- Modelo de ameaças de toda a cadeia eleitoral (onde poderia haver fraude, controles existentes, risco residual, o que os dados do TSE conseguem detectar e casos internacionais): [docs/modelo_de_ameacas.md](docs/modelo_de_ameacas.md).
 
 ---
 
