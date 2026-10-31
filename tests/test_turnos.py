@@ -81,3 +81,39 @@ def test_secao_do_2o_turno_usa_o_dia_e_o_corte_de_25_10():
     assert len(tardios) == 1
     # o mesmo log lido como 1º turno não tem nenhum evento do dia 04/10
     assert urna_logs.variaveis_secao(nome, [_log("25/10/2026", eventos)], "AC", turno=1)[0]["n_votos"] == 0
+
+
+def _log_app(dia, eventos):
+    return "\n".join(f"{dia} {h}\tINFO\t0\t{app}\t{m}\tHASH" for h, app, m in eventos)
+
+
+def _config(h, mun, zona, secao):
+    return [(h, "GAP", f"Município: {mun}"), (h, "GAP", f"Zona Eleitoral: {zona}"), (h, "GAP", f"Seção Eleitoral: {secao}")]
+
+
+def test_log_configurado_para_outra_secao_fica_fora_da_contagem():
+    voto = [("10:00:00", "VOTA", "Aguardando digitação do identificador"),
+            ("10:00:05", "VOTA", "Voto confirmado para [Presidente]"), ("10:00:06", "VOTA", "O voto do eleitor foi computado")]
+    propria = _log_app("25/10/2026", _config("07:00:00", "57932", "0009", "0085") + voto)
+    outra = _log_app("25/10/2026", _config("07:00:00", "57932", "0009", "0112") + voto)
+    contingencia = _log_app("25/10/2026", _config("09:00:00", "57932", "0009", "0000")
+                            + _config("09:05:00", "57932", "0009", "0085") + [(h.replace("10:", "11:"), a, m) for h, a, m in voto])
+    linha, _ = urna_logs.variaveis_secao("o03221es5793200090085-log.jez", [propria, outra, contingencia], "ES", turno=2)
+    assert (linha["n_votos"], linha["n_logs"], linha["n_logs_outra_secao"]) == (2, 2, 1)
+
+
+def test_voto_confirmado_e_interrompido_por_queda_de_energia_conta():
+    eventos = [("08:00:01", "VOTA", "Urna pronta para receber votos"),
+               ("08:48:50", "VOTA", "Aguardando digitação do identificador"),
+               ("08:48:55", "VOTA", "Tipo de habilitação do eleitor [biométrica]"),
+               ("08:49:04", "VOTA", "Voto confirmado para [Presidente]"),
+               ("09:03:46", "LOGD", "Início das operações do logd"),  # urna religou sem gravar "computado"
+               ("09:10:00", "VOTA", "Aguardando digitação do identificador"),
+               ("09:10:05", "VOTA", "Voto confirmado para [Governador]"),  # não chegou ao último cargo
+               ("09:12:00", "VOTA", "Aguardando digitação do identificador"),
+               ("09:12:05", "VOTA", "Voto confirmado para [Presidente]"),
+               ("09:12:06", "VOTA", "O voto do eleitor foi computado"),
+               ("09:20:00", "VOTA", "Aguardando digitação do identificador"),
+               ("09:20:05", "VOTA", "Voto confirmado para [Presidente]")]  # log termina aqui
+    linha, _ = urna_logs.variaveis_secao("o03221ba3471100210178-log.jez", [_log_app("25/10/2026", eventos)], "BA", turno=2)
+    assert (linha["n_votos"], linha["n_votos_interrompidos"], linha["n_biometrica"]) == (3, 2, 1)

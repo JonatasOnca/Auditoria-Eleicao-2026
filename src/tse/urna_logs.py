@@ -22,6 +22,14 @@ Decisões de método (sondagem de 2026-10-12, 3 seções do AC):
 - Urna substituída durante o dia: o log da urna original vem aninhado dentro do .jez
   (por exemplo `...ME.jez`, também um ZIP com logd.dat). Todos os logs do pacote são lidos e os votos
   são somados. No AC isso fecha a contagem com o BU nas 6 seções que divergiam.
+- Log de outra seção no pacote: às vezes o pacote traz o log de uma urna configurada no dia da eleição
+  só para outra seção (em 2026-10-30, ES 57932/0009/0085 trazia o da seção 0112, e os votos eram contados
+  duas vezes). Um log cujas linhas "Município/Zona Eleitoral/Seção Eleitoral" do dia da eleição não incluem
+  a própria seção fica fora da contagem (`n_logs_outra_secao`). Log sem essas linhas no dia continua valendo.
+- Voto interrompido: se a urna desliga logo depois de "Voto confirmado para [Presidente]" (o último
+  cargo), a linha "O voto do eleitor foi computado" não chega a ser gravada, mas o voto está no BU
+  (2026-10-30: BA 34711/0021/0178, PB 21750/0002/0254, PI 11533/0003/0216). Esse voto conta, e também
+  aparece em `n_votos_interrompidos`.
 - Os títulos de eleitor dos mesários que aparecem no log NÃO são guardados. Só contamos quantos
   mesários distintos liberaram eleitores manualmente.
 """
@@ -136,16 +144,38 @@ def votos_do_log(logd: str, turno: int = 1) -> tuple[list[tuple[datetime, str, s
     """Devolve [(hora_local, tipo_habilitação, mesário_que_habilitou)] e eventos do dia da eleição."""
     dia = DIAS_ELEICAO[turno].strftime("%d/%m/%Y")
     votos, cur = [], []
-    extras = {"encerramento": None, "pronta": None, "eventos_dia": 0, "digital_de_mesario": 0}
+    extras = {"encerramento": None, "pronta": None, "eventos_dia": 0, "digital_de_mesario": 0, "interrompidos": 0}
+    confirmado = None  # (hora, mensagens do eleitor) entre "Voto confirmado para [Presidente]" e "computado"
+
+    def voto(hora, msgs):
+        if any("[biométrica]" in m for m in msgs):
+            tipo = "biometrica"
+        elif any(m.startswith("Capturada a digital. Tentativa") for m in msgs):
+            tipo = "manual_com_biometria"
+        else:
+            tipo = "sem_biometria"
+        mesario = next((m2.group(1) for m in msgs if (m2 := RE_MESARIO_HAB.match(m))), None)
+        votos.append((hora, tipo, mesario))
+
+    def interrompido():
+        nonlocal confirmado
+        if confirmado:
+            voto(*confirmado)
+            extras["interrompidos"] += 1
+            confirmado = None
+
     for linha in logd.splitlines():
         p = linha.split("\t")
         if len(p) < 6 or not p[0].startswith(dia):
             continue
         extras["eventos_dia"] += 1
         msg = p[4]
+        if p[3] == "LOGD" and msg == "Início das operações do logd":  # a urna religou
+            interrompido()
         if p[3] != "VOTA":
             continue
         if msg.startswith("Aguardando digitação do identificador"):
+            interrompido()
             cur = []
         cur.append(msg)
         if msg.startswith("Digital coletada bate com uma digital gravada após o registro inicial de mesário"):
@@ -154,16 +184,13 @@ def votos_do_log(logd: str, turno: int = 1) -> tuple[list[tuple[datetime, str, s
             extras["pronta"] = _ts(p[0])
         elif msg == "Operador selecionou: Encerrar votação" and extras["encerramento"] is None:
             extras["encerramento"] = _ts(p[0])
+        elif msg == "Voto confirmado para [Presidente]":
+            confirmado = (_ts(p[0]), list(cur))
         elif msg == "O voto do eleitor foi computado":
-            if any("[biométrica]" in m for m in cur):
-                tipo = "biometrica"
-            elif any(m.startswith("Capturada a digital. Tentativa") for m in cur):
-                tipo = "manual_com_biometria"
-            else:
-                tipo = "sem_biometria"
-            mesario = next((m2.group(1) for m in cur if (m2 := RE_MESARIO_HAB.match(m))), None)
-            votos.append((_ts(p[0]), tipo, mesario))
+            confirmado = None
+            voto(_ts(p[0]), cur)
             cur = []
+    interrompido()
     return votos, extras
 
 
@@ -184,10 +211,29 @@ def logs_do_pacote(conteudo: bytes, profundidade: int = 0, com_caminho: bool = F
     return textos
 
 
+def secoes_do_log(logd: str, turno: int = 1) -> set[tuple[str, str, str]]:
+    """(município, zona, seção) para os quais a urna foi configurada no dia da eleição, pelas linhas
+    "Município: …", "Zona Eleitoral: …" e "Seção Eleitoral: …" (de qualquer aplicação)."""
+    dia = DIAS_ELEICAO[turno].strftime("%d/%m/%Y")
+    secoes, mun, zona = set(), None, None
+    for linha in logd.splitlines():
+        p = linha.split("\t")
+        if len(p) < 6 or not p[0].startswith(dia):
+            continue
+        if p[4].startswith("Município: "):
+            mun = p[4].removeprefix("Município: ")
+        elif p[4].startswith("Zona Eleitoral: "):
+            zona = p[4].removeprefix("Zona Eleitoral: ")
+        elif p[4].startswith("Seção Eleitoral: "):
+            secoes.add((mun, zona, p[4].removeprefix("Seção Eleitoral: ")))
+    return secoes
+
+
 def variaveis_secao(nome: str, logds: list[str], uf: str, turno: int = 1) -> tuple[dict, list[dict]]:
     m = RE_ARQUIVO.search(nome)
     chave = {"uf": uf, "cd_municipio": m.group(3), "nr_zona": m.group(4), "nr_secao": m.group(5)}
-    votos, extras = [], {"encerramento": None, "pronta": None, "eventos_dia": 0, "digital_de_mesario": 0}
+    votos, extras = [], {"encerramento": None, "pronta": None, "eventos_dia": 0, "digital_de_mesario": 0,
+                         "interrompidos": 0}
     # Pacotes de urna substituída às vezes repetem trechos do mesmo log (mesma linha, mesmo hash
     # encadeado). Cada evento conta uma vez só.
     vistas, unicos, duplicadas = set(), [], 0
@@ -200,17 +246,21 @@ def variaveis_secao(nome: str, logds: list[str], uf: str, turno: int = 1) -> tup
                 vistas.add(linha_log)
                 manter.append(linha_log)
         unicos.append("\n".join(manter))
-    for logd in unicos:
+    propria = (chave["cd_municipio"], chave["nr_zona"], chave["nr_secao"])
+    da_secao = [logd for logd in unicos if not (s := secoes_do_log(logd, turno)) or propria in s]
+    for logd in da_secao:
         v, e = votos_do_log(logd, turno)
         votos.extend(v)
         extras["eventos_dia"] += e["eventos_dia"]
         extras["digital_de_mesario"] += e["digital_de_mesario"]
+        extras["interrompidos"] += e["interrompidos"]
         if e["pronta"] and (extras["pronta"] is None or e["pronta"] < extras["pronta"]):
             extras["pronta"] = e["pronta"]
         if e["encerramento"] and (extras["encerramento"] is None or e["encerramento"] > extras["encerramento"]):
             extras["encerramento"] = e["encerramento"]
     votos.sort(key=lambda v: v[0])
-    linha = {**chave, "arquivo": nome, "n_logs": len(logds), "linhas_log_duplicadas": duplicadas, "n_votos": len(votos),
+    linha = {**chave, "arquivo": nome, "n_logs": len(da_secao), "n_logs_outra_secao": len(logds) - len(da_secao),
+             "linhas_log_duplicadas": duplicadas, "n_votos": len(votos), "n_votos_interrompidos": extras["interrompidos"],
              "eventos_dia": extras["eventos_dia"], "digital_de_mesario": extras["digital_de_mesario"]}
     if not votos:
         return linha, []
