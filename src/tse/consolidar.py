@@ -36,7 +36,8 @@ def main() -> None:
 
     bu = pd.read_parquet(f"data/bu_2026_{turno}t/bu_secoes.parquet")
     m = bu[CHAVE + ["QT_COMPARECIMENTO", "QT_ELEI_BIOM_SEM_HABILITACAO", "DS_SECOES_AGREGADAS"]].merge(
-        s[CHAVE + ["n_votos", "n_logs", "n_logs_outra_secao", "n_votos_interrompidos", "fuso_determinado",
+        s[CHAVE + ["n_votos", "n_logs", "n_logs_outra_secao", "n_votos_interrompidos", "n_votos_descartados",
+                   "fuso_determinado",
                    "n_manual_com_biometria"]],
         on=CHAVE, how="outer", indicator=True)
     m["diff_votos"] = m["n_votos"] - m["QT_COMPARECIMENTO"]
@@ -55,6 +56,7 @@ def main() -> None:
         secoes_urna_substituida=("n_logs", lambda x: (x > 1).sum()),
         logs_outra_secao=("n_logs_outra_secao", "sum"),
         votos_interrompidos=("n_votos_interrompidos", "sum"),
+        votos_descartados=("n_votos_descartados", "sum"),
     ).reset_index()
     resumo["erros_leitura"] = resumo["uf"].map(erros.groupby("uf").size()).fillna(0).astype(int)
     total = resumo.drop(columns="uf").sum().to_frame().T.assign(uf="TOTAL")

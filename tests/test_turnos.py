@@ -102,18 +102,33 @@ def test_log_configurado_para_outra_secao_fica_fora_da_contagem():
     assert (linha["n_votos"], linha["n_logs"], linha["n_logs_outra_secao"]) == (2, 2, 1)
 
 
-def test_voto_confirmado_e_interrompido_por_queda_de_energia_conta():
+def test_voto_interrompido_so_conta_se_a_urna_disser_que_o_eleitor_ja_votou():
     eventos = [("08:00:01", "VOTA", "Urna pronta para receber votos"),
-               ("08:48:50", "VOTA", "Aguardando digitação do identificador"),
+               # 1) queda de energia; ao religar, o mesmo eleitor "já votou": o voto foi gravado (BA 34711/0178)
+               ("08:48:50", "VOTA", "Aguardando digitação do identificador do eleitor"),
                ("08:48:55", "VOTA", "Tipo de habilitação do eleitor [biométrica]"),
+               ("08:48:55", "VOTA", "Eleitor foi habilitado"),
                ("08:49:04", "VOTA", "Voto confirmado para [Presidente]"),
-               ("09:03:46", "LOGD", "Início das operações do logd"),  # urna religou sem gravar "computado"
-               ("09:10:00", "VOTA", "Aguardando digitação do identificador"),
-               ("09:10:05", "VOTA", "Voto confirmado para [Governador]"),  # não chegou ao último cargo
-               ("09:12:00", "VOTA", "Aguardando digitação do identificador"),
-               ("09:12:05", "VOTA", "Voto confirmado para [Presidente]"),
-               ("09:12:06", "VOTA", "O voto do eleitor foi computado"),
-               ("09:20:00", "VOTA", "Aguardando digitação do identificador"),
-               ("09:20:05", "VOTA", "Voto confirmado para [Presidente]")]  # log termina aqui
+               ("09:03:46", "LOGD", "Início das operações do logd"),
+               ("09:07:00", "VOTA", "Aguardando digitação do identificador do eleitor"),
+               ("09:07:35", "VOTA", "O eleitor identificado já votou"),
+               # 2) desligada pela chave; ao religar, o eleitor é habilitado de novo: o voto se perdeu (DF 97012/0226)
+               ("10:10:00", "VOTA", "Aguardando digitação do identificador do eleitor"),
+               ("10:10:00", "VOTA", "Eleitor foi habilitado"),
+               ("10:10:09", "VOTA", "Voto confirmado para [Presidente]"),
+               ("10:10:09", "INITJE", "Urna desligada pela chave"),
+               ("10:11:20", "LOGD", "Início das operações do logd"),
+               ("10:12:00", "VOTA", "Aguardando digitação do identificador do eleitor"),
+               ("10:12:01", "VOTA", "Eleitor foi habilitado"),
+               ("10:12:05", "VOTA", "Voto confirmado para [Governador]"),  # não chegou ao último cargo
+               ("10:13:00", "VOTA", "Aguardando digitação do identificador do eleitor"),
+               ("10:13:01", "VOTA", "Eleitor foi habilitado"),
+               ("10:13:05", "VOTA", "Voto confirmado para [Presidente]"),
+               ("10:13:06", "VOTA", "O voto do eleitor foi computado"),
+               # 3) o log termina no meio do voto (troca por urna de contingência): não conta
+               ("10:20:00", "VOTA", "Aguardando digitação do identificador do eleitor"),
+               ("10:20:01", "VOTA", "Eleitor foi habilitado"),
+               ("10:20:05", "VOTA", "Voto confirmado para [Presidente]")]
     linha, _ = urna_logs.variaveis_secao("o03221ba3471100210178-log.jez", [_log_app("25/10/2026", eventos)], "BA", turno=2)
-    assert (linha["n_votos"], linha["n_votos_interrompidos"], linha["n_biometrica"]) == (3, 2, 1)
+    assert (linha["n_votos"], linha["n_votos_interrompidos"], linha["n_votos_descartados"]) == (2, 1, 2)
+    assert linha["n_biometrica"] == 1  # o voto recuperado mantém a habilitação de antes da queda

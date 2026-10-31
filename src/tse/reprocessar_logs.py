@@ -1,6 +1,6 @@
 """Reprocessa as variáveis dos logs (tse.urna_logs) de um turno inteiro, lendo os ZIPs do CDN do TSE.
 
-Usado depois da correção do método de contagem (log de outra seção e voto interrompido, 2026-10-30), quando os ZIPs
+Usado depois da correção do método de contagem (log de outra seção e voto interrompido, 2026-10-30 e 31), quando os ZIPs
 de urna já não estavam no disco. As URLs vêm do manifesto do espelho; em 2026-10-30 as versões no CDN foram
 conferidas com o manifesto (no 1º turno o TSE só acrescentou `imgbu.dat`; logs idênticos em tamanho e CRC).
 
