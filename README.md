@@ -1,8 +1,13 @@
 # Auditoria Eleição 2026
 
-O projeto analisa o comportamento eleitoral nas Eleições Gerais de 2026 e faz uma auditoria estatística dos resultados, usando **apenas dados oficiais do TSE**.
+O projeto analisa o comportamento eleitoral nas Eleições Gerais de 2026 com **apenas dados oficiais do TSE**. É um **estudo estatístico independente**: não é auditoria oficial nem perícia.
 
-> **Ressalva metodológica:** uma anomalia estatística (desvio de Benford, comparecimento atípico, urnas substituídas etc.) é um **sinal para investigação**, não uma prova de fraude. Todo achado precisa ser rastreável até o arquivo oficial do TSE (URL e hash) e confrontado com explicações operacionais conhecidas antes de qualquer conclusão.
+- Plano de pesquisa: [RESEARCH_PLAN-pt-br.md](RESEARCH_PLAN-pt-br.md) ([EN](RESEARCH_PLAN.md))
+- Registro prévio (protocolo congelado antes das análises confirmatórias): [docs/registro_previo.md](docs/registro_previo.md)
+- Como reproduzir: [docs/reproducao.md](docs/reproducao.md)
+- Revisão do plano pelos papéis da equipe: [docs/revisao_research_plan.md](docs/revisao_research_plan.md)
+
+> **Ressalva metodológica:** uma anomalia estatística (comparecimento atípico, urnas substituídas etc.) é um **sinal para investigação**, não uma prova de fraude. Todo achado precisa ser rastreável até o arquivo oficial do TSE (URL e hash) e confrontado com explicações operacionais conhecidas antes de qualquer conclusão.
 
 ## Fontes
 | Fonte | Uso | Acesso |
@@ -75,3 +80,18 @@ nem dão valor institucional ou jurídico ao resultado.
 | `auditor-processos` | Modelo de ameaças, controles e risco residual | Não |
 | `operacao-secao` | Eventos do log como ações reais na seção; regras de procedimento | Não |
 | `revisor-independente` | Segunda leitura cética, sem receber a conclusão | Não |
+
+### Como usar os agentes em cada etapa
+
+O fluxo segue as portas de etapa do plano (§12) e o registro prévio. Nenhuma etapa pula a anterior.
+
+| Momento | Quem | O que faz |
+|---|---|---|
+| Antes de começar uma fase | `estatistico-eleitoral` + `revisor-independente` | Conferem se a fase segue o registro prévio e se nada foi decidido depois de ver os dados |
+| Ao escrever código | `engenheiro-dados` implementa; `revisor-independente` revisa o diff | Testes passando e código commitado antes de gerar dados |
+| Ao interpretar um evento do log ou um procedimento | `operacao-secao` + `seguranca-urna` | Definição operacional validada contra o log e o Manual do Mesário |
+| Antes de congelar o registro prévio | todos; `revisor-independente` por último, sem receber a conclusão | Nenhum campo em aberto; tag `registro-previo-v1` |
+| Antes de divulgar qualquer número ou texto | `advogado-eleitoral` (linguagem) + `revisor-independente` (leitura cética) | Regra de linguagem da §9; todo número rastreável a `resultados.json` |
+| Antes da publicação | revisores **humanos** externos (estatístico e segurança) | Os agentes não substituem essa revisão |
+
+Exemplo de pedido: *"use o revisor-independente para revisar o diff de `src/tse/analise.py` contra o `docs/registro_previo.md`, sem dizer qual resultado esperamos"*.
