@@ -1,5 +1,8 @@
 # Research Plan — Post-17:00 Voting and Ballot-Stuffing Signals in Brazilian Elections
 
+> **Portuguese version: [RESEARCH_PLAN-pt-br.md](RESEARCH_PLAN-pt-br.md).** Both files carry the same content and
+> must be updated together.
+
 > Self-contained hand-off document: the claim, the questions, the verified data
 > sources, the variables, every analysis step, and the checks. Nothing has been
 > implemented yet.
@@ -26,6 +29,84 @@ finding.
 timestamp to the candidate chosen. The machine log has timestamps but no
 candidate; the RDV has candidates but is shuffled. All candidate-level analysis
 is therefore **ecological** (section level), never vote level.
+
+### 1.1 How a polling section works, and what each step leaves in the data
+
+The claim is about what happens inside a polling section, so the analysis has to
+follow the section's own procedure. Each step below lists the **data trail** it
+leaves. Log messages are quoted exactly as they appear in the 2026 `logd.dat`
+files (application `VOTA` unless noted). Rules marked *(confirm)* come from
+general knowledge of the procedure and still need to be checked against the TSE
+resolution for 2026.
+
+**Who is in the section**
+
+| Role | What they do | Trace in public data |
+|---|---|---|
+| Presiding officer (*presidente da mesa*) | Opens and closes the voting, decides on incidents, signs the minutes | Operator actions in the log ("Operador selecionou: Encerrar votação") |
+| Poll workers (*mesários*, *secretários*) | Identify voters, type the voter id into the poll-worker terminal, enable voters manually when the fingerprint fails, collect signatures on the voter list | Summons in `convocacao_mesarios` (aggregate only); in the log, "Mesário N habilitou o eleitor" and the poll-worker registration events (their voter ids are **not** stored by this project) |
+| Party inspectors (*fiscais*) and delegates (*delegados*) | Watch opening, voting and closing; may file complaints in the minutes and ask for a printed copy of the BU | **None.** Their presence and the section minutes (*ata*) are not in the open data, so claims about "sections without inspectors" cannot be tested here |
+| Electoral judge and technicians | Machine replacement (contingency), data recovery, ballot counting by the board when paper is used | Contingency and recovery events in the log; `DS_TIPO_URNA`, correspondence files (CESP/CEFT) |
+
+**Flow of the day**
+
+```mermaid
+flowchart TD
+    A["Before 8:00: machine switched on<br/>zero report printed (zerésima)"] --> B["8:00 Brasília: voting released"]
+    B --> C["Poll worker types voter id<br/>(título or CPF)"]
+    C --> D{"Fingerprint<br/>registered?"}
+    D -- yes --> E{"Fingerprint<br/>recognised?"}
+    E -- yes --> H["Voter enabled<br/>(biometric)"]
+    E -- "no, after up to 4 attempts" --> F["Manual enabling by poll worker<br/>personal data checked,<br/>then the poll worker's OWN fingerprint"]
+    D -- no --> G["Enabled without biometrics<br/>(e.g. year of birth)"]
+    F --> I["Voter enabled<br/>(manual after fingerprint attempts)"]
+    G --> J["Voter enabled<br/>(no fingerprint attempt)"]
+    H --> K["Voter votes for each office<br/>last one: President"]
+    I --> K
+    J --> K
+    K --> L["Vote stored<br/>voter signs the paper list"]
+    L --> C
+    L --> M{"17:00 Brasília"}
+    M -- "people still in line<br/>(they get a number)" --> C
+    M -- "line empty" --> N["Presiding officer closes voting"]
+    N --> O["BU printed in several copies<br/>one posted at the door,<br/>copies to inspectors"]
+    O --> P["Result media sent for transmission<br/>BU, RDV, log published later by TSE"]
+    B -. "machine fails" .-> Q["Restart the same machine<br/>or replace it (contingency):<br/>the memory card carries<br/>the votes already cast"]
+    Q -. "last resort" .-> R["Paper ballots<br/>(DS_TIPO_URNA not Apurada)"]
+    Q -.-> C
+```
+
+**Data trail of each step**
+
+| Step | Log messages (2026) | Other files |
+|---|---|---|
+| Zero report and opening | "Gerando relatório [ZERÉSIMA] [INÍCIO]", "Urna pronta para receber votos" (local machine time: 06:00:01 in Acre is 8:00 in Brasília) | `DT_ABERTURA` in the BU (also local time) |
+| Voter identification | "Aguardando digitação do identificador do eleitor", "Identificador do eleitor digitado pelo mesário", "Identificador digitado pelo mesário foi: (Título de eleitor)" or "(CPF)" | — |
+| Biometric enabling | "Solicita digital. Tentativa [N] de [4]", "Capturada a digital. Tentativa [N] de [4]", "Tipo de habilitação do eleitor [biométrica]" | — |
+| Manual enabling after failed fingerprints | Fingerprint attempts, then "Solicitação de dado pessoal do eleitor para habilitação manual", "Dado digitado confere", "Solicita digital do mesário" (the machine requires the poll worker's own fingerprint), "Mesário N habilitou o eleitor". Each manual enabling is therefore tied to a registered poll worker | `QT_ELEI_BIOM_SEM_HABILITACAO` in the BU (day total, not split by hour) |
+| Enabling without any fingerprint attempt | "Ano de nascimento digitado é igual ao do cadastro" (or "… é diferente do cadastro") without prior "Capturada a digital" | — |
+| Vote | "Eleitor foi habilitado", "Voto confirmado para [Governador]" (where there is a runoff), "Voto confirmado para [Presidente]", "O voto do eleitor foi computado" | RDV (shuffled votes), BU totals |
+| Closing | "Operador selecionou: Encerrar votação", "Todas as pessoas presentes já votaram? SIM", "Gerando relatório [BU] [INÍCIO]", "Gerando arquivo de resultado [bu.dat] + [Início]" | `DT_ENCERRAMENTO` (local time), printed BU image (`imgbu.dat`) |
+| Power loss / restart | Application `LOGD`: "Início das operações do logd", "Urna ligada em …"; the vote in progress may lack "computado" (see `tse.urna_logs`) | — |
+| Contingency machine | "Modo de carga da UE - Urna de contingência", "Início do procedimento de contingência", "Término do processo de contingência", then the section's own "Município / Zona Eleitoral / Seção Eleitoral" | The original machine's log may be nested in the package (`…-01.jez`, `…ME.jez`); correspondence files |
+| Data recovery | "Iniciando aplicação RECUPERADOR DE DADOS" (application `GAP`), then events of application `RED` | The package may carry the log of another section's machine (filtered by `tse.urna_logs.secoes_do_log`) |
+
+**Rules to confirm in the 2026 TSE resolution** *(confirm)*
+- Number of fingerprint attempts before manual enabling (the 2026 logs show up to "Tentativa [4] de [4]").
+- Which personal data the poll worker must check for manual enabling, and whether a photo ID is mandatory.
+- Procedure for voters in line at 17:00 (numbered tickets) and who may vote after 17:00.
+- Number of BU copies printed and who is entitled to one.
+- Integrity test (*teste de integridade*) sample and its published results.
+
+**Where the claim under test sits in this flow.** A poll worker who knows from
+the paper list which voters did not show up would have to type their voter id
+after 17:00 and enable them manually (which requires a poll worker's own
+fingerprint and is logged as "Mesário N habilitou o eleitor") or without
+biometrics. That path leaves:
+votes after 17:00 (`votes_after_17`), manual or no-fingerprint enabling
+(`nh_rate_after`), no voting activity just before 17:00 (`gap_before_17`), and
+votes closer together than a real voter can manage (`interval_after_17`). Those
+are exactly the variables of RQ1–RQ3.
 
 ---
 
