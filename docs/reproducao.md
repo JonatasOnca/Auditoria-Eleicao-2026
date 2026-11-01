@@ -58,6 +58,21 @@ manifesto: se diferir, o TSE republicou o arquivo. O TSE não mantém versões a
 Nesse caso, registre a diferença e compare os resultados entre as duas versões. **[FALTA]** guardar
 uma cópia dos arquivos usados num repositório público de dados.
 
+**Cópia dos originais no bronze (GCS).** Os ZIPs do TSE de todos os datasets de 2026 do
+catálogo (1º e 2º turnos) ficam em `gs://teconca-dev-bronze-us-central1/tse/zip/<dataset>/`.
+Uma versão que o TSE republica nunca é sobrescrita: a anterior é copiada antes para
+`tse/zip/<dataset>/_substituidos/<data>/`. Para enviar e conferir:
+
+```bash
+uv run --extra gcp python -m tse.espelho --enviar-bronze --turno 1 --dataset <slug>   # idem --turno 2
+uv run --extra gcp python -m tse.bronze_inventario       # CDN × bucket × local; grava manifests/inventario_bronze_<data>.csv
+```
+
+Inventário de 2026-10-31: 20 datasets, 642 arquivos (254,5 GB), todos `ok`, nenhum faltando,
+desatualizado ou só no CDN. Ficaram em `_substituidos/` 122 versões anteriores: os 28 pacotes de urna
+do 1º turno anteriores à republicação de 22/10 (que acrescentou `imgbu.dat`), 87 de `resultados-2026`
+(versões de 14/10 e 28/10) e 7 de eleitorado, mesários, denúncias e códigos.
+
 ---
 
 ## 2. Boletim de urna (seções e votos para Presidente)
@@ -195,8 +210,9 @@ partir dos parquets das etapas 2 a 4.
 |---|---|---|---|
 | Ambiente | `uv sync --extra dev` | `uv run pytest -q` passa | Pronto (recriar `.venv` se necessário) |
 | Dados | `tse.espelho` | sha512 = manifesto | Pronto |
+| Bronze | `tse.bronze_inventario` | 0 arquivos fora de `ok` | Pronto (642/642 em 2026-10-31) |
 | BU | `tse.bu` | totais oficiais | Pronto |
-| Logs | `tse.reprocessar_logs` | 28 UFs por turno, 0 erros | 2t pronto; 1t em andamento |
+| Logs | `tse.reprocessar_logs` | 28 UFs por turno, 0 erros | Pronto (1t e 2t) |
 | Conciliação | `tse.consolidar` | ≥ 99% | 2t pronto |
 | Registro prévio | tag `registro-previo-v1` | tabela da §9 preenchida | Rascunho |
 | Análises | `tse.analise` | `resultados.json` + hashes | [FALTA] |

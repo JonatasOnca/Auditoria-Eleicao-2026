@@ -140,6 +140,7 @@ dependencies = [
 
 [package.optional-dependencies]
 dev = [
+    { name = "google-crc32c" },
     { name = "pytest" },
 ]
 gcp = [
@@ -156,6 +157,7 @@ requires-dist = [
     { name = "cryptography", specifier = ">=42" },
     { name = "google-cloud-bigquery", marker = "extra == 'gcp'", specifier = ">=3.25" },
     { name = "google-cloud-storage", marker = "extra == 'gcp'", specifier = ">=2.16" },
+    { name = "google-crc32c", marker = "extra == 'dev'", specifier = ">=1.5" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "jupyterlab", marker = "extra == 'notebook'", specifier = ">=4" },
     { name = "matplotlib", marker = "extra == 'notebook'", specifier = ">=3.8" },

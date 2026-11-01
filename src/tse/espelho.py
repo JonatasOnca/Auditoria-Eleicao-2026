@@ -17,7 +17,9 @@ Arquivos republicados: o TSE às vezes publica uma nova versão com o mesmo nome
 um `Last-Modified` posterior ao download ou um tamanho diferente. A versão anterior vai para
 `<dataset>/_substituidos/<data do download>/` e a nova linha do manifesto guarda o SHA-512 dela em `substitui`.
 
-Com `--enviar-bronze`, cada ZIP verificado é copiado para `gs://<bucket>/tse/zip/<dataset>/`. Com
+Com `--enviar-bronze`, cada ZIP verificado é copiado para `gs://<bucket>/tse/zip/<dataset>/`. Um objeto já idêntico
+no bucket não é reenviado; um objeto diferente é preservado em `<dataset>/_substituidos/` antes de ser substituído
+(`enviar_bronze`), então o bronze nunca perde uma versão. Com
 `--apagar-apos-envio`, a cópia local é apagada depois que o GCS confirma o tamanho (o upload já confere o crc32c);
 o manifesto marca `local=False` e guarda o `gcs_uri`.
 """
@@ -206,12 +208,35 @@ def mudou_no_servidor(anterior: dict, tamanho: int, last_modified: str | None) -
     return False
 
 
+def crc32c_b64(caminho: Path) -> str:
+    """CRC32C do arquivo no formato que o GCS informa em `Blob.crc32c` (base64 dos 4 bytes, big-endian)."""
+    import base64
+
+    import google_crc32c
+
+    c = google_crc32c.Checksum()
+    with caminho.open("rb") as f:
+        while bloco := f.read(BLOCO):
+            c.update(bloco)
+    return base64.b64encode(c.digest()).decode()
+
+
 def enviar_bronze(bucket, local: Path, slug: str, substituido: str | None = None) -> str:
-    """Copia o ZIP para o bucket bronze. Se `substituido`, preserva antes a versão anterior que já estava lá."""
+    """Copia o ZIP para o bucket bronze sem nunca perder a versão que já estava lá.
+
+    - Objeto já existente e idêntico (tamanho e CRC32C): não reenvia.
+    - Objeto existente e diferente: copia antes para `_substituidos/<marca>/`. A marca é `substituido` (data do
+      download da versão anterior, vinda do manifesto) ou, sem ela, a data de atualização do objeto no bucket.
+      Isso cobre objetos enviados por outro processo, que o manifesto não registrou.
+    """
     nome = f"{PREFIXO_ZIP}/{slug}/{local.name}"
+    blob = bucket.get_blob(nome)
+    if blob is not None:
+        if blob.size == local.stat().st_size and blob.crc32c == crc32c_b64(local):
+            return f"gs://{bucket.name}/{nome}"
+        marca = substituido or blob.updated.strftime("%Y%m%dT%H%M%S")
+        bucket.copy_blob(blob, bucket, f"{PREFIXO_ZIP}/{slug}/_substituidos/{marca}/{local.name}")
     blob = bucket.blob(nome)
-    if substituido and blob.exists():
-        bucket.copy_blob(blob, bucket, f"{PREFIXO_ZIP}/{slug}/_substituidos/{substituido}/{local.name}")
     from tse.bq_raw import retry_gcs
 
     blob.upload_from_filename(str(local), checksum="crc32c", timeout=3600, retry=retry_gcs())
